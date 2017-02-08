@@ -1,0 +1,25 @@
+{
+  "name": "clack",
+  "version": "1.0.0",
+  "description": "A slack clone with surprise features",
+  "main": "index.js",
+  "scripts": {
+    "test": "protractor tests/config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asyncApes/clack.git"
+  },
+  "keywords": [
+    "slack",
+    "communication",
+    "collaboration",
+    "teamChat"
+  ],
+  "author": "Michelle Carter, Peter Schussheim, Tony Xu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asyncApes/clack/issues"
+  },
+  "homepage": "https://github.com/asyncApes/clack#readme"
+}
