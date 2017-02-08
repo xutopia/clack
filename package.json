@@ -4,6 +4,8 @@
   "description": "A slack clone with surprise features",
   "main": "index.js",
   "scripts": {
+    "start-dev": "webpack-dev-server",
+    "lint": "eslint ./client ./webpack.config.js -f table || true",
     "test": "protractor tests/config.js"
   },
   "repository": {
@@ -27,6 +29,7 @@
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
     "babel-polyfill": "^6.22.0",
+    "babel-preset-airbnb": "^2.2.3",
     "css-loader": "^0.26.1",
     "eslint": "^3.15.0",
     "eslint-config-airbnb": "^14.1.0",
