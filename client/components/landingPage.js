@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import UsnInput from '../containers/username_input';
+import UsnInput from '../containers/name_input';
 
 export default class LandingPage extends Component {
   render() {
