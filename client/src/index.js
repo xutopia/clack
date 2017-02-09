@@ -6,11 +6,11 @@ import {Router} from 'react-router';
 import promise from 'redux-promise';
 import reducers from '../reducers';
 
-
-const createStoreWithMiddleware = applyMiddleWare(promise)(createStore);
+// store below is in case we need to create store with middleware
+/* const createStoreWithMiddleware = applyMiddleWare(promise)(createStore); */
 
 ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
+  <Provider store={createStore(reducers)}>
     <Router routes={routes}></Router>
   </Provider>,
   document.getElementById('container')
