@@ -1,4 +1,4 @@
-import axios from 'axios'; // Just in case we need it to make requests
+// import axios from 'axios'; // Just in case we need it to make requests
 
 export const CREATE_USER = 'CREATE_USER';
 
