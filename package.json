@@ -4,8 +4,8 @@
   "description": "A slack clone with surprise features",
   "main": "index.js",
   "scripts": {
-    "start-dev": "webpack-dev-server",
-    "lint": "eslint ./client ./webpack.config.js -f table || true",
+    "dev": "webpack-dev-server",
+    "lint": "eslint ./src ./webpack.config.js -f table || true",
     "test": "protractor tests/config.js"
   },
   "repository": {
