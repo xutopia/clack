@@ -1,3 +1,10 @@
 {
-  "presets": ["airbnb"]
+  "presets": ["airbnb"],
+  "env": {
+    "development": {
+      "presets": [
+        "react-hmre"
+      ]
+    }
+  }
 }
