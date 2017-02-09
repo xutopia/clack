@@ -36,7 +36,15 @@
     "eslint-loader": "^1.6.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.9.0",
+    "eslint-plugin-react": "^6.9.0"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.22.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.2",
+    "react-router": "next",
+    "redux": "^3.6.0",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.3.0"
   }
