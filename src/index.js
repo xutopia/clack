@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore, applyMiddleWare} from 'redux';
-import {Router} from 'react-router';
+import {Router, browserHistory} from 'react-router';
 import promise from 'redux-promise';
 import reducers from './client/reducers';
 import routes from './routes';
@@ -12,7 +12,7 @@ import routes from './routes';
 
 ReactDOM.render(
   <Provider store={createStore(reducers)}>
-    <Router routes={routes}></Router>
+    <Router history={browserHistory} routes={routes}></Router>
   </Provider>,
   document.getElementById('container')
 );
