@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import UsnInput from '../containers/userName';
+import User from '../containers/userName';
 
-export default class LandingPage extends Component {
+class Landing extends Component {
   render() {
     return (
       <div>
@@ -10,3 +10,5 @@ export default class LandingPage extends Component {
     );
   }
 }
+
+export default Landing;

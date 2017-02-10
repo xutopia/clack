@@ -2,7 +2,7 @@
 
 export const CREATE_USER = 'CREATE_USER';
 
-export const createUser = (name) => {
+export function createUser(name) {
   // some action here that will register the user input in the database
   console.log('inside the first action');
   return {
