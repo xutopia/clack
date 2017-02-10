@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
-import App from './components/App';
-import Landing from './components/landingPage';
+import App from '../components/App';
+import Landing from '../components/landingPage';
 
 
 export default (
