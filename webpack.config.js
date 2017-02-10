@@ -56,7 +56,7 @@ module.exports = {
   entry: {
     app: [
       'babel-polyfill',
-      './index.js'
+      './index.jsx'
     ],
     vendor: ['react']
   },
