@@ -6,7 +6,6 @@ export default class LandingPage extends Component {
     return (
       <div>
         Our baby is born!
-        <UsnInput />
       </div>
     );
   }
