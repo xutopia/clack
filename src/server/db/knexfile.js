@@ -1,5 +1,4 @@
 // Note that the sensitive data for this connection is stored in the .env file.
-
 const host = process.env.RDS_HOSTNAME || 'localhost';
 const user = process.env.RDS_USERNAME || 'root';
 const password = process.env.RDS_PASSWORD || '1234';
