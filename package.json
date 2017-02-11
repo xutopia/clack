@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server --inline",
     "lint": "eslint ./src ./webpack.config.js -f table || true",
+    "server": "babel-node src/server/server.js",
     "build": "NODE_ENV=production && webpack -p",
     "test": "echo 0"
   },
@@ -39,17 +40,21 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
-    "file-loader": "^0.10.0"
+    "file-loader": "^0.10.0",
+    "npm-run-all": "^4.0.1",
+    "open": "^0.0.5",
+    "webpack-hot-middleware": "^2.16.1"
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "babel-cli": "^6.22.2",
     "babel-runtime": "^6.22.0",
     "bluebird": "^3.4.7",
-    "dotenv": "^4.0.0",
-    "mysql": "^2.13.0",
     "body-parser": "^1.16.0",
+    "dotenv": "^4.0.0",
     "express": "^4.14.1",
     "morgan": "^1.8.0",
+    "mysql": "^2.13.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.2",

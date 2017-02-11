@@ -1,81 +1,62 @@
-const express = require('express');
-const http = require('http');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
+import express from 'express';  
+import webpack from 'webpack';  
+import path from 'path';  
+import config from '../../webpack.config.js';  
+import open from 'open';  
 
-require('dotenv').config();
+import socket from 'socket.io'
+import { Server } from 'http'
+import bodyParse from 'body-parser'
+import fs from 'fs' 
+/* eslint-disable no-console */
 
-const app = express();
-app.use(bodyParser.urlencoded({
-  extended: true,
+const port = 3000;  
+const app = express();  
+const server = Server(app)
+const compiler = webpack(config);
+const io = socket(server) 
+var room;
+
+app.use(require('webpack-dev-middleware')(compiler, {  
+  noInfo: true,
+  publicPath: config.output.staticsPath
 }));
-app.use(bodyParser.json());
-app.use(morgan('dev'));
 
-app.use(express.static(`${__dirname  }/../../static`));
+app.use(require('webpack-hot-middleware')(compiler));  
 
-
-const server = http.createServer(app);
-const io = require('socket.io')(server);
-const port = process.env.PORT || 3000;
-
-server.listen(port, () => {
-  console.log('Server listening at port %d', port);
+app.get('*', function(req, res) {  
+  res.sendFile(path.join( __dirname, '../index.html'));
 });
 
-
-// Chatroom
-let numUsers = 0;
-
-io.on('connection', (socket) => {
-  let addedUser = false;
-
-  socket.on('new message', (data) => {
-    socket.broadcast.emit('new message', {
-      username: socket.username,
-      message: data,
-    });
-  });
-
-  socket.on('add user', (username) => {
-    if (addedUser) return;
-
-    socket.username = username;
-    ++numUsers;
-    addedUser = true;
-    socket.emit('login', {
-      numUsers,
-    });
-    socket.broadcast.emit('user joined', {
-      username: socket.username,
-      numUsers,
-    });
-  });
-
-  // when the client emits 'typing', we broadcast it to others
-  socket.on('typing', () => {
-    socket.broadcast.emit('typing', {
-      username: socket.username,
-    });
-  });
-
-  // when the client emits 'stop typing', we broadcast it to others
-  socket.on('stop typing', () => {
-    socket.broadcast.emit('stop typing', {
-      username: socket.username,
-    });
-  });
-
-  // when the user disconnects.. perform this
+io.on('connection', function (socket) {
+  console.log('a user connected')
+  socket.on('subscribe', (data) => {
+    room = data.room
+    socket.join(room)
+    console.log('joined room', room) 
+   }
+  )
+  socket.on('unsubscribe', () => { socket.leave(room) 
+    console.log('leaving room', room) 
+  })
   socket.on('disconnect', () => {
-    if (addedUser) {
-      --numUsers;
+    console.log('a user disconnected')
+  })
 
-      // echo globally that this client has left
-      socket.broadcast.emit('user left', {
-        username: socket.username,
-        numUsers,
-      });
-    }
-  });
+  socket.on('chat message', function(msg) {
+    console.log('sending message to', msg.room)
+    console.log('this message', msg)
+    io.to(msg.room).emit('chat message', JSON.stringify(msg)) 
+  })
 });
+
+
+server.listen(port, function(err) {  
+  if (err) {
+    console.log(err);
+  } else {
+    open(`http://localhost:${port}`);
+  }
+});
+
+

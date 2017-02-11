@@ -134,7 +134,7 @@ module.exports = {
       warnings: true,
       colors: {
         green: '\u001b[32m',
-      }
+      },
     },
   }
 };
