@@ -1,10 +1,8 @@
 import React from 'react';
-import User from '../containers/userName';
+import User from '../containers/User';
 
 const Landing = () => (
   <div>
-    Our baby is born!
-
     <User />
   </div>
 );
