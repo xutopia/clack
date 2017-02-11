@@ -15,7 +15,6 @@ export default class User extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
   onFormSubmit(state, name) {
-    console.log(state);
     this.setState({
       ...state,
       users: name,
@@ -26,14 +25,16 @@ export default class User extends Component {
   render() {
     return (
       <div>
-        another baby
         <form onSubmit={this.onFormSubmit}>
           Enter a name to join chat!
+          <br/>
           <input placeholder="Name" />
           <span>
-            <button type="submit">
-              <Link to="/messages">Submit</Link>
-            </button>
+            <Link to="/messages">
+                <button type="submit">
+                Submit
+              </button>
+            </Link>
           </span>
         </form>
       </div>
