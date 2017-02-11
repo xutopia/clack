@@ -15,7 +15,6 @@ export default class User extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
   onFormSubmit(state, name) {
-    console.log(state);
     this.setState({
       ...state,
       users: name,
