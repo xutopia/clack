@@ -27,11 +27,11 @@ export default class User extends Component {
       <div>
         <form onSubmit={this.onFormSubmit}>
           Enter a name to join chat!
-          <br/>
+          <br />
           <input placeholder="Name" />
           <span>
             <Link to="/messages">
-                <button type="submit">
+              <button type="submit">
                 Submit
               </button>
             </Link>
