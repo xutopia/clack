@@ -9,6 +9,7 @@ export default class User extends Component {
     super(props);
 
     this.state = {
+      name: '',
       users: [],
       messages: [],
     };
@@ -22,16 +23,28 @@ export default class User extends Component {
     });
   }
 
+  onInputChange(val, state) {
+    this.setState({
+      ...state,
+      name: val,
+    });
+  }
+
   render() {
     return (
       <div>
         <form onSubmit={this.onFormSubmit}>
           Enter a name to join chat!
-          <br/>
-          <input placeholder="Name" />
+          <br />
+          <input
+            placeholder="Name"
+            type="text"
+            value={this.state.message}
+            onChange={event => this.onInputChange(event.target.value, this.state)}
+          />
           <span>
             <Link to="/messages">
-                <button type="submit">
+              <button type="submit">
                 Submit
               </button>
             </Link>
