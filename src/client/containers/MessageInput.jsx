@@ -9,6 +9,7 @@ export default class MessageInput extends Component {
 
   onMessageSubmit(message) {
     // do something in here to give the message to the socket
+    console.log('submitting a new message')
   }
 
   render() {
