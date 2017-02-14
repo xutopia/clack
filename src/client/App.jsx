@@ -19,16 +19,16 @@ export default class App extends React.Component {
   //   socket
   // }
 
-  handleSubmit = event => {
-    const body = event.target.value
+  handleSubmit(event) {
+    const body = event.target.value;
     if (event.keyCode === 13 && body) {
       const message = {
         body,
-        from: 'Me'
-      }
-      this.setState({ messages: [message, ...this.state.messages] })
-      this.socket.emit('message', body)
-      event.target.value = ''
+        from: 'Me',
+      };
+      this.setState({ messages: [message, ...this.state.messages] });
+      this.socket.emit('message', body);
+      event.target.value = '';
     }
   }
 

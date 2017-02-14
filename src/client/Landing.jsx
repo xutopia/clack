@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Router } from 'react-router';
 
 // input
 
 export default class Landing extends Component {
-  constructor(props) {
-    super(props)
+  constructor(props, context) {
+    super(props, context)
+    console.log('context.router', context.router);
     this.state = {
-      currentUser: ''
+      currentUser: '',
     }
   }
+
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
+  };
+
+  componentDidMount() {
+    const { router } = this.context;
+  }
+
   onInputChange(event, state) {
     const name = event.target.value;
     this.setState({
@@ -20,7 +30,9 @@ export default class Landing extends Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    console.log('the form was submitted')
+    console.log('inside form submit, context', this.router);
+    router.transitionTo('/messages');
+    console.log('the form was submitted');
     // transition to the chat room
   }
   render() {
