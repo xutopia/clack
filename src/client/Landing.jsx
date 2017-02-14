@@ -4,10 +4,8 @@ import { Link } from 'react-router';
 // input
 
 export default class Landing extends Component {
-  static get contextTypes() {
-    return {
-      router: React.PropTypes.object.isRequired
-    };
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired
   }
 
   constructor(props, context) {
@@ -26,22 +24,21 @@ export default class Landing extends Component {
     });
   }
 
-  onFormSubmit(event) {
+  onFormSubmit(event, state) {
     event.preventDefault();
+    const name = state.currentUser;
     console.log('inside form submit, context', this.router);
-    // router.transitionTo('/messages');
+    window.localStorage.setItem('currentUser', name);
     console.log('the form was submitted');
+    this.context.router.transitionTo('/messages');
     // transition to the chat room
   }
   render() {
     const { currentUser } = this.state.currentUser;
     return (
       <div>
-        <form onSubmit={this.onFormSubmit}>
+        <form onSubmit={() => this.onFormSubmit(event, this.state)}>
           <input type="text" placeholder="Enter Name to Chat" value={currentUser} onChange={event => this.onInputChange(event, this.state)} />
-          <Link to="/messages">
-            <button type="submit">Submit</button>
-          </Link>
         </form>
       </div>
     );
