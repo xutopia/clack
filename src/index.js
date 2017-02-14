@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Routes from './client/Routes';
 import App from './client/App';
 import Landing from './client/Landing';
 
-ReactDOM.render(<Landing />, document.getElementById('container'))
+ReactDOM.render(<Routes />, document.getElementById('container'))

@@ -5,7 +5,15 @@ import io from 'socket.io-client'
 export default class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { messages: [] }
+    this.state = { messages: [], name: '' }
+  }
+
+  componentWillMount() {
+    const name = window.localStorage.getItem('currentUser');
+    this.setState({
+      name: name,
+      messages: [],
+    })
   }
 
   componentDidMount() {
@@ -19,16 +27,18 @@ export default class App extends React.Component {
   //   socket
   // }
 
-  handleSubmit = event => {
-    const body = event.target.value
+  handleSubmit = (event) => {
+    console.log('this', this.state.name);
+    const body = event.target.value;
     if (event.keyCode === 13 && body) {
       const message = {
         body,
-        from: 'Me'
-      }
-      this.setState({ messages: [message, ...this.state.messages] })
-      this.socket.emit('message', body)
-      event.target.value = ''
+        from: this.state.name,
+      };
+      console.log('message', message);
+      this.setState({ messages: [message, ...this.state.messages] });
+      this.socket.emit('message', body);
+      event.target.value = '';
     }
   }
 

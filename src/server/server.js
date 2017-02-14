@@ -43,6 +43,7 @@ const io = socket(server);
 
 app.post('/', (req, res) => {
   console.log('hitting / post route in server');
+  console.log('req.body', req.body);
   const { Body, From } = req.body
   const message = {
     body: Body,
