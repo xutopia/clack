@@ -43,7 +43,7 @@
     "eslint-plugin-react": "^6.9.0",
     "file-loader": "^0.10.0",
     "npm-run-all": "^4.0.1",
-    "open": "^0.0.5",
+    "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1"
   },
   "dependencies": {

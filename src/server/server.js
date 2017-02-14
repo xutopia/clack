@@ -1,62 +1,84 @@
-import express from 'express';  
-import webpack from 'webpack';  
-import path from 'path';  
-import config from '../../webpack.config.js';  
-import open from 'open';  
-
-import socket from 'socket.io'
-import { Server } from 'http'
-import bodyParse from 'body-parser'
-import fs from 'fs' 
 /* eslint-disable no-console */
+import express from 'express';
+import webpack from 'webpack';
+import bodyParser from 'body-parser'
+import path from 'path';
+import config from '../../webpack.config.js';
 
-const port = 3000;
+import socket from 'socket.io';
+
+const PORT = 8080;
 const app = express();
-const server = Server(app)
 const compiler = webpack(config);
-const io = socket(server) 
-var room;
 
-app.use(require('webpack-dev-middleware')(compiler, {  
+let room;
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+app.use(
+  require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: config.output.staticsPath,
+  }),
+);
+
+app.use(require('webpack-hot-middleware')(compiler, {
   noInfo: true,
-  publicPath: config.output.staticsPath
+  staticsPath: config.output.staticsPath
 }));
 
-app.use(require('webpack-hot-middleware')(compiler));  
-
-app.get('*', function(req, res) {  
-  res.sendFile(path.join( __dirname, '../index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../static/index.html'));
 });
 
-io.on('connection', function (socket) {
-  console.log('a user connected')
-  socket.on('subscribe', (data) => {
-    room = data.room
-    socket.join(room)
-    console.log('joined room', room) 
-   }
-  )
-  socket.on('unsubscribe', () => { socket.leave(room) 
-    console.log('leaving room', room) 
-  })
-  socket.on('disconnect', () => {
-    console.log('a user disconnected')
-  })
-
-  socket.on('chat message', function(msg) {
-    console.log('sending message to', msg.room)
-    console.log('this message', msg)
-    io.to(msg.room).emit('chat message', JSON.stringify(msg)) 
-  })
-});
-
-
-server.listen(port, function(err) {  
+const server = app.listen(PORT, '127.0.0.1', (err) => {
   if (err) {
     console.log(err);
   } else {
-    console.log(`http://localhost:${port}`);
+    console.log(`http://localhost:${PORT}`);
   }
 });
 
+const io = socket(server);
 
+app.post('/', (req, res) => {
+  console.log('hitting / post route in server');
+  const { Body, From } = req.body
+  const message = {
+    body: Body,
+    from: From.slice(8)
+  }
+  io.emit('message', message)
+})
+
+
+io.on('connection', socket => {
+  socket.on('message', body => {
+    socket.broadcast.emit('message', {
+      body,
+      from: socket.id.slice(8)
+    })
+  })
+})
+
+// io.on('connection', (socket) => {
+//   console.log('a user connected');
+//   socket.on('subscribe', data => {
+//     room = data.room;
+//     socket.join(room);
+//     console.log('joined room', room);
+//   });
+//   socket.on('unsubscribe', () => {
+//     socket.leave(room);
+//     console.log('leaving room', room);
+//   });
+//   socket.on('disconnect', () => {
+//     console.log('a user disconnected');
+//   });
+
+//   socket.on('chat message', (msg) => {
+//     console.log('sending message to', msg.room);
+//     console.log('this message', msg);
+//     io.to(msg.room).emit('chat message', JSON.stringify(msg));
+//   });
+// });
