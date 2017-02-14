@@ -55,7 +55,7 @@ server.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
-    console.log(object);(`http://localhost:${port}`);
+    console.log(`http://localhost:${port}`);
   }
 });
 
