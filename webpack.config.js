@@ -56,7 +56,7 @@ module.exports = {
   entry: {
     app: [
       'babel-polyfill',
-      './index.jsx'
+      './index.js'
     ],
     vendor: ['react']
   },
@@ -134,7 +134,7 @@ module.exports = {
       warnings: true,
       colors: {
         green: '\u001b[32m',
-      }
+      },
     },
   }
 };
