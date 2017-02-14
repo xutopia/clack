@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import express from 'express';
 import webpack from 'webpack';
+import bodyParser from 'body-parser'
 import path from 'path';
 import config from '../../webpack.config.js';
 
@@ -11,6 +12,8 @@ const app = express();
 const compiler = webpack(config);
 
 let room;
+
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(
   require('webpack-dev-middleware')(compiler, {
@@ -38,6 +41,15 @@ const server = app.listen(PORT, '127.0.0.1', (err) => {
 
 const io = socket(server);
 
+app.post('/', (req, res) => {
+  const { Body, From } = req.body
+  const message = {
+    body: Body,
+    from: From.slice(8)
+  }
+  io.emit('message', message)
+})
+
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('subscribe', data => {
@@ -53,7 +65,7 @@ io.on('connection', (socket) => {
     console.log('a user disconnected');
   });
 
-  socket.on('chat message', (msg) {
+  socket.on('chat message', (msg) => {
     console.log('sending message to', msg.room);
     console.log('this message', msg);
     io.to(msg.room).emit('chat message', JSON.stringify(msg));
