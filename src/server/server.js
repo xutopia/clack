@@ -10,8 +10,8 @@ import bodyParse from 'body-parser'
 import fs from 'fs' 
 /* eslint-disable no-console */
 
-const port = 3000;  
-const app = express();  
+const port = 3000;
+const app = express();
 const server = Server(app)
 const compiler = webpack(config);
 const io = socket(server) 
@@ -55,7 +55,7 @@ server.listen(port, function(err) {
   if (err) {
     console.log(err);
   } else {
-    open(`http://localhost:${port}`);
+    console.log(object);(`http://localhost:${port}`);
   }
 });
 
