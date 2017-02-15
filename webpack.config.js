@@ -56,7 +56,8 @@ module.exports = {
   entry: {
     app: [
       'babel-polyfill',
-      './index.jsx'
+      'webpack-hot-middleware/client',
+      './index.js'
     ],
     vendor: ['react']
   },
@@ -118,7 +119,7 @@ module.exports = {
   devServer: {
     contentBase: './src',
     historyApiFallback: true,
-    port: 5050,
+    // port: 5050,
     compress: isProd,
     inline: true,
     hot: true,
@@ -134,7 +135,7 @@ module.exports = {
       warnings: true,
       colors: {
         green: '\u001b[32m',
-      }
+      },
     },
   }
 };
