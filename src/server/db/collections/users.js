@@ -1,0 +1,1 @@
+// bookshelf users model
