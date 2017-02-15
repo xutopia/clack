@@ -28,14 +28,12 @@ export default class App extends React.Component {
   // }
 
   handleSubmit = (event) => {
-    console.log('this', this.state.name);
     const body = event.target.value;
     if (event.keyCode === 13 && body) {
       const message = {
         body,
         from: this.state.name,
       };
-      console.log('message', message);
       this.setState({ messages: [message, ...this.state.messages] });
       this.socket.emit('message', body);
       event.target.value = '';
