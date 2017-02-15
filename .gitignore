@@ -1,4 +1,4 @@
-
+.czrc
 # Logs
 logs
 *.log
@@ -54,4 +54,3 @@ typings/
 *.DS_Store
 .AppleDouble
 .LSOverride
-
