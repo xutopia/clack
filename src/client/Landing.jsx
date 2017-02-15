@@ -10,7 +10,6 @@ export default class Landing extends Component {
 
   constructor(props, context) {
     super(props, context)
-    console.log('context.router', context.router);
     this.state = {
       currentUser: '',
     }
@@ -27,11 +26,8 @@ export default class Landing extends Component {
   onFormSubmit(event, state) {
     event.preventDefault();
     const name = state.currentUser;
-    console.log('inside form submit, context', this.router);
     window.localStorage.setItem('currentUser', name);
-    console.log('the form was submitted');
     this.context.router.transitionTo('/messages');
-    // transition to the chat room
   }
   render() {
     const { currentUser } = this.state.currentUser;
