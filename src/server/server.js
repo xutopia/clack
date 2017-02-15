@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import express from 'express';
 import webpack from 'webpack';
-import bodyParser from 'body-parser'
+import bodyParser from 'body-parser';
 import path from 'path';
 import config from '../../webpack.config.js';
 
