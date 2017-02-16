@@ -11,4 +11,4 @@ const makeNewUser = (req, res) => {
   });
 };
 
-export default newUser;
+export default makeNewUser;
