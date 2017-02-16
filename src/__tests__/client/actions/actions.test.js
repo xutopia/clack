@@ -3,7 +3,7 @@ import { setCurrentUser } from '../../../client/actions/actions'
 describe('actions', () => {
 
   describe('setCurrentUser', () => {
-    it('should have a type of CHANGE_LOCATION', () => {
+    it('should have a type of SET_CURRENT_USER', () => {
       expect(setCurrentUser().type).toEqual('SET_CURRENT_USER')
     })
 
