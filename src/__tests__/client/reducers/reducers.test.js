@@ -1,5 +1,5 @@
 import mainReducer from '../../../client/reducers/reducers'
-import SET_CURRENT_USER from '../../../client/actions/actionTypes'
+import { SET_CURRENT_USER } from '../../../client/actions/actionTypes'
 
 describe('mainReducer', () => {
   
