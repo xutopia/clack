@@ -5,7 +5,24 @@ import db from '../../server/db/knexfile';
 import createUser from '../../server/user/userModel';
 
 
-describe('Database queries using knex', () => {
+describe('Database queries using knex for users', () => {
+  it('Should fetch all the users from database', () => {
+    const expected = [{ password: null, userid: 1, username: 'michelle' }];
+    db.raw(`SELECT * FROM users`)
+    .then((usernames) => {
+      expect(usernames[0]).toEqual(expect.arrayContaining(expected));
+    });
+  });
+
+  it('Should reject the insert query if username already exists', () => {
+    const newEntry = 'bob';
+    createUser(newEntry, (results) => {
+      expect(results).toBeUndefined();
+    });
+  });
+});
+
+describe('Database queries using knex for messages', () => {
   it('Should fetch all the users from database', () => {
     const expected = [{ password: null, userid: 1, username: 'michelle' }];
     db.raw(`SELECT * FROM users`)
