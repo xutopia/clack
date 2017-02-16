@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 // input
 
@@ -27,15 +27,20 @@ export default class Landing extends Component {
     event.preventDefault();
     const name = state.currentUser;
     window.localStorage.setItem('currentUser', name);
-    this.context.router.transitionTo('/messages');
+    this.context.router.push('/room');
   }
   render() {
     const { currentUser } = this.state.currentUser;
     return (
       <div>
         <form onSubmit={() => this.onFormSubmit(event, this.state)}>
-          <input type="text" placeholder="Enter Name to Chat" value={currentUser} onChange={event => this.onInputChange(event, this.state)} />
+          <input
+            type="text" placeholder="Enter Name to Chat"
+            value={currentUser}
+            onChange={event => this.onInputChange(event, this.state)}
+          />
         </form>
+        {this.props.children}
       </div>
     );
   }
