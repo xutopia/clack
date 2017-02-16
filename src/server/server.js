@@ -39,29 +39,18 @@ const server = app.listen(PORT, '127.0.0.1', (err) => {
   }
 });
 
-const io = socket(server);
+// app.post('/', (req, res) => {
+//   console.log('hitting / post route in server');
+//   console.log('req.body', req.body);
+//   const { Body, From } = req.body
+//   const message = {
+//     body: Body,
+//     from: From.slice(8)
+//   }
+//   io.emit('message', message)
+// })
 
-app.post('/', (req, res) => {
-  console.log('hitting / post route in server');
-  console.log('req.body', req.body);
-  const { Body, From } = req.body
-  const message = {
-    body: Body,
-    from: From.slice(8)
-  }
-  io.emit('message', message)
-})
-
-
-io.on('connection', socket => {
-  socket.on('message', body => {
-    socket.broadcast.emit('message', {
-      body,
-      from: socket.id.slice(8)
-    })
-  })
-})
-
+export default server;
 // io.on('connection', (socket) => {
 //   console.log('a user connected');
 //   socket.on('subscribe', data => {
