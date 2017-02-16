@@ -4,10 +4,10 @@ import user from './user/userController';
 import message from './message/messageController';
 import reaction from './reaction/reactionController';
 
-
+// note that we need to either add /api to the routes below or add an app.use('/api') line on the server file
 const router = new express.Router();
 
-router.post('/users/add', user.createUser);
+router.post('/user/add', user.createUser);
 // createUser function needs to run when we send currentUser from the front-end
 
 router.post('/message/create', message.createMessage);
