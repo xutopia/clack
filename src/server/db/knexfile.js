@@ -22,20 +22,20 @@ const knex = database({
 export default knex;
 
 
-module.exports = {
-
-  development: {
-    client: 'mysql',
-    connection: {
-      database: 'clack_rds',
-      host,
-      user,
-      password,
-      port,
-    },
-  },
-
-  migrations: {
-    tableName: 'knex_migrations',
-  },
-};
+// module.exports = {
+//
+//   development: {
+//     client: 'mysql',
+//     connection: {
+//       database: 'clack_rds',
+//       host,
+//       user,
+//       password,
+//       port,
+//     },
+//   },
+//
+//   migrations: {
+//     tableName: 'knex_migrations',
+//   },
+// };
