@@ -8,7 +8,7 @@
     "lint": "eslint ./src ./webpack.config.js -f table || true",
     "server": "babel-node src/server/server.js",
     "build": "NODE_ENV=production && webpack -p",
-    "test": "echo 0"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,9 @@
     "babel-polyfill": "^6.22.0",
     "babel-preset-airbnb": "^2.2.3",
     "babel-preset-react-hmre": "^1.1.1",
+    "chai": "^3.5.0",
     "css-loader": "^0.26.1",
+    "cz-conventional-changelog": "^1.2.0",
     "eslint": "^3.15.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-loader": "^1.6.1",
@@ -42,6 +44,8 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
     "file-loader": "^0.10.0",
+    "jest": "^18.1.0",
+    "jest-cli": "^18.1.0",
     "npm-run-all": "^4.0.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1"
@@ -52,8 +56,10 @@
     "babel-runtime": "^6.22.0",
     "bluebird": "^3.4.7",
     "body-parser": "^1.16.0",
+    "bookshelf": "^0.10.3",
     "dotenv": "^4.0.0",
     "express": "^4.14.1",
+    "knex": "^0.12.6",
     "morgan": "^1.8.0",
     "mysql": "^2.13.0",
     "react": "^15.4.2",
@@ -67,5 +73,10 @@
     "url-loader": "^0.5.7",
     "webpack": "2.2.1",
     "webpack-dev-server": "2.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
