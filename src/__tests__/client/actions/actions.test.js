@@ -1,4 +1,4 @@
-import { setCurrentUser } from '../../../client/actions'
+import { setCurrentUser } from '../../../client/actions/actions'
 
 describe('actions', () => {
 
@@ -8,8 +8,8 @@ describe('actions', () => {
     })
 
     it('should pass on the user we pass in', () => {
-      let user = 'Peter'
-      expect(setCurrentUser(user).user).toEqual(user)
+      let currentUser = 'Peter'
+      expect(setCurrentUser(currentUser).currentUser).toEqual(currentUser)
     })
   })
 })
