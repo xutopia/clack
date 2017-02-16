@@ -1,2 +1,14 @@
 // The controller for the user actions
-import userModel from './userModel';
+import { createUser } from './userModel';
+
+const newUser = (req, res) => {
+  createUser(req.body, (result) => {
+    if (result === undefined) {
+      res.sendStatus(409);
+    } else {
+      res.status(201).json(result);
+    }
+  });
+};
+
+export default newUser;
