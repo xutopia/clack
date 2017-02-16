@@ -2,7 +2,6 @@
 import dotenv from 'dotenv';
 import knex from 'knex';
 
-
 dotenv.config();
 const host = process.env.RDS_HOSTNAME || 'localhost';
 const user = process.env.RDS_USERNAME || 'root';
