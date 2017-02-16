@@ -1,12 +1,11 @@
 // The actual db queries for the user
 import db from '../db/knexfile';
 
-export const createUser = (data, callback) => {
+const createUser = (data, callback) => {
   const name = data; // TODO: modify the `data` argument to match username field entries in users table
-
   return db('users').where({
-    username: name,
-  }).select('username')
+    username: name
+  }).select('*')
   .then((usernames) => {
     if (usernames[0].length === 0) {
       db('users').insert({
@@ -26,3 +25,5 @@ export const createUser = (data, callback) => {
     callback(err);
   });
 };
+
+export default createUser;
