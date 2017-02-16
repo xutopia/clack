@@ -24,11 +24,11 @@ const db = knex({
 });
 
 describe('Database queries using knex', () => {
-
+  const expected = [{ password: null, userid: 1, username: 'michelle' }];
   it('Should fetch all the users from database', () => {
     db.raw(`SELECT * FROM users`)
     .then((usernames) => {
-      expect(usernames).toBe('object');
+      expect(usernames[0]).toEqual(expect.arrayContaining(expected));
     });
   });
 });
