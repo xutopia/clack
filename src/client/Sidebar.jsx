@@ -1,38 +1,27 @@
-import React, { Component } from 'react';
-<<<<<<< HEAD
-=======
+import React from 'react';
+// import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import Header from 'grommet/components/Header';
 import SidebarItem from './SidebarItem';
 
->>>>>>> feat(component): implement sidebar action and reducer, sidebar item, need more refactor in sidebar
-// import the actions file for the fetchusers function that still needs to be written.
-// NOTE THAT THIS FILE NEEDS REFACTORING FOR REDUX FUNCTIONALITY
-export default class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: null,
-    };
-  }
+class Sidebar extends React.Component {
 
-  componentWillMount() {
-    fetchUsers();
-  }
+  // componentWillMount() {
+  //   // fetchUsers();
+  // }
 
   render() {
-    const { users } = this.state;
+    const { users } = 24; // should this be this.props? get an error about props validation in proptypes.
     return (
       <div>
         <div>Directory</div>
-        {users ? (
-          users.map(user => (
-            <SidebarItem>
-              {user}
-            </SidebarItem>
-            ))
-            ) : (
-              <div>Loading...</div>
-          )}
+        {users ? (users.map(user => (
+          <SidebarItem user={user} />
+        ))) : (<div>Loading...</div>)}
       </div>
-    );
+    )
   }
 }
+
+export default connect()(Sidebar)
