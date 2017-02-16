@@ -7,7 +7,7 @@ const createUser = (data, callback) => {
     username: name
   }).select('*')
   .then((usernames) => {
-    if (usernames[0].length === 0) {
+    if (usernames.length === 0) {
       db('users').insert({
         username: name,
       })
