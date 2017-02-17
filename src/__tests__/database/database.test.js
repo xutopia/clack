@@ -2,15 +2,14 @@
 import dotenv from 'dotenv';
 import knex from 'knex';
 import db from '../../server/db/knexfile';
-import createUser from '../../server/user/userModel';
+import { createUser, fetchUsers } from '../../server/user/userModel';
 import { createMessage, fetchMessages } from '../../server/messages/messagesModel';
 
 describe('Database queries using knex for users', () => {
   it('Should fetch all the users from database', () => {
     const expected = [{ password: null, userid: 1, username: 'michelle' }];
-    db.raw(`SELECT * FROM users`)
-    .then((usernames) => {
-      expect(usernames[0]).toEqual(expect.arrayContaining(expected));
+    fetchUsers(null, (users) => {
+      expect(users).toEqual(expect.arrayContaining(expected));
     });
   });
 
