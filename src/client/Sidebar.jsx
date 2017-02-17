@@ -11,15 +11,9 @@ export default class Sidebar extends Component {
     return (
       <div>
         <div>Directory</div>
-        {users ? (
-          users.map(user => (
-            <SidebarItem>
-              {user}
-            </SidebarItem>
-            ))
-            ) : (
-              <div>Loading...</div>
-          )}
+        {users ? (users.map(user => (
+          <SidebarItem>{user}</SidebarItem>
+        ))) : (<div>Loading...</div>)}
       </div>
     )
   }
