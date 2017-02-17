@@ -1,8 +1,8 @@
 import express from 'express';
 // require controller files
 import user from './user/userController';
-import message from './message/messageController';
-import reaction from './reaction/reactionController';
+import message from './messages/messagesController';
+import reaction from './reactions/reactionsController';
 
 /* note that we need to either add /api to the routes below or add an app.use('/api')
 line on the server file */
@@ -20,5 +20,5 @@ router.post('/reaction/add', reaction.addReactions);
 router.get('/user/fetch', user.fetchUsers);
 // fetchUsers will gather an array of all users in current channel
 
-router.get('/message/fetch', message.fetchMessages);
+router.get('/message/fetch', message.fetchAllMessages);
 // fetchMessages will fetch all messages in the database for the users that are in the channel
