@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 
 import Header from 'grommet/components/Header';
 import SidebarItem from './SidebarItem';
+// import the actions file for the fetchusers function that still needs to be written.
+// NOTE THAT THIS FILE NEEDS REFACTORING FOR REDUX FUNCTIONALITY
+// NEED TO DEFINE SidebarItem
 
 class Sidebar extends React.Component {
 
