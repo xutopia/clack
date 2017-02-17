@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';  // needed?
-import axios from 'axios';
-
-export default class Sidebar extends Component { // need default here?
+// import the actions file for the fetchusers function that still needs to be written.
+// NOTE THAT THIS FILE NEEDS REFACTORING FOR REDUX FUNCTIONALITY
+// NEED TO DEFINE SidebarItem
+export default class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,31 +11,24 @@ export default class Sidebar extends Component { // need default here?
   }
 
   componentWillMount() {
-    axios.get('/api/user/fetch')
-    // .then(res => res.json())
-      .then((users) => {
-        this.setState({ users });
-      })
-      .catch((error) => {
-        console.err(error);
-      });
+    fetchUsers();
   }
 
   render() {
     const { users } = this.state;
     return (
-      <Sidebar>
+      <div>
         <div>Directory</div>
         {users ? (
           users.map(user => (
             <SidebarItem>
               {user}
             </SidebarItem>
-          ))
-        ) : (
-          <div>Loading...</div>
-        )}
-      </Sidebar>
+            ))
+            ) : (
+              <div>Loading...</div>
+          )}
+      </div>
     );
   }
 }
