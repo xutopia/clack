@@ -1,12 +1,14 @@
 // Note that the sensitive data for this connection is stored in the .env file.
-import database from 'knex';
+import knex from 'knex';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const host = process.env.RDS_HOSTNAME || 'localhost';
 const user = process.env.RDS_USERNAME || 'root';
 const password = process.env.RDS_PASSWORD || '1234';
 const port = process.env.RDS_PORT || '3306';
 
-const knex = database({
+const db = knex({
   client: 'mysql',
   connection: {
     host,
@@ -19,7 +21,7 @@ const knex = database({
     tableName: 'knex_migrations',
   },
 });
-export default knex;
+export default db;
 
 
 // module.exports = {
