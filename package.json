@@ -11,6 +11,12 @@
     "test": "jest",
     "test-watch": "jest --watch-all --coverage"
   },
+  "jest": {
+    "transformIgnorePatterns": [
+      "<rootDir>/(static|node_modules|coverage)/"
+    ],
+    "testEnvironment": "node"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/asyncApes/clack.git"
