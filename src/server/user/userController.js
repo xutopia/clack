@@ -1,7 +1,7 @@
 // The controller for the user actions
-import { createUser } from './userModel';
+import { createUser, fetchUsers } from './userModel';
 
-const makeNewUser = (req, res) => {
+export const makeNewUser = (req, res) => {
   createUser(req.body, (result) => {
     if (result === undefined) {
       res.sendStatus(409);
@@ -11,4 +11,12 @@ const makeNewUser = (req, res) => {
   });
 };
 
-export default makeNewUser;
+export const fetchAllUsers = (req, res) => {
+  fetchUsers(req.body, (result) => {
+    if (result === undefined) {
+      res.sendStatus(400);
+    } else {
+      res.status(200).json(result);
+    }
+  });
+};

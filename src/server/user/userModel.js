@@ -1,10 +1,10 @@
 // The actual db queries for the user
 import db from '../db/knexfile';
 
-const createUser = (data, callback) => {
+export const createUser = (data, callback) => {
   const name = data; // TODO: modify the `data` argument to match username field entries in users table
   return db('users').where({
-    username: name
+    username: name,
   }).select('*')
   .then((usernames) => {
     if (usernames.length === 0) {
@@ -26,4 +26,12 @@ const createUser = (data, callback) => {
   });
 };
 
-export default createUser;
+export const fetchUsers = (params, callback) => (
+  db.select().table('users')
+  .then((data) => {
+    callback(data);
+  })
+  .catch((err) => {
+    callback(err);
+  })
+);
