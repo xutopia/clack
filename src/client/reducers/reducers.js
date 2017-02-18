@@ -1,7 +1,8 @@
 import { SET_CURRENT_USER } from './../actions/actionTypes'
+// does this file need to import the userlistReducer?
 
 let initialState = {
-  currentUser: ''
+  currentUser: '',
 }
 
 const mainReducer = (state = initialState, action) => {
@@ -9,8 +10,8 @@ const mainReducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.currentUser
-      }
+        currentUser: action.currentUser,
+      } // is this right?
     default:
       return state
   }

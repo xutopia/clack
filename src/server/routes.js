@@ -8,7 +8,7 @@ import reaction from './reactions/reactionsController';
 line on the server file */
 const router = new express.Router();
 
-router.post('/user/add', user.createUser);
+router.post('/user/add', user.makeNewUser);
 // createUser function needs to run when we send currentUser from the front-end
 
 router.post('/message/create', message.createMessage);
@@ -17,8 +17,8 @@ router.post('/message/create', message.createMessage);
 router.post('/reaction/add', reaction.addReactions);
 // addReactions will run whenever a reaction is added to the database
 
-router.get('/user/fetch', user.fetchUsers);
-// fetchUsers will gather an array of all users in current channel
+router.get('/user/fetch', user.fetchAllUsers);
+// fetchAllUsers will gather an array of all users in current channel
 
 router.get('/message/fetch', message.fetchAllMessages);
 // fetchMessages will fetch all messages in the database for the users that are in the channel
