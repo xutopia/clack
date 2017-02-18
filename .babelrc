@@ -1,11 +1,14 @@
 {
-  "presets": ["airbnb"],
+  "presets": ["airbnb", "stage-3", "es2015", "react-hmre"],
   "plugins": ["transform-class-properties"],
   "env": {
     "development": {
       "presets": [
-        "react-hmre"
-      ]
+        "react-hmre",
+        "stage-3",
+        "es2015"
+      ],
+      "plugins": ["transform-async-to-generator"]
     }
   }
 }

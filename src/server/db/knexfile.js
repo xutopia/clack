@@ -8,7 +8,7 @@ const user = process.env.RDS_USERNAME || 'root';
 const password = process.env.RDS_PASSWORD || '1234';
 const port = process.env.RDS_PORT || '3306';
 
-const db = knex({
+export const db = knex({
   client: 'mysql',
   connection: {
     host,
@@ -21,7 +21,6 @@ const db = knex({
     tableName: 'knex_migrations',
   },
 });
-export default db;
 
 
 // module.exports = {
