@@ -1,5 +1,5 @@
 // The actual db queries for the user
-import db from '../db/knexfile';
+import { db } from '../db/knexfile';
 
 export const createUser = (data, callback) => {
   const name = data; // TODO: modify the `data` argument to match username field entries in users table
@@ -17,7 +17,7 @@ export const createUser = (data, callback) => {
       });
     } else {
       console.log(`user ${name} already exists`);
-      callback();
+      callback(usernames);
     }
   })
   .catch((err) => {
