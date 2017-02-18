@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
-// import the actions file for the fetchusers function that still needs to be written.
-// NOTE THAT THIS FILE NEEDS REFACTORING FOR REDUX FUNCTIONALITY
-// NEED TO DEFINE SidebarItem
-export default class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: null,
-    };
-  }
+import SidebarItem from './SidebarItem';
 
+export default class Sidebar extends Component {
   componentWillMount() {
     fetchUsers();
   }
@@ -29,6 +21,6 @@ export default class Sidebar extends Component {
               <div>Loading...</div>
           )}
       </div>
-    );
+    )
   }
 }

@@ -11,7 +11,7 @@ const plugins = [
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     minChunks: Infinity,
-    filename: 'vendor.js'
+    filename: 'vendor.js',
   }),
   new webpack.DefinePlugin({
     'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
@@ -24,7 +24,7 @@ if (isProd) {
   plugins.push(
     new webpack.LoaderOptionsPlugin({
       minimize: true,
-      debug: false
+      debug: false,
     }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -40,13 +40,13 @@ if (isProd) {
         join_vars: true,
       },
       output: {
-        comments: false
+        comments: false,
       },
-    })
+    }),
   );
 } else {
   plugins.push(
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
   );
 }
 
@@ -57,29 +57,29 @@ module.exports = {
     app: [
       'babel-polyfill',
       'webpack-hot-middleware/client',
-      './index.js'
+      './index.js',
     ],
-    vendor: ['react']
+    vendor: ['react'],
   },
   output: {
     path: staticsPath,
-    filename: '[name].js'
+    filename: '[name].js',
   },
   module: {
     rules: [
       {
         test: /\.html$/,
         exclude: /node_modules/,
-        use: 'file-loader?name=[name].[ext]'
+        use: 'file-loader?name=[name].[ext]',
       },
       {
         test: /\.css$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
       {
-        test:   /\.less$/,
-        use: ['style-loader', "css-loader", "less-loader"]
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader'],
       },
       {
         test: /\.(js|jsx)$/,
@@ -88,32 +88,32 @@ module.exports = {
       },
       {
         test: /\.png$/,
-        use: 'file-loader?name=[md5:hash:base64:10].[ext]'
+        use: 'file-loader?name=[md5:hash:base64:10].[ext]',
       }, {
         test: /\.jpg$/,
-        use: 'file-loader?name=[md5:hash:base64:10].[ext]'
+        use: 'file-loader?name=[md5:hash:base64:10].[ext]',
       },
       {
         test: /\.gif$/,
-        use: 'file-loader?name=[name].[ext]'
+        use: 'file-loader?name=[name].[ext]',
       }, {
         test: /\.json$/,
-        use: 'json'
+        use: 'json',
       }, {
         test: /\.md$/,
-        use: 'file-loader?name=[name].[ext]'
+        use: 'file-loader?name=[name].[ext]',
       }, {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        use: 'url-loader?limit=10000&mimetype=image/svg+xml'
-      }
+        use: 'url-loader?limit=10000&mimetype=image/svg+xml',
+      },
     ],
   },
   resolve: {
     extensions: ['.js', '.jsx', '.less', '.scss', '.css'],
     modules: [
       path.resolve(__dirname, 'node_modules'),
-      sourcePath
-    ]
+      sourcePath,
+    ],
   },
   plugins,
   devServer: {
@@ -139,5 +139,5 @@ module.exports = {
         green: '\u001b[32m',
       },
     },
-  }
+  },
 };
