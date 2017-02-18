@@ -1,23 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import io from 'socket.io-client'
+import { connect } from 'react-redux';
 
-export default class Room extends React.Component {
+class Room extends React.Component {
   constructor(props) {
     super(props)
     this.state = { messages: [], name: '' }
   }
 
   componentWillMount() {
+    this.socket = io('/')
     const name = window.localStorage.getItem('currentUser');
     this.setState({
-      name: name,
+      name,
       messages: [],
     })
   }
 
   componentDidMount() {
-    this.socket = io('/')
     this.socket.on('message', message => {
       this.setState({ messages: [message, ...this.state.messages] })
     })
@@ -35,7 +36,7 @@ export default class Room extends React.Component {
         from: this.state.name,
       };
       this.setState({ messages: [message, ...this.state.messages] });
-      this.socket.emit('message', body);
+      this.socket.emit('chat message', body);
       event.target.value = '';
     }
   }
@@ -55,3 +56,11 @@ export default class Room extends React.Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    state: this.state
+  }
+}
+
+export default connect(mapStateToProps)(Room)

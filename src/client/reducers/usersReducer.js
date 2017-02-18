@@ -1,10 +1,11 @@
 import { SET_CURRENT_USER } from './../actions/actionTypes'
 
-let initialState = {
-  currentUser: ''
+const initialState = {
+  currentUser: '',
+  loggedIn: false,
 }
 
-const mainReducer = (state = initialState, action) => {
+export default function (state = initialState, action) {
   switch (action.type) {
     case SET_CURRENT_USER:
       return {
@@ -15,5 +16,3 @@ const mainReducer = (state = initialState, action) => {
       return state
   }
 }
-
-export default mainReducer

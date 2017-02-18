@@ -39,36 +39,38 @@ const server = app.listen(PORT, '127.0.0.1', (err) => {
   }
 });
 
-// app.post('/', (req, res) => {
-//   console.log('hitting / post route in server');
-//   console.log('req.body', req.body);
-//   const { Body, From } = req.body
-//   const message = {
-//     body: Body,
-//     from: From.slice(8)
-//   }
-//   io.emit('message', message)
-// })
+const io = socket(server)
 
-export default server;
-// io.on('connection', (socket) => {
-//   console.log('a user connected');
-//   socket.on('subscribe', data => {
-//     room = data.room;
-//     socket.join(room);
-//     console.log('joined room', room);
-//   });
-//   socket.on('unsubscribe', () => {
-//     socket.leave(room);
-//     console.log('leaving room', room);
-//   });
-//   socket.on('disconnect', () => {
-//     console.log('a user disconnected');
-//   });
+app.post('/', (req, res) => {
+  console.log('hitting / post route in server');
+  console.log('req.body', req.body);
+  const { Body, From } = req.body
+  const message = {
+    body: Body,
+    from
+  }
+  io.emit('message', message)
+})
 
-//   socket.on('chat message', (msg) => {
-//     console.log('sending message to', msg.room);
-//     console.log('this message', msg);
-//     io.to(msg.room).emit('chat message', JSON.stringify(msg));
-//   });
-// });
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('subscribe', data => {
+    room = data.room;
+    socket.join(room);
+    console.log('joined room', room);
+  });
+  socket.on('unsubscribe', () => {
+    socket.leave(room);
+    console.log('leaving room', room);
+  });
+  socket.on('disconnect', () => {
+    console.log('a user disconnected');
+  });
+
+  socket.on('chat message', (msg) => {
+    console.log('sending message to', msg.from);
+    console.log('this message', msg);
+    io.to(msg.room).emit('chat message', JSON.stringify(msg));
+  });
+});
+
