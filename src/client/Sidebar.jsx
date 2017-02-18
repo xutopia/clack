@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+<<<<<<< HEAD
+=======
+import SidebarItem from './SidebarItem';
+
+>>>>>>> feat(component): implement sidebar action and reducer, sidebar item, need more refactor in sidebar
 // import the actions file for the fetchusers function that still needs to be written.
 // NOTE THAT THIS FILE NEEDS REFACTORING FOR REDUX FUNCTIONALITY
-// NEED TO DEFINE SidebarItem
 export default class Sidebar extends Component {
   constructor(props) {
     super(props);
