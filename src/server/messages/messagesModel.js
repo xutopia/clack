@@ -1,5 +1,5 @@
 // database queries for messages
-import db from '../db/knexfile';
+import { db } from '../db/knexfile';
 
 export const createMessage = (data, callback) => {
   const message = data; // TODO: modify the `data` argument to extract the message string
