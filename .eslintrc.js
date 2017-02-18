@@ -5,6 +5,6 @@ module.exports = {
     jest: true,
   },
   "rules": {
-      "semi": "never"
+      "semi": 0
   }
 };
