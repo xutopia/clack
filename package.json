@@ -4,9 +4,9 @@
   "description": "A slack clone with surprise features",
   "main": "src/index.js",
   "scripts": {
+    "start": "babel-node src/server/index.js",
     "dev": "NODE_ENV=development webpack-dev-server --inline",
     "lint": "eslint ./src ./webpack.config.js -f table || true",
-    "server": "babel-node src/server/index.js",
     "build": "NODE_ENV=production && webpack -p",
     "test": "jest",
     "test-watch": "jest --watch-all --coverage"
@@ -70,6 +70,9 @@
     "emoji-mart": "^0.3.7",
     "express": "^4.14.1",
     "knex": "^0.12.6",
+    "koa": "^1.2.5",
+    "koa-send": "^3.3.0",
+    "koa-socket": "^4.4.0",
     "morgan": "^1.8.0",
     "mysql": "^2.13.0",
     "prettier": "^0.18.0",
