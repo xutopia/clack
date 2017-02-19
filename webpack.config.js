@@ -119,7 +119,9 @@ module.exports = {
   devServer: {
     contentBase: './src',
     historyApiFallback: true,
-    // port: 5050,
+    proxy: {
+      '/': 'http://localhost:3000'
+    },
     compress: isProd,
     inline: true,
     hot: true,
