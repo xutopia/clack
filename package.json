@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development webpack-dev-server --inline",
     "lint": "eslint ./src ./webpack.config.js -f table || true",
-    "server": "babel-node src/server/server.js",
+    "server": "babel-node src/server/index.js",
     "build": "NODE_ENV=production && webpack -p",
     "test": "jest",
     "test-watch": "jest --watch-all --coverage"
