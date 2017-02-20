@@ -13,7 +13,7 @@ app.use(function *() {
 io.attach(app);
 
 io.on('connection', ctx => {
-  console.log('[server] connected');
+  console.log('[server] new connection to socket-server');
 });
 
 let usernames = [];
