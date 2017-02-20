@@ -5,13 +5,6 @@ import SidebarItem from './SidebarItem';
 // NOTE THAT THIS FILE NEEDS REFACTORING FOR REDUX FUNCTIONALITY
 export default class Sidebar extends Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      users: null,
-    };
-  }
-
   componentWillMount() {
     fetchUsers();
   }
