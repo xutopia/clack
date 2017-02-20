@@ -1,13 +1,9 @@
 import { combineReducers } from 'redux'
 
-import usersReducer from './usersReducer'
-import messagesReducer from './messagesReducer'
-import roomsReducer from './roomsReducer'
+import app from './app';
+import users from './users';
+import messages from './messages';
 
-const RootReducer = combineReducers({
-  users: usersReducer,
-  rooms: roomsReducer,
-  messages: messagesReducer,
-})
-
-export default RootReducer
+export default combineReducers(
+  { app, users, messages }
+);
