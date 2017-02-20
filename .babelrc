@@ -1,6 +1,9 @@
 {
   "presets": ["airbnb"],
-  "plugins": ["transform-class-properties"],
+  "plugins": [
+    "transform-class-properties",
+    "redux-saga"
+  ],
   "env": {
     "development": {
       "presets": [
