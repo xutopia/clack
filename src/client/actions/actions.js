@@ -1,6 +1,10 @@
-import { SET_CURRENT_USER } from './actionTypes';
+import { createAction } from 'redux-act';
 
-export const setCurrentUser = currentUser => ({
-  type: SET_CURRENT_USER,
-  currentUser,
-});
+export const login = createAction('login');
+export const logout = createAction('logout');
+
+export const addUser = createAction('add user');
+export const removeUser = createAction('remove user');
+
+export const newMessage = createAction('new message');
+export const sendMessage = createAction('send message');

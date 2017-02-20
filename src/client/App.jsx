@@ -1,18 +1,25 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 import Landing from './Landing'
+import Room from './Room'
 
+import { logout } from './actions/actions'
 
-// APP will dynamicall render its children (this.props.children)
-// either LandingPage or Room
-
-const App = (props) => {
-    return (
+const App = () => {
+  return (
+    <Router>
       <div>
-        <Landing />
-        <div className="container">
-        </div>
+        <Route exact path="/" component={Landing} />
+        <Route exact path="/room" component={Room} />
       </div>
-    )
+    </Router>
+  );
 }
 
-export default App
+function select({ app }) {
+  return { ...app };
+}
+
+export default connect(select)(App);

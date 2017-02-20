@@ -1,47 +1,51 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-// input
+import { login } from './actions/actions'
 
-export default class Landing extends Component {
+class Landing extends Component {
+  constructor() {
+    super()
+    this.state = {
+      currentUser: ''
+    }
+  }
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
 
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
-      currentUser: '',
-    }
-  }
-
   onInputChange(event, state) {
-    const name = event.target.value;
+    const username = event.target.value;
+    console.info('username', username);
     this.setState({
       ...state,
-      currentUser: name,
+      currentUser: username,
     });
   }
 
   onFormSubmit(event, state) {
     event.preventDefault();
-    const name = state.currentUser;
-    window.localStorage.setItem('currentUser', name);
+    const username = state.currentUser;
+    window.localStorage.setItem('currentUser', username);
+    this.props.dispatch(login({ username }))
     this.context.router.push('/room');
   }
   render() {
     const { currentUser } = this.state.currentUser;
     return (
       <div>
+        <h1>Landing Page</h1>
         <form onSubmit={() => this.onFormSubmit(event, this.state)}>
           <input
+            onChange={(event) => this.onInputChange(event, this.state)}
             type="text" placeholder="Enter Name to Chat"
             value={currentUser}
-            onChange={event => this.onInputChange(event, this.state)}
           />
         </form>
-        {this.props.children}
       </div>
     );
   }
 }
+
+export default connect()(Landing)

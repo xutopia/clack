@@ -1,57 +1,43 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import io from 'socket.io-client'
+import { connect } from 'react-redux';
 
-export default class Room extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { messages: [], name: '' }
-  }
+import { sendMessage } from '../client/actions/actions';
 
-  componentWillMount() {
-    const name = window.localStorage.getItem('currentUser');
-    this.setState({
-      name: name,
-      messages: [],
-    })
-  }
-
-  componentDidMount() {
-    this.socket = io('/')
-    this.socket.on('message', message => {
-      this.setState({ messages: [message, ...this.state.messages] })
-    })
-  }
-
-  // componentWillUnmount() {
-  //   socket
-  // }
-
-  handleSubmit = (event) => {
-    const body = event.target.value;
-    if (event.keyCode === 13 && body) {
-      const message = {
-        body,
-        from: this.state.name,
-      };
-      this.setState({ messages: [message, ...this.state.messages] });
-      this.socket.emit('message', body);
+class Room extends React.Component {
+  handleSend = (event) => {
+    const text = event.target.value;
+    if (event.keyCode === 13 && text) {
+      this.props.dispatch(sendMessage({ text }));
       event.target.value = '';
     }
   }
 
   render () {
-    const messages = this.state.messages.map((message, idx) => {
-      return <li key={idx}><b>{message.from}: </b>{message.body}</li>
-    })
+    const { users, messages } = this.props;
+    console.log(this.props);
+    const messageList = messages.list.map(id => messages.entities[id]).map((m, i) =>
+      <li key={`${i}:${m.id}`}><b>{m.username}: </b>{m.text}</li>
+    )
     return (
       <div>
         <h1>CLACK Chat!</h1>
-        <input type="text" placeholder='enter a message' onKeyUp={this.handleSubmit}/>
-        {messages.reverse()}
+        <input
+          type="text"
+          id="input-message"
+          placeholder='enter a message'
+          onKeyUp={this.handleSend}
+        />
+        {messageList}
         <div>
         </div>
       </div>
     )
   }
 }
+
+function select({ users, messages }) {
+  return { users, messages };
+}
+
+export default connect(select)(Room)
