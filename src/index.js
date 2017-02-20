@@ -1,35 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { createStore, applyMiddleware, compose } from 'redux'
-import { Provider } from 'react-redux'
-import createLogger from 'redux-logger'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import io from 'socket.io-client'
-export const socket = io('http://localhost:8080')
+import configureStore from './client/store/index';
+
+import App from './client/App';
 import Landing from './client/Landing';
 import Room from './client/Room';
 
-import RootReducer from './client/reducers/index'
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
-const logger = createLogger()
-const store = createStore(
-  RootReducer,
-  composeEnhancers(
-    applyMiddleware(logger),
-  ),
-);
-
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={configureStore()}>
     <Router>
+      <App>
         <div>
           <Route exact path="/" component={Landing} />
           <Route exact path="/room" component={Room} />
         </div>
+      </App>
     </Router>
   </Provider>,
-  document.getElementById('container')
-)
+  document.getElementById('container'),
+);
