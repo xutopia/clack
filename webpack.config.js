@@ -42,11 +42,11 @@ if (isProd) {
       output: {
         comments: false,
       },
-    }),
+    })
   );
 } else {
   plugins.push(
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   );
 }
 
