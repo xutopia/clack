@@ -1,18 +1,27 @@
 import React from 'react'
+import { connect } from 'react-redux';
+
 import Landing from './Landing'
 import Room from './Room'
 
-// APP will dynamicall render its children (this.props.children)
-// either LandingPage or Room
+import { logout } from './actions/actions'
 
-const App = (props) => {
+class App extends React.Component {
+  handleLogout() {
+    this.props.dispatch(logout());
+  }
+
+  render() {
     return (
       <div>
-        <Landing />
-        HELLO
-        <Room />
+        {this.props.children}
       </div>
-    )
+    );
+  }
 }
 
-export default App
+function select({ app }) {
+  return { ...app };
+}
+
+export default connect(select)(App);

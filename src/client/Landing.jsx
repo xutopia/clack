@@ -2,33 +2,33 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { setCurrentUser } from './actions/actions'
+import { login } from './actions/actions'
 
 class Landing extends Component {
+  constructor() {
+    super()
+    this.state = {
+      currentUser: ''
+    }
+  }
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   }
 
-  constructor(props, context) {
-    super(props, context)
-    this.state = {
-      currentUser: '',
-    }
-  }
-
   onInputChange(event, state) {
-    const name = event.target.value;
+    const username = event.target.value;
+    console.info('username', username);
     this.setState({
       ...state,
-      currentUser: name,
+      currentUser: username,
     });
   }
 
   onFormSubmit(event, state) {
     event.preventDefault();
-    const name = state.currentUser;
-    window.localStorage.setItem('currentUser', name);
-    this.props.setCurrentUser(name)
+    const username = state.currentUser;
+    window.localStorage.setItem('currentUser', username);
+    this.props.dispatch(login({ username }))
     this.context.router.push('/room');
   }
   render() {
@@ -48,10 +48,4 @@ class Landing extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    state
-  }
-}
-
-export default connect(mapStateToProps, { setCurrentUser })(Landing)
+export default connect()(Landing)
