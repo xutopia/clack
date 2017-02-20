@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 // input
 
@@ -10,7 +10,6 @@ export default class Landing extends Component {
 
   constructor(props, context) {
     super(props, context)
-    console.log('context.router', context.router);
     this.state = {
       currentUser: '',
     }
@@ -27,19 +26,21 @@ export default class Landing extends Component {
   onFormSubmit(event, state) {
     event.preventDefault();
     const name = state.currentUser;
-    console.log('inside form submit, context', this.router);
     window.localStorage.setItem('currentUser', name);
-    console.log('the form was submitted');
-    this.context.router.transitionTo('/messages');
-    // transition to the chat room
+    this.context.router.push('/room');
   }
   render() {
     const { currentUser } = this.state.currentUser;
     return (
       <div>
         <form onSubmit={() => this.onFormSubmit(event, this.state)}>
-          <input type="text" placeholder="Enter Name to Chat" value={currentUser} onChange={event => this.onInputChange(event, this.state)} />
+          <input
+            type="text" placeholder="Enter Name to Chat"
+            value={currentUser}
+            onChange={event => this.onInputChange(event, this.state)}
+          />
         </form>
+        {this.props.children}
       </div>
     );
   }
