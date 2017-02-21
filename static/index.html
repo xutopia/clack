@@ -13,7 +13,9 @@
   <div id="container"></div>
 </body>
 
-
+<script>
+    Notification.requestPermission().then(() => console.log('something notif'))
+</script>
 <script src="/vendor.js"></script>
 <script src="/app.js"></script>
 
