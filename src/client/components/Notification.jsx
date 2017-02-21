@@ -4,13 +4,21 @@
 // message```
 
 import React from 'react';
-import notification from 'react-web-notification';
+// import Notif from 'react-web-notification/lib/components/Notification';
 
-export default Notification = (props) => {
+export default Notification = ({ body, title }) => {
+  const options = {
+    lang: 'en',
+    body: body,
+  }
   return (
     <div>
       Something about a notification
-      <notification/>
+      <Notif
+        title={title}
+        timeout={5000}
+        options={options}
+        />
     </div>
   )
 }
