@@ -1,15 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 
 import Landing from './Landing'
 import Room from './Room'
 
 import { logout } from './actions/actions'
 
+const history = createHistory()
+
 const App = () => {
   return (
-    <Router>
+    <Router history={history}>
       <div>
         <Route exact path="/" component={Landing} />
         <Route exact path="/room" component={Room} />
