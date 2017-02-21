@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Landing from './Landing'
-import Room from './Room'
+import Room from './components/Room'
+import Sidebar from 'grommet/components/Sidebar'
 
 import { logout } from './actions/actions'
 
@@ -13,6 +14,8 @@ const App = () => {
       <div>
         <Route exact path="/" component={Landing} />
         <Route exact path="/room" component={Room} />
+        <Route exact path="/sidebar" component={Sidebar} />
+
       </div>
     </Router>
   );
