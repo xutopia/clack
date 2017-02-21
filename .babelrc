@@ -4,9 +4,7 @@
   "env": {
     "development": {
       "presets": [
-        "react-hmre",
-        "stage-3",
-        "es2015"
+        "react-hmre"
       ],
       "plugins": ["transform-async-to-generator"]
     }
