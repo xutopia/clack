@@ -28,7 +28,7 @@ describe('Database queries using knex for messages', () => {
     });
   });
 
-  it('Should reject the insert query if username already exists', async () => {
+  it('Should insert new message into database', async () => {
     const newMessage = 'Hello World';
     await createMessage(newMessage, (results) => {
       expect(results).toBeTruthy();
