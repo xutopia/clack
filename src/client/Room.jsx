@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
+import Notification from './components/Notification'
 
 import { sendMessage } from '../client/actions/actions';
 
@@ -30,6 +31,7 @@ class Room extends React.Component {
         />
         {messageList}
         <div>
+          <Notification />
         </div>
       </div>
     )
