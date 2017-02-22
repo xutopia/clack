@@ -9,4 +9,4 @@ export const removeUser = createAction('remove user');
 export const newMessage = createAction('new message');
 export const sendMessage = createAction('send message');
 
-export const newSearch = createAction('new search');
+export const searchMessages = createAction('new search');

@@ -1,7 +1,8 @@
 // SearchBar container that accepts user input to be run in the lunr
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { searchTerm } from '../actions/actions'
+import { searchMessages } from '../actions/actions';
+
 
 class SearchBar extends Component {
   handleSearch = (event) => {
@@ -26,4 +27,8 @@ class SearchBar extends Component {
   }
 }
 
-export default connect()(SearchBar);
+function mapStateToProps({ searchTerm, searchResultScores }) {
+  return { searchTerm, searchResultScores };
+}
+
+export default connect(mapStateToProps)(SearchBar);

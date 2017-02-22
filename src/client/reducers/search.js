@@ -14,3 +14,5 @@ const search = createReducer({
     };
   },
 }, initial)
+
+export default search
