@@ -18,6 +18,6 @@ const render = (Component) => {
 
 render(App)
 
-module.hot.accept('./App', () => {
+module.hot.accept('./client/App', () => {
   render(App)
 })
