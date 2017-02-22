@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "babel-node src/server/index.js",
-    "dev": "NODE_ENV=development webpack-dev-server --inline",
+    "dev": "webpack-dev-server",
     "lint": "eslint ./src ./webpack.config.js -f table || true",
     "build": "NODE_ENV=production && webpack -p",
     "test": "jest --forceExit",
