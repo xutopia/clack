@@ -3,8 +3,8 @@ import React from 'react'
 import { connect } from 'react-redux';
 // import createHistory from 'history/createBrowserHistory';
 
-import Landing from './Landing'
-import Room from './Room'
+import Landing from './Landing.jsx'
+import Room from './Room.jsx'
 
 import { logout } from './actions/actions'
 

@@ -1,16 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// import { AppContainer } from 'react-hot-loader'
+import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 
 import configureStore from './client/store/index';
-import App from './client/App';
+import App from './client/App.jsx';
 
 const render = (Component) => {
   ReactDOM.render(
     <Provider store={configureStore()}>
-      <Component />
+      <AppContainer>
+        <Component />
+      </AppContainer>
     </Provider>,
     document.getElementById('root')
   );
@@ -18,6 +20,6 @@ const render = (Component) => {
 
 render(App)
 
-module.hot.accept('./client/App', () => {
+module.hot.accept('./client/App.jsx', () => {
   render(App)
 })

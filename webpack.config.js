@@ -6,6 +6,7 @@ module.exports = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8000',
     'webpack/hot/only-dev-server',
+    'babel-polyfill',
     './index.js'
   ],
   output: {
@@ -18,7 +19,10 @@ module.exports = {
   devServer: {
     hot: true,
     contentBase: resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: '/',
+    proxy: {
+      '/': 'http://localhost:3000'
+    }
   },
   module: {
     rules: [
