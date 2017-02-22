@@ -1,12 +1,14 @@
 const initial = {
   app: {
-    username: null
+    username: null,
   },
   users: {},
   messages: {
     list: [],
-    entities: {}
+    entities: {},
   },
+  searchTerm: '',
+  searchResultScores: [],
 };
 
 export default initial
