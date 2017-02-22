@@ -7,8 +7,10 @@ const initial = {
     list: [],
     entities: {},
   },
-  searchTerm: '',
-  searchResultScores: [],
+  search: {
+    searchTerm: '',
+    resultScores: [],
+  },
 };
 
 export default initial

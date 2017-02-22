@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
-import SearchBar from './containers/SearchBar';
+import SearchBar from './containers/SearchBar.jsx';
 import { sendMessage } from '../client/actions/actions';
 
 class Room extends React.Component {
@@ -31,7 +31,7 @@ class Room extends React.Component {
 
   render () {
     const { users, messages } = this.props;
-    console.log(this.props);
+    console.log('props for Room', this.props);
     const messageList = messages.list.map(id => messages.entities[id]).map((m, i) =>
       <li key={`${i}:${m.id}`}><b>{m.username}: </b>{m.text}</li>
     )

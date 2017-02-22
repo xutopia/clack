@@ -12,7 +12,7 @@ class SearchBar extends Component {
     }
   }
 
-    render() {
+  render() {
     return (
       <div>
         Here is the SearchBar
@@ -27,8 +27,8 @@ class SearchBar extends Component {
   }
 }
 
-function mapStateToProps({ searchTerm, searchResultScores }) {
-  return { searchTerm, searchResultScores };
-}
+// function mapStateToProps({ searchTerm, searchResultScores }) {
+//   return { searchTerm, searchResultScores };
+// }
 
-export default connect(mapStateToProps)(SearchBar);
+export default connect()(SearchBar);
