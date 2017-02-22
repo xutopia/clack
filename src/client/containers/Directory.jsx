@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Menu from 'grommet/components/Menu';
 import Box from 'grommet/components/Box';
-import UserItem from './UserItem';
+import UserItem from '../components/UserItem';
 
 class Directory extends React.Component {
 

@@ -1,17 +1,13 @@
-import React from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
-// import Notification from './components/Notification'
-import Split from 'grommet/components/Split';
-import Sidebar from 'grommet/components/Sidebar';
-import Box from 'grommet/components/Box'
+import { Feed } from 'semantic-ui-react';
+// need to import and use semantic Feed component here
+import { sendMessage } from '../actions/actions';
 
-import { sendMessage } from '../client/actions/actions';
-
-class Room extends React.Component {
+class MessageFeed extends React.Component {
   handleSend = (event) => {
     const text = event.target.value;
     if (event.keyCode === 13 && text) {
-      
       this.props.dispatch(sendMessage({ text }));
       event.target.value = '';
     }
@@ -43,7 +39,6 @@ class Room extends React.Component {
 
     return (
       <div>
-        <h1>CLACK Chat!</h1>
         <input
           type="text"
           id="input-message"
@@ -51,18 +46,12 @@ class Room extends React.Component {
           onKeyUp={this.handleSend}
         />
         {messageList}
-        <div>
-        <Split>
-          <Sidebar>Grommet Sidebar?</Sidebar>
-        </Split>
-        </div>
       </div>
     )
   }
 }
-
 function select({ users, messages }) {
   return { users, messages };
 }
 
-export default connect(select)(Room)
+export default connect(select)(MessageFeed)
