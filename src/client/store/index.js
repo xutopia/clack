@@ -11,6 +11,12 @@ export default function configureStore(initialState) {
     initialState,
     applyMiddleware(sagaMiddleware, logger()),
   );
+  if (module.hot) {
+    module.hot.accept('../reducers', () => {
+      const nextRootReducer = require('../reducers/index')
+      store.replaceReducer(nextRootReducer)
+    })
+  }
   sagaMiddleware.run(saga);
   return store;
 }

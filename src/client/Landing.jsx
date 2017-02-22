@@ -35,7 +35,7 @@ class Landing extends Component {
     const { currentUser } = this.state.currentUser;
     return (
       <div>
-        <h1>Landing Page</h1>
+        <h1>Welcome!!!</h1>
         <form onSubmit={() => this.onFormSubmit(event, this.state)}>
           <input
             onChange={(event) => this.onInputChange(event, this.state)}
