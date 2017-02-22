@@ -4,7 +4,7 @@
   "description": "A slack clone with surprise features",
   "main": "src/index.js",
   "scripts": {
-    "start": "babel-node src/server/index.js",
+    "start": "babel-node src/server/index.js --presets es2015,stage-2",
     "dev": "webpack-dev-server",
     "lint": "eslint ./src ./webpack.config.js -f table || true",
     "build": "NODE_ENV=production && webpack -p",
@@ -35,7 +35,6 @@
   "homepage": "https://github.com/asyncApes/clack#readme",
   "dependencies": {
     "axios": "^0.15.3",
-    "babel-cli": "^6.23.0",
     "bluebird": "^3.4.7",
     "body-parser": "^1.16.0",
     "dotenv": "^4.0.0",
@@ -60,6 +59,7 @@
     "url-loader": "^0.5.7"
   },
   "devDependencies": {
+    "babel-cli": "^6.23.0",
     "babel-core": "^6.13.2",
     "babel-eslint": "^7.1.1",
     "babel-jest": "^18.0.0",

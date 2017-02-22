@@ -8,7 +8,7 @@ const app = Koa();
 const io = new IO();
 
 app.use(function *() {
-  yield send(this, this.path, { root: path.join(__dirname, '../../static/index.html') });
+  yield send(this, this.path, { root: path.join(__dirname, '../../dist/index.html') });
 })
 io.attach(app);
 
