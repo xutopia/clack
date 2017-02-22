@@ -1,14 +1,11 @@
 import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react'
 import { connect } from 'react-redux';
-// import createHistory from 'history/createBrowserHistory';
 
 import Landing from './Landing.jsx'
 import Room from './Room.jsx'
 
 import { logout } from './actions/actions'
-
-// const history = createHistory()
 
 const App = () => {
   return (

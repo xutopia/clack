@@ -39,7 +39,7 @@ class Room extends React.Component {
     return (
       <div>
         <h1>CLACK Chat! :-)</h1>
-        <h2>It is RJ's bday</h2>
+        <h2>:)</h2>
         <input
           type="text"
           id="input-message"
