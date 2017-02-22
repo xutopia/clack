@@ -1,8 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
-// import Notification from './components/Notification'
-
+import SearchBar from './containers/SearchBar';
 import { sendMessage } from '../client/actions/actions';
 
 class Room extends React.Component {
@@ -39,6 +38,7 @@ class Room extends React.Component {
     return (
       <div>
         <h1>CLACK Chat!</h1>
+        <SearchBar />
         <input
           type="text"
           id="input-message"
