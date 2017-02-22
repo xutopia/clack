@@ -12,7 +12,7 @@ class SearchBar extends Component {
     }
   }
 
-  render() {
+    render() {
     return (
       <div>
         Here is the SearchBar
