@@ -43,6 +43,8 @@
     "koa": "^1.2.5",
     "koa-send": "^3.3.0",
     "koa-socket": "^4.4.0",
+    "lunr": "^1.0.0",
+    "morgan": "^1.8.0",
     "mysql": "^2.13.0",
     "react": "^15.4.2",
     "react-addons-css-transition-group": "^15.4.2",
