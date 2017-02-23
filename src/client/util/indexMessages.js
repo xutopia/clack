@@ -10,8 +10,8 @@ const generateSearchScore = (messages, searchTerm) => {
 
   for(let key in messages) {
     const doc = {
-      text: messages.text,
-      username: messages.username,
+      text: messages[key].text,
+      username: messages[key].username,
       id: key,
     }
     idx.add(doc);

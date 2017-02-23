@@ -2,13 +2,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { searchMessages } from '../actions/actions';
+import generateSearchScore from '../util/indexMessages';
 
 
 class SearchBar extends Component {
   handleSearch = (event) => {
     const searchTerm = event.target.value;
     if(event.keyCode === 13 && searchTerm) {
-      this.props.dispatch(searchMessages({ searchTerm }));
+      const messages = this.props.messages.entities;
+      const idx = generateSearchScore(messages);
+      this.props.dispatch(searchMessages({ searchTerm, idx }));
     }
   }
 
@@ -27,8 +30,8 @@ class SearchBar extends Component {
   }
 }
 
-// function mapStateToProps({ searchTerm, searchResultScores }) {
-//   return { searchTerm, searchResultScores };
-// }
+function mapStateToProps({ search, messages }) {
+  return { search, messages };
+}
 
-export default connect()(SearchBar);
+export default connect(mapStateToProps)(SearchBar);
