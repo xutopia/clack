@@ -4,10 +4,6 @@ import { List } from 'semantic-ui-react';
 import UserItem from '../components/UserItem.jsx';
 
 class Directory extends React.Component {
-  getUserNames = () => {
-    return ['tony', 'pete', 'michelle', 'shelby'];
-  // this function will set up my usernames array that is coming down from the server
-  }
 
   render() {
     const { users } = this.props; // this may change as we finish pulling the usernames array down from the server.
