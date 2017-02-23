@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { searchMessages } from '../actions/actions';
-import generateSearchScore from '../util/indexMessages';
+import generateSearchIndex from '../util/indexMessages';
 
 
 class SearchBar extends Component {
@@ -10,7 +10,7 @@ class SearchBar extends Component {
     const searchTerm = event.target.value;
     if(event.keyCode === 13 && searchTerm) {
       const messages = this.props.messages.entities;
-      const idx = generateSearchScore(messages);
+      const idx = generateSearchIndex(messages);
       this.props.dispatch(searchMessages({ searchTerm, idx }));
     }
   }
