@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
 import SearchBar from './containers/SearchBar.jsx';
 import { sendMessage } from '../client/actions/actions';
+import generateMessagesIndex from './util/indexMessages';
 
 class Room extends React.Component {
   handleSend = (event) => {

@@ -1,8 +1,9 @@
-// function that will index all messages into lunr
-import lunr from 'lunr';
+// function that will index all messages with lunr and return array of matching docs with score
+import lunr from '../../../node_modules/lunr/lunr';
 
-const generateMessagesIndex = (messages) => {
-  const idx = lunr(() => {
+const generateSearchScore = (messages, searchTerm) => {
+  const idx = lunr(function () {
+    this.ref('id')
     this.field('username', { boost: 10 })
     this.field('text')
   });
@@ -16,7 +17,7 @@ const generateMessagesIndex = (messages) => {
     idx.add(doc);
   }
 
-  return idx;
+  return idx.search(searchTerm);
 }
 
-export default generateMessagesIndex;
+export default generateSearchScore;
