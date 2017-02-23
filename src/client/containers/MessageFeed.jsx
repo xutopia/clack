@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Feed } from 'semantic-ui-react';
-// need to import and use semantic Feed component here
 import { sendMessage } from '../actions/actions';
+// import Notification from './components/Notification'
 
 class MessageFeed extends React.Component {
   handleSend = (event) => {
@@ -31,8 +31,8 @@ class MessageFeed extends React.Component {
 
   render () {
     const { users, messages } = this.props;
-    console.log('this is messages: ',messages);
-    console.log('here are the keys from this.props.users: ',Object.keys(this.props.users));
+    // console.log('this is messages: ',messages);
+    // console.log('here are the keys from this.props.users: ',Object.keys(this.props.users));
     const messageList = messages.list.map(id => messages.entities[id]).map((m, i) =>
       <li key={`${i}:${m.id}`}><b>{m.username}: </b>{m.text}</li>
     )

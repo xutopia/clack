@@ -1,7 +1,6 @@
 const initial = {
   app: {
     username: null,
-    usernames: []
   },
   users: {},
   messages: {
