@@ -30,6 +30,7 @@ class Landing extends Component {
     window.localStorage.setItem('currentUser', username);
     this.props.dispatch(login({ username }))
     this.context.router.push('/room');
+    //this is the code that loads the room component?
   }
   render() {
     const { currentUser } = this.state.currentUser;

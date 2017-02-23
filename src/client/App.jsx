@@ -2,8 +2,9 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react'
 import { connect } from 'react-redux';
 
-import Landing from './Landing.jsx'
-import Room from './Room.jsx'
+
+import Landing from './Landing'
+import Room from './components/Room'
 
 import { logout } from './actions/actions'
 
@@ -13,6 +14,7 @@ const App = () => {
       <div>
         <Route exact path="/" component={Landing} />
         <Route exact path="/room" component={Room} />
+
       </div>
     </BrowserRouter>
   );
