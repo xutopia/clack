@@ -12,8 +12,8 @@ class UserList extends React.Component {
     return (
       <div>
         <div>
-          {usernames ? (usernames.map(user => (
-            <UserItem user={user} />
+          {usernames ? (usernames.map((user, index) => (
+            <UserItem user={user} key={index}/>
           ))) : (<div>Loading...</div>)}
         </div>
       </div>
@@ -24,4 +24,4 @@ function select({ users }) { // this will be an array that mirrors the usernames
   return { users };
 }
 
-export default connect(select)(Directory)
+export default connect(select)(UserList)
