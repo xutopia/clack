@@ -4,8 +4,8 @@ import { Container, Header, Grid, Segment } from 'semantic-ui-react';
 // import Sidebar from 'grommet/components/Sidebar';
 // import Header from 'grommet/components/Header';
 // import Box from 'grommet/components/Box';
-import Directory from '../containers/Directory';
-import MessageFeed from '../containers/MessageFeed';
+import Directory from '../containers/Directory.jsx';
+import MessageFeed from '../containers/MessageFeed.jsx';
 
 const Room = () => (
   <Grid columns={2}>

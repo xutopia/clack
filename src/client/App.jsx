@@ -3,8 +3,8 @@ import React from 'react'
 import { connect } from 'react-redux';
 
 
-import Landing from './Landing'
-import Room from './components/Room'
+import Landing from './Landing.jsx'
+import Room from './components/Room.jsx'
 
 import { logout } from './actions/actions'
 

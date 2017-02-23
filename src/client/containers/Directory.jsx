@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
-import UserItem from '../components/UserItem';
+import UserItem from '../components/UserItem.jsx';
 
 class Directory extends React.Component {
   getUserNames = () => {
