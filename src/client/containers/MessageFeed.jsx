@@ -1,11 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
 import { connect } from 'react-redux';
+import { Feed } from 'semantic-ui-react';
+import { sendMessage } from '../actions/actions';
 // import Notification from './components/Notification'
 
-import { sendMessage } from '../client/actions/actions';
-
-class Room extends React.Component {
+class MessageFeed extends React.Component {
   handleSend = (event) => {
     const text = event.target.value;
     if (event.keyCode === 13 && text) {
@@ -32,14 +31,14 @@ class Room extends React.Component {
 
   render () {
     const { users, messages } = this.props;
-    console.log(this.props);
+    // console.log('this is messages: ',messages);
+    // console.log('here are the keys from this.props.users: ',Object.keys(this.props.users));
     const messageList = messages.list.map(id => messages.entities[id]).map((m, i) =>
       <li key={`${i}:${m.id}`}><b>{m.username}: </b>{m.text}</li>
     )
+
     return (
       <div>
-        <h1>CLACK Chat! :-)</h1>
-        <h2>:)</h2>
         <input
           type="text"
           id="input-message"
@@ -47,15 +46,12 @@ class Room extends React.Component {
           onKeyUp={this.handleSend}
         />
         {messageList}
-        <div>
-        </div>
       </div>
     )
   }
 }
-
 function select({ users, messages }) {
   return { users, messages };
 }
 
-export default connect(select)(Room)
+export default connect(select)(MessageFeed)

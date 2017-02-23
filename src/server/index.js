@@ -28,6 +28,7 @@ io.on('disconnect', ctx => {
 io.on('login', (ctx, { username }) => {
   console.log(`[server] login: ${username}`);
   usernames.push(username);
+  console.log('this is usernames array: ', usernames);
   ctx.socket.username = username;
 
   io.broadcast('users.login', { username });
@@ -136,4 +137,3 @@ app.listen(3000, () => {
 //     io.to(msg.room).emit('chat message', JSON.stringify(msg));
 //   });
 // });
-
