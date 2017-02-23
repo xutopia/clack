@@ -1,10 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { Container, Header, Grid, Segment } from 'semantic-ui-react';
-// import Sidebar from 'grommet/components/Sidebar';
-// import Header from 'grommet/components/Header';
-// import Box from 'grommet/components/Box';
-import Directory from '../containers/Directory.jsx';
+
+import UserList from '../containers/UserList.jsx';
 import MessageFeed from '../containers/MessageFeed.jsx';
 
 const Room = () => (
@@ -15,9 +13,9 @@ const Room = () => (
         CLACK Chat!
         </Header>
         <Segment vertical>
-          <Directory>
+          <UserList>
           Segment/Directory Goes Here
-          </Directory>
+          </UserList>
         </Segment>
       </Container>
     </Grid.Column>

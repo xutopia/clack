@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
 import UserItem from '../components/UserItem.jsx';
 
-class Directory extends React.Component {
+class UserList extends React.Component {
 
   render() {
     const { users } = this.props; // this may change as we finish pulling the usernames array down from the server.
