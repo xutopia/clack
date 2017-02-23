@@ -30,8 +30,9 @@ class SearchBar extends Component {
   }
 }
 
-function mapStateToProps({ search, messages }) {
+const mapStateToProps = ({ search, messages }) => {
   return { search, messages };
 }
+
 
 export default connect(mapStateToProps)(SearchBar);
