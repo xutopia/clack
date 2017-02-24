@@ -1,11 +1,15 @@
 const initial = {
   app: {
-    username: null
+    username: null,
   },
   users: {},
   messages: {
     list: [],
-    entities: {}
+    entities: {},
+  },
+  search: {
+    searchTerm: '',
+    resultScores: [],
   },
 };
 
