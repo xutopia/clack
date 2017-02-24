@@ -31,11 +31,12 @@ class MessageFeed extends React.Component {
 
   render () {
     const { users, messages } = this.props;
-    // console.log('this is messages: ',messages);
+    console.log('this is messages: ',messages);
     // console.log('here are the keys from this.props.users: ',Object.keys(this.props.users));
     const messageList = messages.list.map(id => messages.entities[id]).map((m, i) =>
       <li key={`${i}:${m.id}`}><b>{m.username}: </b>{m.text}</li>
     )
+    console.log('this is messageList: ', messageList);
 
     return (
       <div>
