@@ -44,7 +44,23 @@ app.use(function*() {
   });
 });
 
+<<<<<<< HEAD
 io.attach(app);
+=======
+let messages = [];
+io.on('message', (ctx, { text, timeStamp }) => {
+  console.log(`[server] message: ${text}`);
+  const message = {
+    id: messages.length,
+    text,
+    username: ctx.socket.username,
+    timeStamp
+  };
+  messages.push(message);
+  console.log(messages);
+  io.broadcast('messages.new', { message });
+});
+>>>>>>> feat(feed): add timestamp to messages object
 
 // Socket.io listeners
 io.on('connection', socketConnection);
