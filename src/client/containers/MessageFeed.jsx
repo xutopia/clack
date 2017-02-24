@@ -7,8 +7,12 @@ import { sendMessage } from '../actions/actions';
 class MessageFeed extends React.Component {
   handleSend = (event) => {
     const text = event.target.value;
+
     if (event.keyCode === 13 && text) {
-      this.props.dispatch(sendMessage({ text }));
+      console.log('this event happened: ', event.timeStamp);
+      console.log('this is the text of the message: ', text);
+      const timeStamp = new Date();
+      this.props.dispatch(sendMessage({ text, timeStamp }));
       event.target.value = '';
     }
   }
