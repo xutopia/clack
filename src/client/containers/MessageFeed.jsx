@@ -9,14 +9,6 @@ import Reactions from './Reactions.jsx';
 
 class MessageFeed extends React.Component {
 
-    addLikes = (event) => {
-      console.log('this is the event: ', event.target);
-      console.log('this is this: ', this);
-      console.log('You just clicked the like button on the message with id: ', event.target.id);
-    // let likes = this.id;
-    // likes ++;
-  }
-
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
       const latestMsgID = messages.list[messages.list.length - 1];
