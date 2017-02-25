@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "babel-node src/server/index.js --presets es2015,stage-2",
+    "debug": "babel-node --nolazy --debug=5858 src/server/index.js --presets es2015,stage-2",
     "dev": "webpack-dev-server",
     "lint": "eslint ./src ./webpack.config.js -f table || true",
     "build": "NODE_ENV=production && webpack -p",
@@ -54,6 +55,7 @@
     "react-web-notification": "^0.2.3",
     "redux": "^3.6.0",
     "redux-act": "^1.1.0",
+    "redux-devtools-extension": "^2.13.0",
     "redux-logger": "^2.8.1",
     "redux-promise": "^0.5.3",
     "redux-saga": "^0.14.3",
