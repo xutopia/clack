@@ -10,4 +10,7 @@ export const newMessage = createAction('new message');
 export const sendMessage = createAction('send message');
 
 export const searchMessages = createAction('new search');
+
 export const addReaction = createAction('add reaction');
+
+export const typingStatus = createAction('typing');
