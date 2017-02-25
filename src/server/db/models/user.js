@@ -1,20 +1,43 @@
-import mongoose from 'mongoose'
-import bcrypt from 'bcrypt-nodejs'
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt-nodejs';
 
-const user = mongoose.Schema({
+const SALT_FACTOR = 10
+
+const userSchema = mongoose.Schema({
   local: {
-    username: { type: String, unique: true },
-    password: String,
-    email: String
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    createdAt: { type: Date, default: Date.now },
+    email: String,
+  },
+});
+
+const noop = () => {};
+
+userSchema.pre('save', (done) => {
+  const user = this;
+  if (!user.isModified('password')) {
+    return done();
   }
-})
+  bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
+    if (err) {
+      return done(err);
+    }
+    bcrypt.hash(user.password, salt, noop, (err, hashedPassword) => {
+      if (err) {
+        return done(err);
+      }
+      user.password = hashedPassword;
+      done();
+    });
+  });
+});
 
-user.methods.generateHash = password => {
-  bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
-}
+userSchema.methods.getUserName = () => this.username;
+userSchema.methods.checkPassword = (guess, done) => {
+  bcrypt.compare(guess, this.password, (err, isMatch) => {
+    done(err, isMatch);
+  });
+};
 
-user.methods.isValidPassword = password => {
-  bcrypt.compareSync(password, this.local.password)
-}
-
-export default mongoose.model('user', user)
+export default mongoose.model('userSchema', userSchema);
