@@ -44,7 +44,7 @@ class MessageFeed extends React.Component {
         </Feed.Event>
       )}
     )
-    console.log('this is messageList: ', messageList);
+    // console.log('this is messageList: ', messageList);
 
     return (
       <div>
