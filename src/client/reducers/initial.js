@@ -2,7 +2,9 @@ const initial = {
   app: {
     username: null,
   },
-  users: {},
+  users: {
+    isTyping: false,
+  },
   messages: {
     list: [],
     entities: {},
