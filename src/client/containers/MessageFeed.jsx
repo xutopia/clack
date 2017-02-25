@@ -7,7 +7,11 @@ import { sendMessage, isTyping } from '../actions/actions';
 class MessageFeed extends React.Component {
   handleSend = (event) => {
     const text = event.target.value;
-    this.props.dispatch(isTyping({ text }));
+    if(text.length > 0) {
+      this.props.dispatch(isTyping({ isTyping: 'true' }));
+    } else if (text.length === 0) {
+      this.props.dispatch(isTyping({ isTyping: 'false' }));
+    }
     if (event.keyCode === 13 && text) {
       this.props.dispatch(sendMessage({ text }));
       event.target.value = '';
