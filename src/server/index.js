@@ -63,6 +63,10 @@ io.on('logout', ctx => {
   }
 });
 
+io.on('typing', (ctx, { isTyping }) => {
+  console.log(`inside server, typing: ${isTyping}`);
+});
+
 let messages = [];
 io.on('message', (ctx, { text }) => {
   console.log(`[server] message: ${text}`);

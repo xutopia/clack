@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Feed } from 'semantic-ui-react';
-import { sendMessage } from '../actions/actions';
+import { sendMessage, isTyping } from '../actions/actions';
 // import Notification from './components/Notification'
 
 class MessageFeed extends React.Component {
   handleSend = (event) => {
     const text = event.target.value;
+    this.props.dispatch(isTyping({ text }));
     if (event.keyCode === 13 && text) {
       this.props.dispatch(sendMessage({ text }));
       event.target.value = '';
