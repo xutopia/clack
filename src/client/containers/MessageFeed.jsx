@@ -1,22 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Feed } from 'semantic-ui-react';
+import moment from 'moment';
+import { Feed, Icon } from 'semantic-ui-react';
 import { sendMessage } from '../actions/actions';
 import MessageInput from './MessageInput.jsx';
 // import Notification from './components/Notification'
 
 class MessageFeed extends React.Component {
-  handleSend = (event) => {
-    const text = event.target.value;
-
-    if (event.keyCode === 13 && text) {
-      console.log('this event happened: ', event.timeStamp);
-      console.log('this is the text of the message: ', text);
-      const timeStamp = new Date();
-      this.props.dispatch(sendMessage({ text, timeStamp }));
-      event.target.value = '';
-    }
-  }
 
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
@@ -37,30 +27,60 @@ class MessageFeed extends React.Component {
   render () {
     const { users, messages } = this.props;
     console.log('this is messages: ',messages);
-    // console.log('here are the keys from this.props.users: ',Object.keys(this.props.users));
-    const messageList = messages.list.map(id => messages.entities[id]).map((m, i) =>
-      <li key={`${i}:${m.id}`}><b>{m.username}: </b>{m.text}</li>
+    // console.log('here are the keys from this.props.messages: ',Object.keys(this.props.messages));
+    const messageList = messages.list.map(id => messages.entities[id]).map((m, i) => {
+      const date = m.timeStamp;
+      const user = m.username;
+      const text = m.text;
+      return (
+        <Feed.Event key={`${i}:${m.id}`}>
+          <Feed.Content>
+          <Feed.User content={user} /><Feed.Date content={date}/>
+            <Feed.Extra text content={text} />
+            <Feed.Meta>
+              <Feed.Like>
+                <Icon name='like' />something that listens for clicks here and counts up likes</Feed.Like>
+            </Feed.Meta>
+          </Feed.Content>
+        </Feed.Event>
+    )}
     )
-    console.log('this is messageList: ', messageList);
+    // console.log('this is messageList: ', messageList);
 
     return (
       <div>
+        <Feed>
+          {messageList}
+        </Feed>
         <MessageInput/>
-        {messageList}
       </div>
     )
   }
 }
+
 function select({ users, messages }) {
   return { users, messages };
 }
 
 export default connect(select)(MessageFeed)
 
-// <div>
-//   <input
-//     type="text"
-//     id="input-message"
-//     placeholder='enter a message'
-//     onKeyUp={this.handleSend}
-//   />
+/*
+const date =
+const user =
+const text =
+<Feed>
+  <Feed.Event>
+    <Feed.Label image={image} />
+    <Feed.Content>
+      <Feed.User something here /><Feed.Date content={date} /> or <Feed.Summary date user />
+      <Feed.Extra  text content = {extraText} />
+      <Feed.Meta>
+        <Feed.Like>
+          <Icon name='like' />something that listens for clicks here and counts up likes</Feed.Like>
+      </Feed.Meta>
+    </Feed.Content>
+  </Feed.Event>
+  */
+  //
+  // const messageList = messages.list.map(id => messages.entities[id]).map((m, i) =>
+  //   <li key={`${i}:${m.id}`}><b>{m.username}: //</b>{m.text}</li>

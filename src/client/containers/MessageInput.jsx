@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 import { Input } from 'semantic-ui-react';
 import { sendMessage } from '../actions/actions';
 
@@ -10,7 +11,7 @@ class MessageInput extends React.Component {
     if (event.keyCode === 13 && text) {
       console.log('this event happened: ', event.timeStamp);
       console.log('this is the text of the message: ', text);
-      const timeStamp = new Date();
+      const timeStamp = moment().fromNow();
       this.props.dispatch(sendMessage({ text, timeStamp }));
       event.target.value = '';
     }
