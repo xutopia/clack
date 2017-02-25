@@ -36,6 +36,7 @@
   "homepage": "https://github.com/asyncApes/clack#readme",
   "dependencies": {
     "axios": "^0.15.3",
+    "bcrypt-nodejs": "^0.0.3",
     "bluebird": "^3.4.7",
     "body-parser": "^1.16.0",
     "chalk": "^1.1.3",
