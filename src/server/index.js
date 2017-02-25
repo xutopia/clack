@@ -5,12 +5,19 @@ import Koa from 'koa';
 import IO from 'koa-socket';
 import send from 'koa-send';
 import path from 'path';
+import mongoose from 'mongoose'
 import chalk from 'chalk'
 import moment from 'moment'
+import logger from 'koa-logger'
+import cookieParser from 'cookie-parser'
+import session from 'koa-session'
+
+import { channelRoutes, messageRoutes, userRoutes } from './routes'
 
 const app = Koa();
 const io = new IO();
 
+const d = () => y(`[${moment().format('HH:mm:ss')}]`)
 const log = console.log;
 const g = chalk.green.bind(chalk);
 const b = chalk.blue.bind(chalk);
@@ -20,12 +27,15 @@ const y = chalk.yellow.bind(chalk);
 
 const port = process.env.PORT || 3000
 
-const d = () => y(`[${moment().format('HH:mm:ss')}]`)
-
+app.use(logger())
+app.use(channelRoutes);
+app.use(messageRoutes);
+app.use(userRoutes);
 app.use(function* () {
   yield send(this, this.path,
     { root: path.join(__dirname, '../../dist/index.html') });
 })
+
 io.attach(app);
 
 io.on('connection', ctx => {
@@ -43,7 +53,7 @@ io.on('disconnect', ctx => {
 });
 
 io.on('login', (ctx, { username }) => {
-  log(`[server] login: ${username}`);
+  log(`${[d()]} [server] received ${g('login')} event for: ${username}`);
   usernames.push(username);
   log('this is usernames array: ', usernames);
   ctx.socket.username = username;
