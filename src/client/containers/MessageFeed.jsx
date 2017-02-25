@@ -5,9 +5,17 @@ import { Feed, Icon } from 'semantic-ui-react';
 import { sendMessage } from '../actions/actions';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
-// import Notification from './components/Notification'
+
 
 class MessageFeed extends React.Component {
+  handleSend = (event) => {
+    const text = event.target.value;
+    this.props.dispatch(isTyping({ text }));
+    if (event.keyCode === 13 && text) {
+      this.props.dispatch(sendMessage({ text }));
+      event.target.value = '';
+    }
+  }
 
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
