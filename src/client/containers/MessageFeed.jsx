@@ -63,3 +63,11 @@ function select({ users, messages }) {
 }
 
 export default connect(select)(MessageFeed)
+
+// <div>
+//   <input
+//     type="text"
+//     id="input-message"
+//     placeholder='enter a message'
+//     onKeyUp={this.handleSend}
+//   />
