@@ -64,10 +64,23 @@ function select({ users, messages }) {
 
 export default connect(select)(MessageFeed)
 
-// <div>
-//   <input
-//     type="text"
-//     id="input-message"
-//     placeholder='enter a message'
-//     onKeyUp={this.handleSend}
-//   />
+/*
+const date =
+const user =
+const text =
+<Feed>
+  <Feed.Event>
+    <Feed.Label image={image} />
+    <Feed.Content>
+      <Feed.User something here /><Feed.Date content={date} /> or <Feed.Summary date user />
+      <Feed.Extra  text content = {extraText} />
+      <Feed.Meta>
+        <Feed.Like>
+          <Icon name='like' />something that listens for clicks here and counts up likes</Feed.Like>
+      </Feed.Meta>
+    </Feed.Content>
+  </Feed.Event>
+  */
+  //
+  // const messageList = messages.list.map(id => messages.entities[id]).map((m, i) =>
+  //   <li key={`${i}:${m.id}`}><b>{m.username}: //</b>{m.text}</li>
