@@ -11,6 +11,7 @@ import moment from 'moment'
 const app = Koa();
 const io = new IO();
 
+const log = console.log;
 const g = chalk.green.bind(chalk);
 const b = chalk.blue.bind(chalk);
 const gr = chalk.grey.bind(chalk);
@@ -29,33 +30,33 @@ io.attach(app);
 
 io.on('connection', ctx => {
   const ip = ctx.socket.handshake.headers['x-forwarded-for'] || ctx.socket.handshake.address.address;
-  console.log(d() + b(' Connection: ') + r('New user connected'), gr(ctx.socket.id), gr(ip));
+  log(d() + b(' Connection: ') + r('New user connected'), gr(ctx.socket.id), gr(ip));
 });
 
 let usernames = [];
 io.on('disconnect', ctx => {
   const { username } = ctx.socket;
   if (username) {
-    console.log(`[server] disconnected: ${username}`);
+    log(`[server] disconnected: ${username}`);
     usernames = usernames.filter(u => u !== username)
   }
 });
 
 io.on('login', (ctx, { username }) => {
-  console.log(`[server] login: ${username}`);
+  log(`[server] login: ${username}`);
   usernames.push(username);
-  console.log('this is usernames array: ', usernames);
+  log('this is usernames array: ', usernames);
   ctx.socket.username = username;
   ctx.socket.usernames = usernames;
 
   io.broadcast('users.login', { username, usernames });
-  console.log('users.login', username, usernames);
+  log('users.login', username, usernames);
 });
 
 io.on('logout', ctx => {
   const { username } = ctx.socket;
   if (username) {
-    console.log(`[server] logout: ${username}`);
+    log(`[server] logout: ${username}`);
     usernames = usernames.filter(u => u !== username)
     delete ctx.socket['username'];
 
@@ -65,7 +66,7 @@ io.on('logout', ctx => {
 
 let messages = [];
 io.on('message', (ctx, { text }) => {
-  console.log(`[server] message: ${text}`);
+  log(`[server] message: ${text}`);
   const message = {
     id: messages.length,
     text,
@@ -79,5 +80,5 @@ io.on('message', (ctx, { text }) => {
 const env = process.env.NODE_ENV || 'dev'
 
 app.listen(port, () => {
-  console.log(`Server started on port ${r(port)}, environement: ${b(env)}`);
+  log(`Server started on port ${r(port)}, environement: ${b(env)}`);
 });
