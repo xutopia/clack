@@ -29,8 +29,6 @@ class MessageFeed extends React.Component {
     console.log('this is messages: ',messages);
     // console.log('here are the keys from this.props.messages: ',Object.keys(this.props.messages));
     const messageList = messages.list.map(id => messages.entities[id]).map((m, i) => {
-      //can I bind this here somewhere?
-      console.log('this is m.id inside the render function: ', m.id);
       const date = m.timeStamp;
       const user = m.username;
       const text = m.text;
@@ -64,11 +62,3 @@ function select({ users, messages }) {
 }
 
 export default connect(select)(MessageFeed)
-
-// <div>
-//   <input
-//     type="text"
-//     id="input-message"
-//     placeholder='enter a message'
-//     onKeyUp={this.handleSend}
-//   />
