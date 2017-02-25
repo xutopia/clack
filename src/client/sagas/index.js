@@ -16,8 +16,8 @@ function connect() {
 
 function subscribe(socket) {
   return eventChannel(emit => {
-    socket.on('users.login', ({ username }) => {
-      emit(addUser({ username }));
+    socket.on('users.login', ({ username, usernames }) => {
+      emit(addUser({ username, usernames }));
     });
     socket.on('users.logout', ({ username }) => {
       emit(removeUser({ username }));
@@ -52,7 +52,14 @@ function* handleIO(socket) {
   yield fork(write, socket);
 }
 
-function* flow() {
+/*
+  `loginFlow` saga watches for login and logout events.
+  While a user is logged in, loginFlow manages IO process.
+  When a user logs out, the logout action is fired and is picked up
+  by our saga which then cancels the task.
+*/
+
+function* loginFlow() {
   while (true) {
     let { payload } = yield take(`${login}`);
     const socket = yield call(connect);
@@ -67,5 +74,5 @@ function* flow() {
 }
 
 export default function* rootSaga() {
-  yield fork(flow);
+  yield fork(loginFlow);
 }

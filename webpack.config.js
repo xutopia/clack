@@ -22,6 +22,14 @@ module.exports = {
     publicPath: '/',
     proxy: {
       '/': 'http://localhost:3000'
+    },
+    stats: {
+      assets: true,
+      assetsSort: "field",
+      cached: true,
+      children: true,
+      chunks: false,
+      colors: true,
     }
   },
   module: {
