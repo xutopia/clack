@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Feed } from 'semantic-ui-react';
 import { sendMessage } from '../actions/actions';
+import MessageInput from './MessageInput.jsx';
 // import Notification from './components/Notification'
 
 class MessageFeed extends React.Component {
@@ -44,12 +45,7 @@ class MessageFeed extends React.Component {
 
     return (
       <div>
-        <input
-          type="text"
-          id="input-message"
-          placeholder='enter a message'
-          onKeyUp={this.handleSend}
-        />
+        <MessageInput/>
         {messageList}
       </div>
     )
@@ -60,3 +56,11 @@ function select({ users, messages }) {
 }
 
 export default connect(select)(MessageFeed)
+
+// <div>
+//   <input
+//     type="text"
+//     id="input-message"
+//     placeholder='enter a message'
+//     onKeyUp={this.handleSend}
+//   />
