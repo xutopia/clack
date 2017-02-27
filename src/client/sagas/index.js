@@ -2,8 +2,17 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping,
+  login,
+  logout,
+  addUser,
+  removeUser,
+  newMessage,
+  sendMessage,
+  isTyping as typing,
+  currentlyTyping
 } from '../actions/actions';
+
+import { loginFlow, logoutFlow, registerFlow } from './auth';
 
 function connect() {
   const socket = io('http://localhost:3000');
@@ -24,7 +33,7 @@ function subscribe(socket) {
     });
     socket.on('userTyping', ({ typingStatus, user, userStatus }) => {
       emit(currentlyTyping({ typingStatus, user, userStatus }));
-    })
+    });
     socket.on('messages.new', ({ message }) => {
       emit(newMessage({ message }));
     });
@@ -70,7 +79,7 @@ function* handleIO(socket) {
   by our saga which then cancels the task.
 */
 
-function* loginFlow() {
+function* loginFlowSockets() {
   while (true) {
     let { payload } = yield take(`${login}`);
     const socket = yield call(connect);
@@ -85,5 +94,8 @@ function* loginFlow() {
 }
 
 export default function* rootSaga() {
+  yield fork(loginFlowSockets);
   yield fork(loginFlow);
+  yield fork(logoutFlow);
+  yield fork(registerFlow);
 }
