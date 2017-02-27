@@ -7,7 +7,7 @@ import send from 'koa-send';
 import logger from 'koa-logger';
 import path from 'path';
 
-import { log, d, g, b, gr, r, y, yb } from './util/logging';
+import { log, d, g, b, gr, r, y, yb, redWhite } from './util/logging';
 
 import channel from './db/controllers/channel';
 import message from './db/controllers/message';

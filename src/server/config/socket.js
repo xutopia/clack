@@ -1,6 +1,6 @@
 import IO from 'koa-socket';
 
-import { log, d, g, b, gr, r, y, yb } from '../util/logging';
+import { log, d, g, b, gr, r, y, yb, yellowRed, blackWhite } from '../util/logging';
 
 let usernames = [];
 let messages = [];
@@ -11,9 +11,9 @@ const socketConnection = ctx => {
   const ip = ctx.socket.handshake.headers['x-forwarded-for'] ||
     ctx.socket.handshake.address.address;
   log(
-    d() + b(' Connection: ') + r('New user connected'),
-    gr(ctx.socket.id),
-    gr(ip),
+    d() + b(' Connection: ') + yellowRed('New user connected'),
+    blackWhite(ctx.socket.id),
+    blackWhite(ip),
   );
 };
 
