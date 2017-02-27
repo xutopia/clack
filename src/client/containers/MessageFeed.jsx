@@ -8,6 +8,14 @@ import MessageInput from './MessageInput.jsx';
 
 class MessageFeed extends React.Component {
 
+    addLikes = (event) => {
+      console.log('this is the event: ', event.target);
+      console.log('this is this: ', this);
+      console.log('You just clicked the like button on the message with id: ', event.target.id);
+    // let likes = this.id;
+    // likes ++;
+  }
+
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
       const latestMsgID = messages.list[messages.list.length - 1];
@@ -29,17 +37,19 @@ class MessageFeed extends React.Component {
     console.log('this is messages: ',messages);
     // console.log('here are the keys from this.props.messages: ',Object.keys(this.props.messages));
     const messageList = messages.list.map(id => messages.entities[id]).map((m, i) => {
+      //can I bind this here somewhere?
+      console.log('this is m.id inside the render function: ', m.id);
       const date = m.timeStamp;
       const user = m.username;
       const text = m.text;
       return (
         <Feed.Event key={`${i}:${m.id}`}>
           <Feed.Content>
-          <Feed.User content={user} /><Feed.Date content={date}/>
+            <Feed.Summary date={date} user={user}/>
             <Feed.Extra text content={text} />
             <Feed.Meta>
               <Feed.Like>
-                <Icon name='like' />something that listens for clicks here and counts up likes</Feed.Like>
+                <Icon name='like' onClick={this.addLikes}/>something that listens for clicks here and counts up likes</Feed.Like>
             </Feed.Meta>
           </Feed.Content>
         </Feed.Event>
@@ -49,7 +59,7 @@ class MessageFeed extends React.Component {
 
     return (
       <div>
-        <Feed>
+        <Feed size='large'>
           {messageList}
         </Feed>
         <MessageInput/>
