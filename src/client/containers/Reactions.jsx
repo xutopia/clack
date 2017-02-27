@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Feed, Icon } from 'semantic-ui-react';
+import { addReaction } from '../actions/actions';
 
 class Reactions extends React.Component {
 
   addLikes = (event) => {
-    console.log('this is the event: ', event);
-    this.props.dispatch(addReaction({ reaction }))
+    const reactionCount = this.props
+    this.props.dispatch(addReaction({ reactions }))//need to define where this is going in the sagas
   }
 
   render () {
@@ -22,7 +23,7 @@ class Reactions extends React.Component {
 }
 
 
-const mapStateToProps = ({ messages }) => {
+const mapStateToProps = ({ messages, myP }) => {
   return { messages };
 }
 

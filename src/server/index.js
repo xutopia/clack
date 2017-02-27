@@ -52,6 +52,7 @@ io.on('disconnect', socketDisconnect);
 io.on('login', socketLogin);
 io.on('logout', socketLogout);
 io.on('message', broadcastMessage);
+//need an update listener, listens to the string in the sagas file that is being emitted
 
 app.listen(port, () => {
   log(`Server started on port ${yb(port)}, environement: ${b(env)}`);

@@ -4,6 +4,7 @@ import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
   login, logout, addUser, removeUser, newMessage, sendMessage,
 } from '../actions/actions';
+// need to add 'addReaction'
 
 function connect() {
   const socket = io('http://localhost:3000');
@@ -25,6 +26,7 @@ function subscribe(socket) {
     socket.on('messages.new', ({ message }) => {
       emit(newMessage({ message }));
     });
+    // guessing I need a socket.on(messages.update)
     socket.on('disconnect', e => {
       // TODO: handle
     });
@@ -39,6 +41,7 @@ function* read(socket) {
     yield put(action);
   }
 }
+// generator function update, handleIO
 
 function* write(socket) {
   while (true) {
@@ -62,10 +65,13 @@ function* handleIO(socket) {
 function* loginFlow() {
   while (true) {
     let { payload } = yield take(`${login}`);
-    const socket = yield call(connect);
+    // takes info from login action on the landing component and assigns it to payload (that means at this point payload is a key whose value is the username)
+    const socket = yield call(connect); // open up a socket to the server, connect is defined above
     socket.emit('login', { username: payload.username });
+    // emit this information to the server
 
     const task = yield fork(handleIO, socket);
+    // fork combines functions listed in parameters to run at the same time, or 'kick off the process'
 
     let action = yield take(`${logout}`);
     yield cancel(task);
