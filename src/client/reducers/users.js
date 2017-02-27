@@ -12,7 +12,9 @@ const users = createReducer({
     return newState;
   },
   [currentlyTyping]: (state, payload) => {
-    return { ...state, [payload.user]: payload }
+    const newState = { ...state };
+    delete newState[payload.user];
+    return { ...newState, [payload.user]: { typingStatus: payload.typingStatus, userStatus: payload.userStatus } };
   },
 }, initial.users);
 

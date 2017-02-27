@@ -7,18 +7,17 @@ import { sendMessage, isTyping } from '../actions/actions';
 class MessageFeed extends React.Component {
   handleSend = (event) => {
     const text = event.target.value;
+    const user = this.props.app.username;
 
     if (event.keyCode === 13 && text) {
       this.props.dispatch(sendMessage({ text }));
       event.target.value = '';
     } else if(text.length > 0) {
       const typingStatus = true;
-      const user = this.props.app.username;
       const userStatus = true;
       this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
-    } else if(text.length === 0) {
+    } else if(text.length === 0 && this.props.users[user].typingStatus) {
       const typingStatus = false;
-      const user = this.props.app.username;
       const userStatus = true;
       this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
     }
