@@ -2,30 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Feed, Icon } from 'semantic-ui-react';
-import { sendMessage, isTyping } from '../actions/actions';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
 
 
 class MessageFeed extends React.Component {
-  handleSend = (event) => {
-    const text = event.target.value;
-    const user = this.props.app.username;
-
-    if (event.keyCode === 13 && text) {
-      this.props.dispatch(sendMessage({ text }));
-      event.target.value = '';
-    } else if(text.length > 0) {
-      const typingStatus = true;
-      const userStatus = true;
-      this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
-    } else if(text.length === 0 && this.props.users[user].typingStatus) {
-      const typingStatus = false;
-      const userStatus = true;
-      this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
-    }
-  }
-
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
       const latestMsgID = messages.list[messages.list.length - 1];

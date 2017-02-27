@@ -2,18 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Input } from 'semantic-ui-react';
-import { sendMessage } from '../actions/actions';
+import { sendMessage, isTyping } from '../actions/actions';
 
 class MessageInput extends React.Component {
   handleSend = (event) => {
     const text = event.target.value;
+    const user = this.props.app.username;
 
     if (event.keyCode === 13 && text) {
-      console.log('this event happened: ', event.timeStamp);
-      console.log('this is the text of the message: ', text);
-      const timeStamp = moment().fromNow();
-      this.props.dispatch(sendMessage({ text, timeStamp }));
+      this.props.dispatch(sendMessage({ text }));
       event.target.value = '';
+    } else if(text.length > 0) {
+      const typingStatus = true;
+      const userStatus = true;
+      this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
+    } else if(text.length === 0 && this.props.users[user].typingStatus) {
+      const typingStatus = false;
+      const userStatus = true;
+      this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
     }
   }
 
@@ -32,8 +38,8 @@ class MessageInput extends React.Component {
   }
 }
 
-function mapStateToProps({ messages }) {
-  return { messages };
+function mapStateToProps({ app, users, messages }) {
+  return { app, users, messages };
 }
 
 export default connect(mapStateToProps)(MessageInput);
