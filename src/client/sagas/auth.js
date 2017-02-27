@@ -1,8 +1,8 @@
 import { hashSync } from 'bcryptjs';
 import { take, call, put, fork, race } from 'redux-saga/effects';
 
-import genSalt from '../auth/salt';
-import auth from '../auth/';
+import genSalt from '../util/auth/salt';
+import auth from '../util/auth';
 
 import {
   sendingRequest,
@@ -11,13 +11,13 @@ import {
   setAuth,
   logoutRequest,
   changeForm,
-  requestError,
+  requestError
 } from '../actions/actions';
 
 // effect to handle authorization
 export function* authorize({ username, password, isRegistering }) {
   // send an action telling redux we are sending a request.
-  yield put({});
+  yield put(sendingRequest);
   // we then try to register or log the user in, depending on req.
   try {
     let salt = genSalt(username);
@@ -59,7 +59,7 @@ export function* loginFlow() {
   // Basically here we say "this saga is always listening for actions"
   while (true) {
     // And we're listening for `LOGIN_REQUEST` actions and destructuring its payload
-    let request = yield take(LOGIN_REQUEST);
+    let request = yield take(loginRequest);
     let { username, password } = request.data;
 
     // A `LOGOUT` action may happen while the `authorize` effect is going on, which may
@@ -67,21 +67,18 @@ export function* loginFlow() {
     // returns the "winner", i.e. the one that finished first
     let winner = yield race({
       auth: call(authorize, { username, password, isRegistering: false }),
-      logout: take(LOGOUT),
+      logout: take(logoutRequest)
     });
     // If `authorize` was the winner...
     if (winner.auth) {
       // ...we send Redux appropiate actions
-      yield put({ type: SET_AUTH, newAuthState: true });
-      yield put({
-        type: CHANGE_FORM,
-        newFormState: { username: '', password: '' },
-      });
-      forwardTo('/dashboard');
+      yield put(setAuth(true));
+      yield put(changeForm({ username: '', password: '' }));
+      forwardTo('/room');
       // If `logout` won...
     } else if (winner.logout) {
       // ...we send Redux appropiate action
-      yield put({ type: SET_AUTH, newAuthState: false });
+      yield put(setAuth(false));
       yield call(logout);
       forwardTo('/');
     }
@@ -89,11 +86,39 @@ export function* loginFlow() {
 }
 
 // logout saga
-export function * logoutFlow () {
+export function* logoutFlow() {
   while (true) {
-    yield take({})
-    yield put({})
-    yield call(logout)
-    forwardTo('/')
+    yield take(logoutRequest);
+    yield put(setAuth({ newAuthState: false }));
+    yield call(logout);
+    forwardTo('/');
   }
+}
+
+export function* registerFlow() {
+  while (true) {
+    // We always listen to `REGISTER_REQUEST` actions
+    let request = yield take(registerRequest);
+    let { username, password } = request.data;
+
+    // We call the `authorize` task with the data, telling it that we are registering a user
+    // This returns `true` if the registering was successful, `false` if not
+    let wasSuccessful = yield call(authorize, {
+      username,
+      password,
+      isRegistering: true
+    });
+
+    // If we could register a user, we send the appropiate actions
+    if (wasSuccessful) {
+      yield put(setAuth({ newAuthState: true }));
+      yield put(changeForm({ newFormState: { username: '', password: '' }}))
+      forwardTo('/room');
+    }
+  }
+}
+
+// Helper to simplify redirects
+function forwardTo(location) {
+  browserHistory.push(location);
 }
