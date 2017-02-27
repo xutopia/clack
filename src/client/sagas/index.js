@@ -22,8 +22,8 @@ function subscribe(socket) {
     socket.on('users.logout', ({ username }) => {
       emit(removeUser({ username }));
     });
-    socket.on('users.typing', ({ isTyping }) => {
-      emit(typingStatus({ isTyping }));
+    socket.on('users.typing', ({ status, user }) => {
+      emit(typingStatus({ status, user }));
     })
     socket.on('messages.new', ({ message }) => {
       emit(newMessage({ message }));
