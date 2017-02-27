@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
 const channel = mongoose.Schema({
-  name: { type: String, unique: true },
   id: String,
+  name: { type: String, unique: true },
   private: Boolean,
   members: Array
 });

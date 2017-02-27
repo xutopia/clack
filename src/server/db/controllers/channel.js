@@ -1,41 +1,43 @@
 import router from 'koa-router';
+import send from 'koa-send';
 
 import Channel from '../models/channel';
 import mongo from '../../config/mongo';
 import ws from '../../config/socket';
 
-function* getAllChannels(next) {
+function* getAllChannels() {
   // find channels user belongs to or public channels
-  yield next
-  Channel.find(
-    { $or: [{ between: req.params.name }, { private: false }] },
+  yield Channel.find(
+    { $or: [{ between: this.params.name }, { private: false }] },
     { name: 1, id: 1, private: 1, between: 1, _id: 0 },
-    (err, data) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ msg: 'internal server error' });
+    (e, data) => {
+      try {
+        send(json(data));
       }
-      res.json(data);
+      catch (e) {
+        console.log(e);
+        send(status(500).json({ msg: 'internal server error' }));
+      } 
     },
   );
 }
 
-function* createChannel(next) {
-  yield next
-  const newChannel = new Channel(req.body);
-  newChannel.save((err, data) => {
-      if (err) {
-        console.log(err);
-        res.status(500).json({ msg: 'internal server error' });
-      }
-      res.json(data);
-    });
+function* createChannel() {
+  const newChannel = new Channel(this.body);
+  yield newChannel.save((err, data) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ msg: 'internal server error' });
+    }
+    res.json(data);
+  });
 }
 
-const channel = new router()
+const channel = new router();
 
-channel.get('/channels/:name', getAllChannels)
-channel.get('/channels/:name', createChannel)
+channel.get('/channels/', getAllChannels);
+channel.post('/channels/:name', createChannel);
 
 // export our routes to be imported in index.js and registered with koa
-export default channel
+export default channel;
+
