@@ -1,17 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Feed } from 'semantic-ui-react';
+import moment from 'moment';
+import { Feed, Icon } from 'semantic-ui-react';
 import { sendMessage } from '../actions/actions';
+import MessageInput from './MessageInput.jsx';
+import Reactions from './Reactions.jsx';
 // import Notification from './components/Notification'
 
 class MessageFeed extends React.Component {
-  handleSend = (event) => {
-    const text = event.target.value;
-    if (event.keyCode === 13 && text) {
-      this.props.dispatch(sendMessage({ text }));
-      event.target.value = '';
-    }
-  }
 
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
@@ -31,27 +27,38 @@ class MessageFeed extends React.Component {
 
   render () {
     const { users, messages } = this.props;
-    // console.log('this is messages: ',messages);
-    // console.log('here are the keys from this.props.users: ',Object.keys(this.props.users));
-    const messageList = messages.list.map(id => messages.entities[id]).map((m, i) =>
-      <li key={`${i}:${m.id}`}><b>{m.username}: </b>{m.text}</li>
+    console.log('this is messages: ',messages);
+    const messageList = messages.list.map(id => messages.entities[id]).map((m, i) => {
+      const date = m.timeStamp;
+      const user = m.username;
+      const text = m.text;
+      return (
+        <Feed.Event key={`${i}:${m.id}`}>
+          <Feed.Content>
+            <Feed.Summary date={date} user={user}/>
+            <Feed.Extra text content={text} />
+            <Feed.Meta>
+              <Reactions/>
+            </Feed.Meta>
+          </Feed.Content>
+        </Feed.Event>
+      )}
     )
+    // console.log('this is messageList: ', messageList);
 
     return (
       <div>
-        <input
-          type="text"
-          id="input-message"
-          placeholder='enter a message'
-          onKeyUp={this.handleSend}
-        />
-        {messageList}
+        <Feed size='large'>
+          {messageList}
+        </Feed>
+        <MessageInput/>
       </div>
     )
   }
 }
-function select({ users, messages }) {
+
+const mapStateToProps = ({ users, messages }) => {
   return { users, messages };
 }
 
-export default connect(select)(MessageFeed)
+export default connect(mapStateToProps)(MessageFeed)
