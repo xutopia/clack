@@ -8,8 +8,8 @@ import ws from '../../config/socket';
 function* getAllChannels() {
   // find channels user belongs to or public channels
   yield Channel.find(
-    { $or: [{ between: this.params.name }, { private: false }] },
-    { name: 1, id: 1, private: 1, between: 1, _id: 0 },
+    { $or: [{ members: this.params.name }, { private: false }] },
+    { name: 1, id: 1, private: 1, members: 1, _id: 0 },
     (e, data) => {
       try {
         send(json(data));
