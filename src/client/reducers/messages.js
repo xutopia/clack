@@ -3,6 +3,7 @@ import { newMessage } from '../actions/actions'
 import initial from '../reducers/initial'
 
 const messages = createReducer({
+// newMessage updates state, triggers an event
   [newMessage]: (state, payload) => {
     const { message } = payload;
     return {

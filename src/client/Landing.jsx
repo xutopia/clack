@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Form } from 'semantic-ui-react'
 
 import { login } from './actions/actions'
 
@@ -30,19 +31,22 @@ class Landing extends Component {
     window.localStorage.setItem('currentUser', username);
     this.props.dispatch(login({ username }))
     this.context.router.push('/room');
+    //this is the code that loads the room component?
   }
   render() {
     const { currentUser } = this.state.currentUser;
     return (
       <div>
-        <h1>Landing Page</h1>
-        <form onSubmit={() => this.onFormSubmit(event, this.state)}>
-          <input
+        <h1>Welcome!!!</h1>
+        <Form onSubmit={() => this.onFormSubmit(event, this.state)}>
+          <Form.Field>
+            <input 
             onChange={(event) => this.onInputChange(event, this.state)}
             type="text" placeholder="Enter Name to Chat"
             value={currentUser}
-          />
-        </form>
+            />
+          </Form.Field>
+        </Form>
       </div>
     );
   }

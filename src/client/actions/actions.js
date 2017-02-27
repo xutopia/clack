@@ -8,3 +8,5 @@ export const removeUser = createAction('remove user');
 
 export const newMessage = createAction('new message');
 export const sendMessage = createAction('send message');
+
+export const searchMessages = createAction('new search');
