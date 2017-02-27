@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Feed, Icon } from 'semantic-ui-react';
-import { sendMessage } from '../actions/actions';
+import { sendMessage, isTyping } from '../actions/actions';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
 

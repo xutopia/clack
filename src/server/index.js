@@ -20,6 +20,7 @@ import {
   socketLogin,
   socketLogout,
   broadcastMessage,
+  usersTypingStatus,
 } from './config/socket';
 
 const app = Koa();
@@ -38,7 +39,7 @@ app.use(user.routes());
 // app.use(function* () {
 //   yield passport.initialize();
 // })
-app.use(function*() {
+app.use(function* () {
   yield send(this, this.path, {
     root: path.join(__dirname, '../../dist/index.html'),
   });
@@ -52,6 +53,7 @@ io.on('disconnect', socketDisconnect);
 io.on('login', socketLogin);
 io.on('logout', socketLogout);
 io.on('message', broadcastMessage);
+io.on('typing', usersTypingStatus);
 
 app.listen(port, () => {
   log(`Server started on port ${yb(port)}, environement: ${b(env)}`);
