@@ -1,5 +1,4 @@
 import router from 'koa-router';
-import passport from 'passport';
 
 import User from '../models/user';
 import mongo from '../../config/mongo';
@@ -14,7 +13,7 @@ function* createUser() {
   this.status = 201;
   this.body = { id: results.ops[0]._id };
 }
-function* signIn(passport, next) {
+function* signIn(next) {
   yield next
   res.json(this.user);
 }
@@ -47,18 +46,11 @@ function* getAllUsernames(next) {
 
 const user = new router();
 
-user.get('/auth/signup',
-  passport.authenticate(local, { session: false }),
-  createUser,
-);
-user.get('/auth/signin',
-  passport.authenticate(local, { session: false }),
-  signIn,
-);
+user.get('/auth/signup', createUser);
+user.get('/auth/signin', signIn);
 user.get('/auth/signout', signOut);
 user.get('/auth/cred', getCredentials);
 user.get('/auth/allnames', getAllUsernames);
-
 
 // export our routes to be imported in index.js and registered with koa
 export default user
