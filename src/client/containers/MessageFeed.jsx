@@ -28,7 +28,6 @@ class MessageFeed extends React.Component {
   render () {
     const { users, messages } = this.props;
     console.log('this is messages: ',messages);
-    // console.log('here are the keys from this.props.messages: ',Object.keys(this.props.messages));
     const messageList = messages.list.map(id => messages.entities[id]).map((m, i) => {
       const date = m.timeStamp;
       const user = m.username;
@@ -45,6 +44,7 @@ class MessageFeed extends React.Component {
         </Feed.Event>
       )}
     )
+    console.log('this is messageList: ', messageList);
 
     return (
       <div>
