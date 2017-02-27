@@ -63,8 +63,8 @@ io.on('logout', ctx => {
   }
 });
 
-io.on('typing', (ctx, { status, user }) => {
-  io.broadcast('users.typing', { status, user });
+io.on('typing', (ctx, { typingStatus, user, userStatus }) => {
+  io.broadcast('users.typing', { typingStatus, user, userStatus });
 });
 
 let messages = [];

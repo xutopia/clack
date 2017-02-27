@@ -12,13 +12,15 @@ class MessageFeed extends React.Component {
       this.props.dispatch(sendMessage({ text }));
       event.target.value = '';
     } else if(text.length > 0) {
-      const status = 'true';
+      const typingStatus = true;
       const user = this.props.app.username;
-      this.props.dispatch(isTyping({ status, user }));
+      const userStatus = true;
+      this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
     } else if(text.length === 0) {
-      const status = 'false';
+      const typingStatus = false;
       const user = this.props.app.username;
-      this.props.dispatch(isTyping({ status, user }));
+      const userStatus = true;
+      this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
     }
   }
 
