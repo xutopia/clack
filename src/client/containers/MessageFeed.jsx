@@ -12,9 +12,13 @@ class MessageFeed extends React.Component {
       this.props.dispatch(sendMessage({ text }));
       event.target.value = '';
     } else if(text.length > 0) {
-      this.props.dispatch(isTyping('true', 'secondString'));
+      const status = 'true';
+      const user = this.props.app.username;
+      this.props.dispatch(isTyping({ status, user }));
     } else if(text.length === 0) {
-      this.props.dispatch(isTyping('false', 'secondString'));
+      const status = 'false';
+      const user = this.props.app.username;
+      this.props.dispatch(isTyping({ status, user }));
     }
   }
 
@@ -55,8 +59,8 @@ class MessageFeed extends React.Component {
     )
   }
 }
-function select({ users, messages }) {
-  return { users, messages };
+function select({ app, users, messages }) {
+  return { app, users, messages };
 }
 
 export default connect(select)(MessageFeed)

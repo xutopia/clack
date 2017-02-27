@@ -63,11 +63,8 @@ io.on('logout', ctx => {
   }
 });
 
-io.on('typing', (ctx, isTyping, third) => {
-  console.log(`inside server, typing: ${third}`);
-  const typingStatus = isTyping;
-  console.log('hopefully once:', typingStatus);
-  io.broadcast('users.typing', typingStatus);
+io.on('typing', (ctx, { status, user }) => {
+  io.broadcast('users.typing', { status, user });
 });
 
 let messages = [];
