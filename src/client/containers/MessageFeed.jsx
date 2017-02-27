@@ -4,6 +4,8 @@ import moment from 'moment';
 import { Feed, Icon } from 'semantic-ui-react';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
+import typingStatuses from './TypingStatuses.jsx';
+
 
 
 class MessageFeed extends React.Component {
@@ -50,6 +52,7 @@ class MessageFeed extends React.Component {
           {messageList}
         </Feed>
         <MessageInput/>
+        <TypingStatuses />
       </div>
     )
   }
