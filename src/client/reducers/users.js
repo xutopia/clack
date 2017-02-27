@@ -1,17 +1,17 @@
 import { createReducer } from 'redux-act';
-import { addUser, removeUser, typingStatus } from '../actions/actions'
+import { addUser, removeUser, currentlyTyping } from '../actions/actions'
 import initial from '../reducers/initial'
 
 const users = createReducer({
   [addUser]: (state, payload) => {
-    return { ...state, [payload.username]: { status: true, typingStatus: false } };
+    return { ...state, [payload.username]: { userStatus: true, typingStatus: false } };
   },
   [removeUser]: (state, payload) => {
     const newState = { ...state };
     delete newState[payload.username];
     return newState;
   },
-  [typingStatus]: (state, payload) => {
+  [currentlyTyping]: (state, payload) => {
     return { ...state, [payload.user]: payload }
   },
 }, initial.users);

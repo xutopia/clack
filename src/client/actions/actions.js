@@ -7,7 +7,7 @@ export const addUser = createAction('add user');
 export const removeUser = createAction('remove user');
 
 export const isTyping = createAction('isTyping');
-export const typingStatus = createAction('typingStatus');
+export const currentlyTyping = createAction('currentlyTyping');
 
 export const newMessage = createAction('new message');
 export const sendMessage = createAction('send message');
