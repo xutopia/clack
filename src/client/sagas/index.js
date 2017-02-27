@@ -22,7 +22,7 @@ function subscribe(socket) {
     socket.on('users.logout', ({ username }) => {
       emit(removeUser({ username }));
     });
-    socket.on('users.typing', ({ typingStatus, user, userStatus }) => {
+    socket.on('userTyping', ({ typingStatus, user, userStatus }) => {
       emit(currentlyTyping({ typingStatus, user, userStatus }));
     })
     socket.on('messages.new', ({ message }) => {
