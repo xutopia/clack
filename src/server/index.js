@@ -2,7 +2,7 @@
 /* eslint-disable func-names */
 /* eslint-disable arrow-parens */
 import Koa from 'koa';
-import IO from 'koa-socket';
+
 import send from 'koa-send';
 import logger from 'koa-logger';
 import path from 'path';
@@ -14,6 +14,7 @@ import message from './db/controllers/message';
 import user from './db/controllers/user';
 
 import {
+  io,
   socketConnection,
   socketDisconnect,
   socketLogin,
@@ -43,7 +44,6 @@ app.use(function*() {
   });
 });
 
-const io = new IO();
 io.attach(app);
 
 // Socket.io listeners

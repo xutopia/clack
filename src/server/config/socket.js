@@ -1,5 +1,11 @@
+import IO from 'koa-socket';
+
+import { log, d, g, b, gr, r, y, yb } from '../util/logging';
+
 let usernames = [];
 let messages = [];
+
+const io = new IO();
 
 const socketConnection = ctx => {
   const ip = ctx.socket.handshake.headers['x-forwarded-for'] ||
@@ -14,26 +20,24 @@ const socketConnection = ctx => {
 const socketDisconnect = ctx => {
   const { username } = ctx.socket;
   if (username) {
-    log(`[server] disconnected: ${username}`);
+    log(`${[d()]} [server] disconnected: ${username}`);
     usernames = usernames.filter(u => u !== username);
   }
 };
 
-const socketLogin = (ctx, { username, usernames }) => {
+const socketLogin = (ctx, { username }) => {
   log(`${[d()]} [server] received ${g('login')} event for: ${username}`);
   usernames.push(username);
-  log('this is usernames array: ', usernames);
   ctx.socket.username = username;
   ctx.socket.usernames = usernames;
 
   io.broadcast('users.login', { username, usernames });
-  log('users.login', username, usernames);
 };
 
 const socketLogout = ctx => {
   const { username } = ctx.socket;
   if (username) {
-    log(`[server] logout: ${username}`);
+    log(`${[d()]} [server] logout: ${username}`);
     usernames = usernames.filter(u => u !== username);
     delete ctx.socket['username'];
 
@@ -42,18 +46,19 @@ const socketLogout = ctx => {
 };
 
 const broadcastMessage = (ctx, { text }) => {
-  log(`[server] message: ${text}`);
+  // log(`${[d()]} [server] broadcasting message: ${text}`);
   const message = {
     id: messages.length,
     text,
     username: ctx.socket.username,
   };
   messages.push(message);
-
+  log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to all users`);
   io.broadcast('messages.new', { message });
 };
 
 export {
+  io,
   socketConnection,
   socketDisconnect,
   socketLogin,
