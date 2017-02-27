@@ -4,6 +4,7 @@ import moment from 'moment';
 import { Feed, Icon } from 'semantic-ui-react';
 import { sendMessage } from '../actions/actions';
 import MessageInput from './MessageInput.jsx';
+import Reactions from './Reactions.jsx';
 // import Notification from './components/Notification'
 
 class MessageFeed extends React.Component {
@@ -38,14 +39,13 @@ class MessageFeed extends React.Component {
             <Feed.Summary date={date} user={user}/>
             <Feed.Extra text content={text} />
             <Feed.Meta>
-              <Feed.Like>
-                <Icon name='like' onClick={this.addLikes}/>something that listens for clicks here and counts up likes</Feed.Like>
+              <Reactions/>
             </Feed.Meta>
           </Feed.Content>
         </Feed.Event>
-    )}
+      )}
     )
-    // console.log('this is messageList: ', messageList);
+
     return (
       <div>
         <Feed size='large'>
@@ -57,8 +57,8 @@ class MessageFeed extends React.Component {
   }
 }
 
-function select({ users, messages }) {
+const mapStateToProps = ({ users, messages }) => {
   return { users, messages };
 }
 
-export default connect(select)(MessageFeed)
+export default connect(mapStateToProps)(MessageFeed)
