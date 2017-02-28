@@ -27,20 +27,21 @@ class MessageFeed extends React.Component {
 
   render () {
     const { users, messages } = this.props;
-    console.log('this is messages: ',messages);
+    // console.log('this is messages: ',messages);
     const messageList = messages.list.map(id => messages.entities[id]).map((m, i) => {
-      //can I bind this here somewhere?
-      console.log('this is m.id inside the render function: ', m.id);
       const date = m.timeStamp;
       const user = m.username;
       const text = m.text;
+      const eventKey = m.id;
+      const
+      console.log('here is the eventKey: ', eventKey);
       return (
         <Feed.Event key={`${i}:${m.id}`}>
           <Feed.Content>
             <Feed.Summary date={date} user={user}/>
             <Feed.Extra text content={text} />
             <Feed.Meta>
-              <Reactions/>
+              <Reactions eventKey={eventKey}/>
             </Feed.Meta>
           </Feed.Content>
         </Feed.Event>

@@ -6,9 +6,11 @@ import { addReaction } from '../actions/actions';
 class Reactions extends React.Component {
 
   addLikes = (event) => {
-    console.log('here is event.target: ', event.target);
-    console.log('here is this.props inside the addLikes function: ', this.props);
-    const reactionCount = this.props
+    console.log('here is this.props.eventKey inside the addLikes function: ', this.props.eventKey[0]);
+    console.log('here is this.props: ', this.props);
+    const feedId = this.props.eventKey[0];
+    const reactionMessage = this.props.messages.entities[feedId];
+    console.log('this better be the object i want: ', reactionMessage);
     // this.props.dispatch(addReaction({ reactions }))//need to define where this is going in the sagas
   }
 
