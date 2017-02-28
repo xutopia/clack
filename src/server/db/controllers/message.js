@@ -1,7 +1,7 @@
 import router from 'koa-router';
 
 import Message from '../models/message';
-import mongo from '../../config/mongo';
+// import mongo from '../../config/mongo';
 import ws from '../../config/socket';
 
 function* getAllMessages(next) {
@@ -48,7 +48,7 @@ function* createMessage() {
 const message = new router()
 message.get('/messages', getAllMessages);
 message.get('/messages/:channel', getAllMessagesForChannel);
-message.get('/messages/create', createMessage);
+message.post('/messages/create', createMessage);
 
 // export our routes to be imported in index.js and registered with koa
 export default message

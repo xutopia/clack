@@ -1,7 +1,7 @@
 import router from 'koa-router';
 
 import User from '../models/user';
-import mongo from '../../config/mongo';
+// import mongo from '../../config/mongo';
 import ws from '../../config/socket';
 
 const local = 'local-signup';
@@ -13,6 +13,7 @@ function* createUser() {
   this.status = 201;
   this.body = { id: results.ops[0]._id };
 }
+
 function* signIn(next) {
   yield next
   res.json(this.user);
@@ -46,7 +47,7 @@ function* getAllUsernames(next) {
 
 const user = new router();
 
-user.get('/auth/signup', createUser);
+user.post('/auth/signup', createUser);
 user.get('/auth/signin', signIn);
 user.get('/auth/signout', signOut);
 user.get('/auth/cred', getCredentials);
