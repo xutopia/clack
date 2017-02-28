@@ -33,8 +33,8 @@ function subscribe(socket) {
     socket.on('messages.update', ({ likedMessage }) => {
       emit(sendUpdatedReaction({ likedMessage }));
     });
-    socket.on('messages.private', ({ message }) => {
-      emit(newPrivateMessage({ message }));
+    socket.on('messages.private', ({ privateMessage }) => {
+      emit(newPrivateMessage({ privateMessage }));
     });
     socket.on('disconnect', e => {
       // TODO: handle
