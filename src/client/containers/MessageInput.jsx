@@ -5,34 +5,60 @@ import { Input } from 'semantic-ui-react';
 import { sendMessage, isTyping } from '../actions/actions';
 
 class MessageInput extends React.Component {
-  handleSend = (event) => {
-    const text = event.target.value;
-    const user = this.props.app.username;
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: '',
+    }
+  }
 
-    if (event.keyCode === 13 && text) {
-      this.props.dispatch(sendMessage({ text }));
-      event.target.value = '';
-    } else if(text.length > 0) {
+  onMessageSubmit = (event) => {
+    const text = this.state.message;
+    this.props.dispatch(sendMessage({ text }));
+    this.setState({
+      message: '',
+    })
+    event.preventDefault();
+  }
+
+  handleTyping = (event, state) => {
+    const message = event.target.value;
+    this.setState({ message });
+  }
+
+  handleTypingStatus = (status) => {
+    const user = this.props.app.username;
+    const userStatus = true;
+    if(status.length > 0) {
       const typingStatus = true;
-      const userStatus = true;
       this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
-    } else if(text.length === 0 && this.props.users[user].typingStatus) {
+    } else if(status.length === 0) {
       const typingStatus = false;
-      const userStatus = true;
       this.props.dispatch(isTyping({ typingStatus, user, userStatus }));
     }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState.message !== this.state.message;
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    this.handleTypingStatus(nextState.message);
   }
 
   render () {
     const { messages } = this.props;
     return (
       <div>
-        <Input
-        fluid
-        icon='smile'
-        placeholder='enter a message'
-        onKeyUp={this.handleSend}
-        />
+        <form onSubmit={(e) => this.onMessageSubmit(e)}>
+          <Input
+            fluid
+            icon='smile'
+            placeholder='enter a message'
+            value={this.state.message}
+            onChange={(event) => this.handleTyping(event, this.state)}
+          />
+        </form>
       </div>
     )
   }
