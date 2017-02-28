@@ -33,7 +33,6 @@ class MessageFeed extends React.Component {
       const user = m.username;
       const text = m.text;
       const eventKey = m.id;
-      const
       console.log('here is the eventKey: ', eventKey);
       return (
         <Feed.Event key={`${i}:${m.id}`}>
