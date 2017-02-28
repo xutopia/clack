@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Feed, Icon } from 'semantic-ui-react';
-import { sendMessage } from '../actions/actions';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
-// import Notification from './components/Notification'
+import TypingStatuses from './TypingStatuses.jsx';
+
+
 
 class MessageFeed extends React.Component {
-
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
       const latestMsgID = messages.list[messages.list.length - 1];
@@ -22,7 +22,9 @@ class MessageFeed extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    this.showNewMsgNotification(nextProps.messages);
+    if(nextProps.messages.list.length !== this.props.messages.list.length) {
+      this.showNewMsgNotification(nextProps.messages);
+    }
   }
 
   render () {
@@ -51,7 +53,8 @@ class MessageFeed extends React.Component {
         <Feed size='large'>
           {messageList}
         </Feed>
-        <MessageInput/>
+        <MessageInput />
+        <TypingStatuses />
       </div>
     )
   }
