@@ -28,8 +28,8 @@ function subscribe(socket) {
     socket.on('messages.new', ({ message }) => {
       emit(newMessage({ message }));
     });
-    socket.on('messages.private', ({ message }) => {
-      emit(newPrivateMessage({ message }));
+    socket.on('messages.private', ({ privateMessage }) => {
+      emit(newPrivateMessage({ privateMessage }));
     });
     socket.on('disconnect', e => {
       // TODO: handle

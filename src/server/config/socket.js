@@ -3,7 +3,9 @@ import IO from 'koa-socket';
 import { log, d, g, b, gr, r, y, yb } from '../util/logging';
 
 let usernames = [];
-let messages = [];
+const messages = [];
+const privateMessages = [];
+const usersId = {};
 
 const io = new IO();
 
@@ -31,7 +33,12 @@ const socketLogin = (ctx, { username }) => {
   ctx.socket.username = username;
   ctx.socket.usernames = usernames;
 
-  io.broadcast('users.login', { username, usernames });
+  if(usersId[username] === undefined) {
+    usersId[username] = ctx.socket.id;
+    io.broadcast('users.login', { username, usernames });
+  } else {
+    io.broadcast('error', { username });
+  }
 };
 
 const socketLogout = ctx => {
@@ -46,7 +53,7 @@ const socketLogout = ctx => {
 };
 
 const broadcastMessage = (ctx, { text }) => {
-  // log(`${[d()]} [server] broadcasting message: ${text}`);
+  log(`${[d()]} [server] broadcasting message: ${text}`);
   const message = {
     id: messages.length,
     text,
@@ -55,6 +62,19 @@ const broadcastMessage = (ctx, { text }) => {
   messages.push(message);
   log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to all users`);
   io.broadcast('messages.new', { message });
+};
+const broadcastPrivateMessage = (ctx, { text, target }) => {
+  log(`${[d()]} [server] broadcasting private message: ${text}`);
+  const privateMessage = {
+    id: messages.length,
+    text,
+    target,
+    username: ctx.socket.username,
+  };
+  privateMessages.push(privateMessages);
+
+  log(`${[d()]} [server] Received new private message from client, ${g('broadcasting')} message to ${target}`);
+  io.sockets.connected[usersId[target]].emit('messages.private', { privateMessage });
 };
 
 const usersTypingStatus = (ctx, { typingStatus, user, userStatus }) => {
@@ -69,5 +89,6 @@ export {
   socketLogin,
   socketLogout,
   broadcastMessage,
+  broadcastPrivateMessage,
   usersTypingStatus,
 };
