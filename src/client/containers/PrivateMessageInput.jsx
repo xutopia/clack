@@ -9,19 +9,35 @@ class PrivateMessageInput extends Component {
     super(props);
     this.state = {
       secretRecipient: '',
+      secretMessage: '',
     }
   }
 
   handlePrivateSend = (event) => {
 
   }
+
   render() {
     return (
       <div>
-        Secret Recipient: <br />
-        <Input />
-        Secret Message: <br />
-        <Input />
+        <form onSubmit={(e) => this.onSearchSubmit(e)}>
+          Secret Message Recipient: <br />
+          <Input
+            type="text"
+            id="input-secretMsg-recipient"
+            placeholder="receiver's name"
+            value={this.state.secretRecipient}
+            onChange={(event) => this.handleRecipientInput(event)}
+          />
+          Secret Message: <br />
+          <Input
+            type="text"
+            id="input-secretMsg-content"
+            placeholder="message content"
+            value={this.state.secretMessage}
+            onChange={(event) => this.handleMessageInput(event)}
+          />
+        </form>
       </div>
     )
   }
