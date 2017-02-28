@@ -6,17 +6,16 @@ import { addReaction } from '../actions/actions';
 class Reactions extends React.Component {
 
   addLikes = (event) => {
-    console.log('here is this.props.eventKey inside the addLikes function: ', this.props.eventKey[0]);
-    console.log('here is this.props: ', this.props);
-    const feedId = this.props.eventKey[0];
-    const reactionMessage = this.props.messages.entities[feedId];
-    console.log('this better be the object i want: ', reactionMessage);
-    // this.props.dispatch(addReaction({ reactions }))//need to define where this is going in the sagas
+    const feedId = this.props.eventKey;
+    const likedMessage = this.props.messages.entities[feedId];
+    this.props.dispatch(addReaction({ likedMessage }))
   }
 
   render () {
-    //define reaction object with a like property and its count
-    const reactionCount = 2//m.likeCount;
+    const { messages } = this.props;
+    const feedId = this.props.eventKey;
+    const currentMessage = this.props.messages.entities[feedId];
+    const reactionCount = currentMessage.reactions.likes;
     return (
       <Feed.Like>
         <Icon name='like' onClick={this.addLikes}/>

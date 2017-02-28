@@ -35,7 +35,6 @@ class MessageFeed extends React.Component {
       const user = m.username;
       const text = m.text;
       const eventKey = m.id;
-      console.log('here is the eventKey: ', eventKey);
       return (
         <Feed.Event key={`${i}:${m.id}`}>
           <Feed.Content>
@@ -48,7 +47,6 @@ class MessageFeed extends React.Component {
         </Feed.Event>
       )}
     )
-    // console.log('this is messageList: ', messageList);
 
     return (
       <div>

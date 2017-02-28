@@ -59,11 +59,15 @@ const broadcastMessage = (ctx, { text, timeStamp }) => {
   io.broadcast('messages.new', { message });
 };
 
-// need a function like broadcastUpdatedMessage (ctx, )
-
 const usersTypingStatus = (ctx, { typingStatus, user, userStatus }) => {
   log(`${[d()]} [server] Received new user typing status from client, ${g('broadcasting')} status to all users`);
   io.broadcast('userTyping', { typingStatus, user, userStatus });
+};
+
+const broadcastUpdatedMessage = (ctx, { likedMessage }) => {
+  likedMessage.reactions.likes ++;
+  log(`${[d()]} [server] Received new message reaction from client, ${g('broadcasting')} updated reactionCount to all users`);
+  io.broadcast('messages.update', { likedMessage });
 };
 
 export {
@@ -74,4 +78,5 @@ export {
   socketLogout,
   broadcastMessage,
   usersTypingStatus,
+  broadcastUpdatedMessage
 };

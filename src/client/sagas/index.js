@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping,
+  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, addReaction, sendUpdatedReaction
 } from '../actions/actions';
 // need to add 'addReaction'
 
@@ -16,6 +16,7 @@ function connect() {
 }
 
 function subscribe(socket) {
+  //eventChannel is listening for data coming back from the server, then calls an action that will interact with the reducers
   return eventChannel(emit => {
     socket.on('users.login', ({ username, usernames }) => {
       emit(addUser({ username, usernames }));
@@ -25,11 +26,14 @@ function subscribe(socket) {
     });
     socket.on('userTyping', ({ typingStatus, user, userStatus }) => {
       emit(currentlyTyping({ typingStatus, user, userStatus }));
-    })
+    });
     socket.on('messages.new', ({ message }) => {
       emit(newMessage({ message }));
     });
-    // guessing I need a socket.on(messages.update)
+    socket.on('messages.update', ({ likedMessage }) => {
+      emit(sendUpdatedReaction({ likedMessage }));
+    });
+
     socket.on('disconnect', e => {
       // TODO: handle
     });
@@ -44,12 +48,18 @@ function* read(socket) {
     yield put(action);
   }
 }
-// generator function update, handleIO
 
 function* write(socket) {
   while (true) {
     const { payload } = yield take(`${sendMessage}`);
     socket.emit('message', payload);
+  }
+}
+
+function* update(socket) {
+  while (true) {
+    const { payload } = yield take(`${addReaction}`);
+    socket.emit('likedMessage', payload);
   }
 }
 
@@ -63,6 +73,7 @@ function* userIsTyping(socket) {
 function* handleIO(socket) {
   yield fork(read, socket);
   yield fork(write, socket);
+  yield fork(update, socket);
   yield fork(userIsTyping, socket);
 }
 
