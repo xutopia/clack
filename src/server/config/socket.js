@@ -45,14 +45,14 @@ const socketLogout = ctx => {
   }
 };
 
-const broadcastMessage = (ctx, { text }) => { // timeStamp?
+const broadcastMessage = (ctx, { text, timeStamp }) => {
   // log(`${[d()]} [server] broadcasting message: ${text}`);
   const message = {
     id: messages.length,
     text,
     username: ctx.socket.username,
-    // timeStamp?
-    // reactions property to be edited in the future
+    timeStamp,
+    reactions: {likes: 0}
   };
   messages.push(message);
   log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to all users`);

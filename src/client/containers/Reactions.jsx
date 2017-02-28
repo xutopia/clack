@@ -6,8 +6,10 @@ import { addReaction } from '../actions/actions';
 class Reactions extends React.Component {
 
   addLikes = (event) => {
+    console.log('here is event.target: ', event.target);
+    console.log('here is this.props inside the addLikes function: ', this.props);
     const reactionCount = this.props
-    this.props.dispatch(addReaction({ reactions }))//need to define where this is going in the sagas
+    // this.props.dispatch(addReaction({ reactions }))//need to define where this is going in the sagas
   }
 
   render () {
@@ -23,7 +25,7 @@ class Reactions extends React.Component {
 }
 
 
-const mapStateToProps = ({ messages, myP }) => {
+const mapStateToProps = ({ messages }) => {
   return { messages };
 }
 
