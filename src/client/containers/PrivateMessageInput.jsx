@@ -5,10 +5,23 @@ import { Input } from 'semantic-ui-react';
 import { sendPrivateMessage } from '../actions/actions';
 
 class PrivateMessageInput extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      secretRecipient: '',
+    }
+  }
+
+  handlePrivateSend = (event) => {
+
+  }
   render() {
     return (
       <div>
-        A PRIVATE MESSAGE THINGY!
+        Secret Recipient: <br />
+        <Input />
+        Secret Message: <br />
+        <Input />
       </div>
     )
   }

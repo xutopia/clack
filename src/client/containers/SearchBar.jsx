@@ -1,6 +1,7 @@
 // SearchBar container that accepts user input to be run in the lunr
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Input } from 'semantic-ui-react';
 import { searchMessages } from '../actions/actions';
 import generateSearchIndex from '../util/indexMessages';
 
@@ -19,11 +20,11 @@ class SearchBar extends Component {
     return (
       <div>
         Here is the SearchBar
-        <input
+        <Input
           type="text"
           id="input-search"
           placeholder="Search"
-          onKeyUp={this.handleSearch}
+          onChange={(event) => this.handleSearch(event)}
         />
       </div>
     );
