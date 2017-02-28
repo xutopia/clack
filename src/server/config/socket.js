@@ -57,11 +57,17 @@ const broadcastMessage = (ctx, { text }) => {
   io.broadcast('messages.new', { message });
 };
 
+const usersTypingStatus = (ctx, { typingStatus, user, userStatus }) => {
+  log(`${[d()]} [server] Received new user typing status from client, ${g('broadcasting')} status to all users`);
+  io.broadcast('userTyping', { typingStatus, user, userStatus });
+};
+
 export {
   io,
   socketConnection,
   socketDisconnect,
   socketLogin,
   socketLogout,
-  broadcastMessage
+  broadcastMessage,
+  usersTypingStatus,
 };

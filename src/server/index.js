@@ -23,6 +23,7 @@ import {
   socketLogin,
   socketLogout,
   broadcastMessage,
+  usersTypingStatus,
 } from './config/socket';
 
 const app = Koa();
@@ -62,6 +63,7 @@ io.on('disconnect', socketDisconnect);
 io.on('login', socketLogin);
 io.on('logout', socketLogout);
 io.on('message', broadcastMessage);
+io.on('typing', usersTypingStatus);
 
 app.listen(port, () => {
   log(`Server started on port ${yb(port)}, environment: ${b(env)}, mongodb status: ${b(mongoose.connection.readyState)}`);
