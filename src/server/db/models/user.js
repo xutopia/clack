@@ -1,7 +1,5 @@
-import mongoose from 'mongoose';
 import bcrypt from 'bcrypt-nodejs';
-
-const SALT_FACTOR = 10
+import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema({
   local: {
@@ -12,32 +10,12 @@ const userSchema = mongoose.Schema({
   },
 });
 
-const noop = () => {};
+userSchema.methods.generateHash = function(password) {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(9), null)
+}
 
-userSchema.pre('save', (done) => {
-  const user = this;
-  if (!user.isModified('password')) {
-    return done();
-  }
-  bcrypt.genSalt(SALT_FACTOR, (err, salt) => {
-    if (err) {
-      return done(err);
-    }
-    bcrypt.hash(user.password, salt, noop, (err, hashedPassword) => {
-      if (err) {
-        return done(err);
-      }
-      user.password = hashedPassword;
-      done();
-    });
-  });
-});
-
-userSchema.methods.getUserName = () => this.username;
-userSchema.methods.checkPassword = (guess, done) => {
-  bcrypt.compare(guess, this.password, (err, isMatch) => {
-    done(err, isMatch);
-  });
-};
+userSchema.methods.validPassword = function(password) {
+  return bcrypt.compareSync(password, this.local.password)
+}
 
 export default mongoose.model('userSchema', userSchema);
