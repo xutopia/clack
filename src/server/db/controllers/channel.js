@@ -1,5 +1,7 @@
 import router from 'koa-router';
-import { log, b } from '../../util/logging'
+import bodyParser from 'koa-bodyparser'
+
+import { log, b } from '../../util/logging';
 import Channel from '../models/channel';
 import db from '../../config/mongo';
 import ws from '../../config/socket';
@@ -10,7 +12,7 @@ function* getAllChannels() {
   log(`mongodb status before making query: ${b(db.readyState)}`);
   yield Channel.find(
     { $or: [{ members: ctx.params.name }, { private: false }] },
-    { name: 1, id: 1, private: 1, members: 1, _id: 0 },
+    {},
     (e, data) => {
       if (e) {
         log(e);
@@ -23,20 +25,24 @@ function* getAllChannels() {
 }
 
 function* createChannel() {
-  const newChannel = new Channel(this.body);
-  yield newChannel.save((err, data) => {
-    if (err) {
-      console.log(err);
-      res.status(500).json({ msg: 'internal server error' });
-    }
-    res.json(data);
+  const ctx = this;
+  const newChannel = new Channel({
+    name: ctx.request.body.name,
+    private: ctx.request.body.private,
+    members: ctx.request.body.members
   });
+  try {
+    yield newChannel.save(newChannel)
+    ctx.body = "Successfully saved new channel in db."
+  } catch (e) {
+    ctx.throw(500, e)
+  }
 }
 
 const channel = new router();
 
 channel.get('/channels/', getAllChannels);
-channel.post('/channels/:name', createChannel);
+channel.post('/channels/', createChannel);
 
 // export our routes to be imported in index.js and registered with koa
 export default channel;
