@@ -45,12 +45,14 @@ const socketLogout = ctx => {
   }
 };
 
-const broadcastMessage = (ctx, { text }) => {
+const broadcastMessage = (ctx, { text, timeStamp }) => {
   // log(`${[d()]} [server] broadcasting message: ${text}`);
   const message = {
     id: messages.length,
     text,
     username: ctx.socket.username,
+    timeStamp,
+    reactions: {likes: 0}
   };
   messages.push(message);
   log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to all users`);
@@ -62,6 +64,12 @@ const usersTypingStatus = (ctx, { typingStatus, user, userStatus }) => {
   io.broadcast('userTyping', { typingStatus, user, userStatus });
 };
 
+const broadcastUpdatedMessage = (ctx, { likedMessage }) => {
+  likedMessage.reactions.likes ++;
+  log(`${[d()]} [server] Received new message reaction from client, ${g('broadcasting')} updated reactionCount to all users`);
+  io.broadcast('messages.update', { likedMessage });
+};
+
 export {
   io,
   socketConnection,
@@ -70,4 +78,5 @@ export {
   socketLogout,
   broadcastMessage,
   usersTypingStatus,
+  broadcastUpdatedMessage
 };

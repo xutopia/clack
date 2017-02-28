@@ -2,8 +2,9 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping,
+  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, addReaction, sendUpdatedReaction
 } from '../actions/actions';
+// need to add 'addReaction'
 
 function connect() {
   const socket = io('http://localhost:3000');
@@ -15,6 +16,7 @@ function connect() {
 }
 
 function subscribe(socket) {
+  //eventChannel is listening for data coming back from the server, then calls an action that will interact with the reducers
   return eventChannel(emit => {
     socket.on('users.login', ({ username, usernames }) => {
       emit(addUser({ username, usernames }));
@@ -24,10 +26,14 @@ function subscribe(socket) {
     });
     socket.on('userTyping', ({ typingStatus, user, userStatus }) => {
       emit(currentlyTyping({ typingStatus, user, userStatus }));
-    })
+    });
     socket.on('messages.new', ({ message }) => {
       emit(newMessage({ message }));
     });
+    socket.on('messages.update', ({ likedMessage }) => {
+      emit(sendUpdatedReaction({ likedMessage }));
+    });
+
     socket.on('disconnect', e => {
       // TODO: handle
     });
@@ -50,6 +56,13 @@ function* write(socket) {
   }
 }
 
+function* update(socket) {
+  while (true) {
+    const { payload } = yield take(`${addReaction}`);
+    socket.emit('likedMessage', payload);
+  }
+}
+
 function* userIsTyping(socket) {
   while (true) {
     const { payload } = yield take(`${typing}`);
@@ -60,6 +73,7 @@ function* userIsTyping(socket) {
 function* handleIO(socket) {
   yield fork(read, socket);
   yield fork(write, socket);
+  yield fork(update, socket);
   yield fork(userIsTyping, socket);
 }
 
@@ -73,10 +87,13 @@ function* handleIO(socket) {
 function* loginFlow() {
   while (true) {
     let { payload } = yield take(`${login}`);
-    const socket = yield call(connect);
+    // takes info from login action on the landing component and assigns it to payload (that means at this point payload is a key whose value is the username)
+    const socket = yield call(connect); // open up a socket to the server, connect is defined above
     socket.emit('login', { username: payload.username });
+    // emit this information to the server
 
     const task = yield fork(handleIO, socket);
+    // fork combines functions listed in parameters to run at the same time, or 'kick off the process'
 
     let action = yield take(`${logout}`);
     yield cancel(task);

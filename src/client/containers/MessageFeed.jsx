@@ -29,24 +29,24 @@ class MessageFeed extends React.Component {
 
   render () {
     const { users, messages } = this.props;
-    console.log('this is messages: ',messages);
+    // console.log('this is messages: ',messages);
     const messageList = messages.list.map(id => messages.entities[id]).map((m, i) => {
       const date = m.timeStamp;
       const user = m.username;
       const text = m.text;
+      const eventKey = m.id;
       return (
         <Feed.Event key={`${i}:${m.id}`}>
           <Feed.Content>
             <Feed.Summary date={date} user={user}/>
             <Feed.Extra text content={text} />
             <Feed.Meta>
-              <Reactions/>
+              <Reactions eventKey={eventKey}/>
             </Feed.Meta>
           </Feed.Content>
         </Feed.Event>
       )}
     )
-    // console.log('this is messageList: ', messageList);
 
     return (
       <div>

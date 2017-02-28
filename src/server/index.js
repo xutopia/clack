@@ -21,6 +21,7 @@ import {
   socketLogout,
   broadcastMessage,
   usersTypingStatus,
+  broadcastUpdatedMessage,
 } from './config/socket';
 
 const app = Koa();
@@ -54,7 +55,8 @@ io.on('login', socketLogin);
 io.on('logout', socketLogout);
 io.on('message', broadcastMessage);
 io.on('typing', usersTypingStatus);
+io.on('likedMessage', broadcastUpdatedMessage);
 
 app.listen(port, () => {
-  log(`Server started on port ${yb(port)}, environement: ${b(env)}`);
+  log(`Server started on port ${yb(port)}, environment: ${b(env)}`);
 });

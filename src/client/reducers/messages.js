@@ -1,5 +1,5 @@
 import { createReducer } from 'redux-act';
-import { newMessage } from '../actions/actions'
+import { newMessage, sendUpdatedReaction } from '../actions/actions'
 import initial from '../reducers/initial'
 
 const messages = createReducer({
@@ -11,6 +11,15 @@ const messages = createReducer({
       list: [ ...state.list, message.id ],
       entities: { ...state.entities, [message.id]: message }
     };
+  },
+  [sendUpdatedReaction]: (state, payload) => {
+    let newState = {};
+    newState = Object.assign(newState, state);
+    const messageId = payload.likedMessage.id;
+    const likesCount = payload.likedMessage.reactions.likes;
+    let objToUpdate = newState.entities[messageId];
+    objToUpdate.reactions.likes = likesCount;
+    return newState;
   }
 }, initial.messages);
 
