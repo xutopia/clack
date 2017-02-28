@@ -15,3 +15,6 @@ export const sendMessage = createAction('send message');
 export const searchMessages = createAction('new search');
 
 export const addReaction = createAction('add reaction');
+
+export const sendPrivateMessage = createAction('send private message');
+export const newPrivateMessage = createAction('new private message');
