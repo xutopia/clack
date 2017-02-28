@@ -1,3 +1,4 @@
+require('dotenv').config()
 import mongoose from 'mongoose';
 
 /*
@@ -5,14 +6,8 @@ import mongoose from 'mongoose';
   Create a ref to mongo connection names 'store'.
 */
 
-const mongoPort = process.env.MONGO_PORT || 61049
-const mongoHost = process.env.MONGO_HOSTNAME || 'ds161049.mlab.com'
-const options = {
-  user: process.env.MONGO_USERNAME,
-  password: process.env.MONGO_PASSWORD
-}
-
-mongoose.connect(mongoHost, 'clack', mongoPort, options)
+const mongoUri = process.env.MONGO_URI
+mongoose.connect(mongoUri)
 
 const db = mongoose.connection;
 
