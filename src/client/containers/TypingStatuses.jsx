@@ -6,7 +6,7 @@ import findTypersTyping from '../util/findTypersTyping';
 class TypingStatuses extends Component {
 
   render() {
-    const typersTyping = findTypersTyping(this.props.users);
+    const typersTyping = findTypersTyping(this.props.app.username, this.props.users);
     return (
       <div>
         {typersTyping}

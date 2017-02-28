@@ -1,14 +1,14 @@
 // utility function to find all the users that are typing
 
-export default (users) =>{
-  const activeUsersTyping = findTypingUsers(users);
+export default (currentUser, users) =>{
+  const activeUsersTyping = findTypingUsers(currentUser, users);
   return generateTypingStatusMsg(activeUsersTyping);
 }
 
-const findTypingUsers = (users) => {
+const findTypingUsers = (currentUser, users) => {
   let typingUsers = [];
   for(var key in users) {
-    if(users[key].typingStatus) {
+    if(users[key].typingStatus && key !== currentUser) {
       typingUsers.push(key);
     }
   }
