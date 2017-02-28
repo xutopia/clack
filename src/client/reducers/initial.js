@@ -7,6 +7,10 @@ const initial = {
     list: [],
     entities: {},
   },
+  privateMessages: {
+    list: [],
+    entities: {},
+  },
   search: {
     searchTerm: '',
     resultScores: [],
