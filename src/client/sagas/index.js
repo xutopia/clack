@@ -50,7 +50,7 @@ function* write(socket) {
   }
 }
 
-function* writing(socket) {
+function* userIsTyping(socket) {
   while (true) {
     const { payload } = yield take(`${typing}`);
     socket.emit('typing', payload);
@@ -60,7 +60,7 @@ function* writing(socket) {
 function* handleIO(socket) {
   yield fork(read, socket);
   yield fork(write, socket);
-  yield fork(writing, socket);
+  yield fork(userIsTyping, socket);
 }
 
 /*
