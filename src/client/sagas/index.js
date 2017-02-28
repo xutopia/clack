@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, addReaction, sendUpdatedReaction
+  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage, addReaction, sendUpdatedReaction
 } from '../actions/actions';
 // need to add 'addReaction'
 
@@ -33,7 +33,9 @@ function subscribe(socket) {
     socket.on('messages.update', ({ likedMessage }) => {
       emit(sendUpdatedReaction({ likedMessage }));
     });
-
+    socket.on('messages.private', ({ message }) => {
+      emit(newPrivateMessage({ message }));
+    });
     socket.on('disconnect', e => {
       // TODO: handle
     });
@@ -70,11 +72,19 @@ function* userIsTyping(socket) {
   }
 }
 
+function* writePrivateMsg(socket) {
+  while (true) {
+    const { payload } = yield take(`${sendPrivateMessage}`);
+    socket.emit('privateMessage', payload);
+  }
+}
+
 function* handleIO(socket) {
   yield fork(read, socket);
   yield fork(write, socket);
   yield fork(update, socket);
   yield fork(userIsTyping, socket);
+  yield fork(writePrivateMsg, socket);
 }
 
 /*
