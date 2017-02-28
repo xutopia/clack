@@ -10,8 +10,7 @@ class MessageInput extends React.Component {
     const user = this.props.app.username;
 
     if (event.keyCode === 13 && text) {
-      let timeStamp = moment().fromNow();
-      this.props.dispatch(sendMessage({ text, timeStamp }));
+      this.props.dispatch(sendMessage({ text }));
       event.target.value = '';
     } else if(text.length > 0) {
       const typingStatus = true;
