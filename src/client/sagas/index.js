@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping,
+  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage,
 } from '../actions/actions';
 
 function connect() {
@@ -27,6 +27,9 @@ function subscribe(socket) {
     })
     socket.on('messages.new', ({ message }) => {
       emit(newMessage({ message }));
+    });
+    socket.on('messages.private', ({ message }) => {
+      emit(newPrivateMessage({ message }));
     });
     socket.on('disconnect', e => {
       // TODO: handle
@@ -57,10 +60,18 @@ function* userIsTyping(socket) {
   }
 }
 
+function* writePrivateMsg(socket) {
+  while (true) {
+    const { payload } = yield take(`${sendPrivateMessage}`);
+    socket.emit('privateMessage', payload);
+  }
+}
+
 function* handleIO(socket) {
   yield fork(read, socket);
   yield fork(write, socket);
   yield fork(userIsTyping, socket);
+  yield fork(writePrivateMsg, socket);
 }
 
 /*
