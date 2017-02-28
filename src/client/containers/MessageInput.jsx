@@ -14,7 +14,8 @@ class MessageInput extends React.Component {
 
   onMessageSubmit = (event) => {
     const text = this.state.message;
-    this.props.dispatch(sendMessage({ text }));
+    const timeStamp = new Date();
+    this.props.dispatch(sendMessage({ text, timeStamp }));
     this.setState({
       message: '',
     })
