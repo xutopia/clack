@@ -66,7 +66,7 @@ const broadcastMessage = (ctx, { text }) => {
 const broadcastPrivateMessage = (ctx, { text, target }) => {
   log(`${[d()]} [server] broadcasting private message: ${text}`);
   const privateMessage = {
-    id: messages.length,
+    id: privateMessages.length,
     text,
     target,
     username: ctx.socket.username,
