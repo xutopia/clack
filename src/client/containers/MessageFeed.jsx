@@ -48,7 +48,20 @@ class MessageFeed extends React.Component {
             </Feed.Content>
           </Feed.Event>
         )
-      } else if(target === 'all' || target === this.props.app.username) {
+      } else if (target === this.props.app.username) {
+        const whisperFrom = `${user} to you`;
+        return (
+          <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Content>
+              <Feed.Summary date={date} user={whisperFrom}/>
+              <Feed.Extra text content={text} />
+              <Feed.Meta>
+                <Reactions/>
+              </Feed.Meta>
+            </Feed.Content>
+          </Feed.Event>
+        )
+      } else if(target === 'all') {
         return (
           <Feed.Event key={`${i}:${m.id}`}>
             <Feed.Content>
