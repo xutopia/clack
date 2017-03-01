@@ -17,6 +17,8 @@ import {
 
 import { loginFlow, logoutFlow, registerFlow } from './auth';
 
+import { loginFlow, logoutFlow, registerFlow } from './auth';
+
 function connect() {
   const socket = io('http://localhost:3000');
   return new Promise(resolve => {
