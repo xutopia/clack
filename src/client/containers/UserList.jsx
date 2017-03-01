@@ -6,9 +6,11 @@ import UserItem from '../components/UserItem.jsx';
 class UserList extends React.Component {
 
   render() {
-    const { users } = this.props; // this may change as we finish pulling the usernames array down from the server.
-    const usernames = ['tony', 'pete', 'michelle', 'shelby'];
+    const { users } = this.props;
+    // const usernames = ['tony', 'pete', 'michelle', 'shelby'];
     console.log('this is users: ', users);
+    let usernames = Object.keys(users);
+    console.log('this is usernames: ', usernames);
     return (
       <div>
         <div>
@@ -20,8 +22,9 @@ class UserList extends React.Component {
     )
   }
 }
-function select({ users }) { // this will be an array that mirrors the usernames array on the server. this is mapping the state to props for this component.
+
+function mapStateToProps({ users }) {
   return { users };
 }
 
-export default connect(select)(UserList)
+export default connect(mapStateToProps)(UserList)
