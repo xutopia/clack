@@ -24,7 +24,7 @@ const socketDisconnect = ctx => {
   if (username) {
     log(`${[d()]} [server] disconnected: ${username}`);
     usernames = usernames.filter(u => u !== username);
-    io.broadcast('users.disconnect', { username, usernames });
+    // io.broadcast('users.disconnect', { username, usernames });
   }
 };
 
@@ -36,8 +36,8 @@ const socketLogin = (ctx, { username }) => {
 
   if(usersId[username] === undefined) {
     usersId[username] = ctx.socket.id;
-    io.broadcast('users.login', { username });
-    io.broadcast('users.join', { username, usernames });
+    // io.broadcast('users.join', { usernames });
+    io.broadcast('users.login', { username, usernames });
   } else {
     const errorText = `a spy is trying to infiltrate the chat under the name: ${username}`;
     const timeStamp = new Date();
@@ -49,7 +49,7 @@ const socketLogin = (ctx, { username }) => {
       reactions: { likes: 0 },
       target: 'all'
     };
-    io.broadcast('error', { message });
+    io.broadcast('duplicate', { message });
   }
 };
 
@@ -60,7 +60,7 @@ const socketLogout = ctx => {
     usernames = usernames.filter(u => u !== username);
     delete ctx.socket['username'];
 
-    io.broadcast('users.logout', { username });
+    io.broadcast('users.logout', { username, usernames });
   }
 };
 
