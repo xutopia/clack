@@ -5,11 +5,11 @@ import initial from '../reducers/initial'
 const privateMessage = createReducer({
 // newMessage updates state, triggers an event
   [newPrivateMessage]: (state, payload) => {
-    const { privateMessage } = payload;
+    const { privateMsg } = payload;
     return {
       ...state,
       list: [...state.list, privateMessage.id],
-      entities: { ...state.entities, [privateMessage.id]: privateMessage }
+      entities: { ...state.entities, [privateMessage.id]: privateMsg }
     };
   }
 }, initial.privateMessages);
