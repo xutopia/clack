@@ -14,6 +14,7 @@ class PrivateMessageInput extends Component {
   }
 
   onPrivateMessageSubmit = (event) => {
+    console.log('sending......')
     const target = this.state.secretRecipient;
     const text = this.state.secretMessage;
     this.props.dispatch(sendPrivateMessage({ target, text }));
@@ -55,6 +56,7 @@ class PrivateMessageInput extends Component {
             value={this.state.secretMessage}
             onChange={(event) => this.handleMessageInput(event, this.state)}
           />
+        <input type="submit"></input>
         </form>
       </div>
     )

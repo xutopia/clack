@@ -20,6 +20,7 @@ import {
   socketLogin,
   socketLogout,
   broadcastMessage,
+  broadcastPrivateMessage,
   usersTypingStatus,
   broadcastUpdatedMessage,
 } from './config/socket';
@@ -54,6 +55,7 @@ io.on('disconnect', socketDisconnect);
 io.on('login', socketLogin);
 io.on('logout', socketLogout);
 io.on('message', broadcastMessage);
+io.on('privateMessage', broadcastPrivateMessage);
 io.on('typing', usersTypingStatus);
 io.on('likedMessage', broadcastUpdatedMessage);
 
