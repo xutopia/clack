@@ -65,6 +65,7 @@ const broadcastMessage = (ctx, { text }) => {
   messages.push(message);
   log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to all users`);
   io.broadcast('messages.new', { message });
+  // io.sockets.in('room-1').emit('messages.new', { message });
 };
 
 const broadcastPrivateMessage = (ctx, { target, text }) => {
@@ -81,7 +82,7 @@ const broadcastPrivateMessage = (ctx, { target, text }) => {
   // io.broadcast.to(sockets[target]).emit('messages.private', { privateMessage });
   // io.to(/* ctx.id */).emit('messages.private', { privateMessage });
   // io.broadcast.to(/* ctx.id */).emit('messages.private', { privateMessage });
-  // io.sockets[/* ctx.id */].emit('messages.private', { privateMessage });
+  // io.sockets.in(usersId[target]).emit('messages.private', { privateMessage });
 };
 
 const usersTypingStatus = (ctx, { typingStatus, user, userStatus }) => {
