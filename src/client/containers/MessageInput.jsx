@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Input } from 'semantic-ui-react';
 import { sendMessage, isTyping } from '../actions/actions';
-import { parseMessage, parseTarget } from '../util/messageParser';
+import { parseMessage, parseTarget, findValidRecipient } from '../util/messageParser';
 
 class MessageInput extends React.Component {
   constructor(props) {
@@ -15,12 +15,19 @@ class MessageInput extends React.Component {
 
   onMessageSubmit = (event) => {
     const text = parseMessage(this.state.message);
-    const target = parseTarget(this.state.message) || 'all';
-    this.props.dispatch(sendMessage({ text, target }));
-    this.setState({
-      message: '',
-    })
-    event.preventDefault();
+    const potentialTarget = parseTarget(this.state.message);
+    const target = findValidRecipient(this.props.users, potentialTarget);
+    if(target !== null && text.length > 0) {
+      event.preventDefault();
+      this.props.dispatch(sendMessage({ text, target }));
+      this.setState({
+        message: '',
+      })
+    } else {
+      event.preventDefault();
+      window.alert(`WOAH! You're Clacking too fast!
+        You most likely messed up with how you are whispering to another user or your message is blank.`);
+    }
   }
 
   handleTyping = (event, state) => {
