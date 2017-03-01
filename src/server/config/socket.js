@@ -52,8 +52,7 @@ const socketLogout = ctx => {
   }
 };
 
-
-const broadcastMessage = (ctx, { text }) => {
+const broadcastMessage = (ctx, { text, target }) => {
   log(`${[d()]} [server] broadcasting message: ${text}`);
   const message = {
     id: messages.length,
@@ -61,9 +60,10 @@ const broadcastMessage = (ctx, { text }) => {
     username: ctx.socket.username,
     timeStamp,
     reactions: {likes: 0}
+    target,
   };
   messages.push(message);
-  log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to all users`);
+  log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to ${target}`);
   io.broadcast('messages.new', { message });
   // io.sockets.in('room-1').emit('messages.new', { message });
 };

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import { Input } from 'semantic-ui-react';
 import { sendMessage, isTyping } from '../actions/actions';
+import { parseMessage, parseTarget } from '../util/messageParser';
 
 class MessageInput extends React.Component {
   constructor(props) {
@@ -13,9 +14,9 @@ class MessageInput extends React.Component {
   }
 
   onMessageSubmit = (event) => {
-    const text = this.state.message;
-    const timeStamp = new Date();
-    this.props.dispatch(sendMessage({ text, timeStamp }));
+    const text = parseMessage(this.state.message);
+    const target = parseTarget(this.state.message) || 'all';
+    this.props.dispatch(sendMessage({ text, target }));
     this.setState({
       message: '',
     })
