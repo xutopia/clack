@@ -9,13 +9,13 @@ class UserList extends React.Component {
     const { users } = this.props;
     // const usernames = ['tony', 'pete', 'michelle', 'shelby'];
     console.log('this is users: ', users);
-    let usernames = this.props.app.usernames;
+    const usernames = this.props.app.usernames;
     console.log('this is usernames: ', usernames);
     return (
       <div>
         <div>
           {usernames ? (usernames.map((user, index) => (
-            <UserItem user={user} key={index}/>
+            <UserItem user={user} key={index} />
           ))) : (<div>Loading...</div>)}
         </div>
       </div>

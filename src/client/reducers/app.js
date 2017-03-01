@@ -7,7 +7,7 @@ const app = createReducer({
     return { ...state, username: payload.username, usernames: payload.usernames };
   },
   [logout]: (state, payload) => {
-    return { ...state, username: null };
+    return { ...state, username: null, usernames: payload.usernames };
   },
 }, initial.app);
 

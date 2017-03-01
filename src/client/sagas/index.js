@@ -27,6 +27,9 @@ function subscribe(socket) {
     socket.on('users.logout', ({ username }) => {
       emit(removeUser({ username }));
     });
+    socket.on('users.disconnect', ({ username, usernames }) => {
+      emit(logout({ username, usernames }));
+    });
     socket.on('userTyping', ({ typingStatus, user, userStatus }) => {
       emit(currentlyTyping({ typingStatus, user, userStatus }));
     });
