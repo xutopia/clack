@@ -16,14 +16,22 @@ class Reactions extends React.Component {
     const feedId = this.props.eventKey;
     const currentMessage = this.props.messages.entities[feedId];
     const reactionCount = currentMessage.reactions.likes;
+    let likePhrase = '';
+    if (reactionCount > 1) {
+      likePhrase = reactionCount + ' likes';
+    } else if (reactionCount === 1) {
+      likePhrase = reactionCount + ' like';
+      }
+
     return (
       <Feed.Like>
         <Icon name='like' onClick={this.addLikes}/>
-        {reactionCount} likes
+        {likePhrase}
       </Feed.Like>
     )
   }
 }
+
 
 
 const mapStateToProps = ({ messages }) => {
