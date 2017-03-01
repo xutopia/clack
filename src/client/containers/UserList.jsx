@@ -4,10 +4,6 @@ import { List } from 'semantic-ui-react';
 import UserItem from '../components/UserItem.jsx';
 
 class UserList extends React.Component {
-  handleClick = (event) => {
-    // add functionality for whispers here
-    console.log('somebody clicked');
-  }
 
   render() {
     const { users } = this.props;
@@ -19,7 +15,7 @@ class UserList extends React.Component {
       <div>
         <div>
           {usernames ? (usernames.map((user, index) => (
-            <a key={index}><UserItem user={user} onClick={this.handleClick}/></a>
+            <UserItem user={user} key={index}/>
           ))) : (<div>Loading...</div>)}
         </div>
       </div>
