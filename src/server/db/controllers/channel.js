@@ -1,5 +1,4 @@
 import router from 'koa-router';
-import bodyParser from 'koa-bodyparser'
 
 import { log, b } from '../../util/logging';
 import Channel from '../models/channel';
@@ -32,7 +31,7 @@ function* createChannel() {
     members: ctx.request.body.members
   });
   try {
-    yield newChannel.save(newChannel)
+    yield* newChannel.save(newChannel)
     ctx.body = "Successfully saved new channel in db."
   } catch (e) {
     ctx.throw(500, e)
@@ -42,7 +41,7 @@ function* createChannel() {
 const channel = new router();
 
 channel.get('/channels/', getAllChannels);
-channel.post('/channels/', createChannel);
+channel.post('/channels/create', createChannel);
 
 // export our routes to be imported in index.js and registered with koa
 export default channel;

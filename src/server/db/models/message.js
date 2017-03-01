@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const message = mongoose.Schema({
+const Message = mongoose.Schema({
   id: String,
   channelID: String,
   text: String,
@@ -8,4 +8,4 @@ const message = mongoose.Schema({
   timeStamp: String
 })
 
-export default mongoose.model('message', message)
+export default mongoose.model('Message', Message)

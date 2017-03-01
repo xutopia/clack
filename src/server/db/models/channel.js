@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
 
-const channel = mongoose.Schema({
+const Channel = mongoose.Schema({
   id: String,
   name: { type: String, unique: true },
   private: Boolean,
   members: Array
 });
 
-export default mongoose.model('Channel', channel);
+export default mongoose.model('Channel', Channel);
