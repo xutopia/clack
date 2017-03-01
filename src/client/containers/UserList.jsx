@@ -6,6 +6,7 @@ import UserItem from '../components/UserItem.jsx';
 class UserList extends React.Component {
   handleClick = (event) => {
     // add functionality for whispers here
+    console.log('somebody clicked');
   }
 
   render() {
@@ -18,7 +19,7 @@ class UserList extends React.Component {
       <div>
         <div>
           {usernames ? (usernames.map((user, index) => (
-            <a><UserItem user={user} key={index} onClick={this.handleClick}/></a>
+            <a key={index}><UserItem user={user} onClick={this.handleClick}/></a>
           ))) : (<div>Loading...</div>)}
         </div>
       </div>
