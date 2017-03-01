@@ -38,10 +38,10 @@ process.on('uncaughtException', err => {
 //   yield db();
 // })
 app.use(logger());
+app.use(bodyParser());
 app.use(channel.routes());
 app.use(message.routes());
 app.use(user.routes());
-app.use(bodyParser());
 
 // app.use(function* () {
 //   yield cors();
