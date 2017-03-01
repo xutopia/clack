@@ -9,7 +9,7 @@ class UserList extends React.Component {
     const { users } = this.props;
     // const usernames = ['tony', 'pete', 'michelle', 'shelby'];
     console.log('this is users: ', users);
-    let usernames = Object.keys(users);
+    let usernames = this.props.app.usernames;
     console.log('this is usernames: ', usernames);
     return (
       <div>
@@ -23,8 +23,8 @@ class UserList extends React.Component {
   }
 }
 
-function mapStateToProps({ users }) {
-  return { users };
+function mapStateToProps({ app, users }) {
+  return { app, users };
 }
 
 export default connect(mapStateToProps)(UserList)

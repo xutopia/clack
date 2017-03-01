@@ -35,7 +35,8 @@ const socketLogin = (ctx, { username }) => {
 
   if(usersId[username] === undefined) {
     usersId[username] = ctx.socket.id;
-    io.broadcast('users.login', { username, usernames });
+    io.broadcast('users.login', { username });
+    io.broadcast('users.join', { username, usernames });
   } else {
     io.broadcast('error', { username });
   }

@@ -18,8 +18,11 @@ function connect() {
 function subscribe(socket) {
   //eventChannel is listening for data coming back from the server, then calls an action that will interact with the reducers
   return eventChannel(emit => {
-    socket.on('users.login', ({ username, usernames }) => {
-      emit(addUser({ username, usernames }));
+    socket.on('users.login', ({ username }) => {
+      emit(addUser({ username }));
+    });
+    socket.on('users.join', ({ usernames }) => {
+      emit(login({ usernames }));
     });
     socket.on('users.logout', ({ username }) => {
       emit(removeUser({ username }));
