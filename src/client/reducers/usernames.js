@@ -4,7 +4,7 @@ import initial from '../reducers/initial'
 
 const usernames = createReducer({
   [addToUsernames]: (state, payload) => {
-    return [...state, payload.username];
+    return [...payload.usernames];
   },
 }, initial.app.usernames);
 

@@ -21,7 +21,7 @@ function subscribe(socket) {
     socket.on('users.login', ({ username, usernames }) => {
       emit(addUser({ username, usernames }));
       console.log('something in between 2 emits')
-      emit(addToUsernames({ username }));
+      emit(addToUsernames({ username, usernames }));
     });
     // socket.on('users.join', ({ usernames }) => {
     //   emit(login({ usernames }));
