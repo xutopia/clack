@@ -20,6 +20,7 @@ import {
   socketLogin,
   socketLogout,
   broadcastMessage,
+  broadcastPrivateMessage,
   usersTypingStatus,
 } from './config/socket';
 
@@ -53,6 +54,7 @@ io.on('disconnect', socketDisconnect);
 io.on('login', socketLogin);
 io.on('logout', socketLogout);
 io.on('message', broadcastMessage);
+io.on('privateMessage', broadcastPrivateMessage);
 io.on('typing', usersTypingStatus);
 
 app.listen(port, () => {

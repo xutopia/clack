@@ -35,6 +35,7 @@ const socketLogin = (ctx, { username }) => {
 
   if(usersId[username] === undefined) {
     usersId[username] = ctx.socket.id;
+    console.log('inside populating the userId***', usersId);
     io.broadcast('users.login', { username, usernames });
   } else {
     io.broadcast('error', { username });
@@ -63,7 +64,7 @@ const broadcastMessage = (ctx, { text }) => {
   log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to all users`);
   io.broadcast('messages.new', { message });
 };
-const broadcastPrivateMessage = (ctx, { text, target }) => {
+const broadcastPrivateMessage = (ctx, { target, text }) => {
   log(`${[d()]} [server] broadcasting private message: ${text}`);
   const privateMessage = {
     id: privateMessages.length,
@@ -74,7 +75,7 @@ const broadcastPrivateMessage = (ctx, { text, target }) => {
   privateMessages.push(privateMessages);
 
   log(`${[d()]} [server] Received new private message from client, ${g('broadcasting')} message to ${target}`);
-  io.sockets.connected[usersId[target]].emit('messages.private', { privateMessage });
+  io.to(usersId[target]).emit('messages.private', { privateMessage });
 };
 
 const usersTypingStatus = (ctx, { typingStatus, user, userStatus }) => {
