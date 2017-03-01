@@ -54,13 +54,14 @@ const socketLogout = ctx => {
 
 const broadcastMessage = (ctx, { text, target }) => {
   log(`${[d()]} [server] broadcasting message: ${text}`);
+  const timeStamp = new Date();
   const message = {
     id: messages.length,
     text,
     username: ctx.socket.username,
     timeStamp,
-    reactions: {likes: 0}
-    target,
+    reactions: { likes: 0 },
+    target
   };
   messages.push(message);
   log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to ${target}`);
