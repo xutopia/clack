@@ -35,19 +35,12 @@ function* getCredentials(next) {
   res.json(this.user);
 }
 
-function* getAllUsernames(next) {
-  yield next
-  User.find(
-    { 'local.username': { $exists: true } },
-    { 'local.username': 1, _id: 0 },
-    (err, data) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).json({ msg: 'internal server error' });
-      }
-      res.json(data);
-    },
-  );
+function* getAllUsernames() {
+  const ctx = this
+  yield User
+    .find({})
+    .select('username')
+    .exec()
 }
 
 const user = new router();
