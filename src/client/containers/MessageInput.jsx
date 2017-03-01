@@ -14,19 +14,25 @@ class MessageInput extends React.Component {
   }
 
   onMessageSubmit = (event) => {
-    const text = parseMessage(this.state.message);
-    const potentialTarget = parseTarget(this.state.message);
-    const target = findValidRecipient(this.props.users, potentialTarget);
-    if(target !== null && text.length > 0) {
-      event.preventDefault();
+    event.preventDefault();
+    let text = '';
+    let target = '';
+    if (this.state.message[0] === '/' && this.state.message[1] === ';') {
+      text = parseMessage(this.state.message);
+      const potentialTarget = parseTarget(this.state.message);
+      target = findValidRecipient(this.props.users, potentialTarget);
+    } else {
+      text = this.state.message;
+      target = 'all';
+    }
+    if (target !== null && text.length > 0) {
       this.props.dispatch(sendMessage({ text, target }));
       this.setState({
         message: '',
       })
     } else {
-      event.preventDefault();
       window.alert(`WOAH! You're Clacking too fast!
-        You most likely messed up with how you are whispering to another user or your message is blank.`);
+        You are most likely whispering to a user that is not in the room, or you mispelled their name, or you forgot a semicolon.`);
     }
   }
 
