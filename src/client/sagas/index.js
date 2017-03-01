@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage, addReaction, sendUpdatedReaction, doubleNameError
+  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage, addReaction, sendUpdatedReaction, doubleNameError,
 } from '../actions/actions';
 // need to add 'addReaction'
 

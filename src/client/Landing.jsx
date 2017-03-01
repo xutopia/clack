@@ -28,17 +28,10 @@ class Landing extends Component {
   onFormSubmit(event, state) {
     event.preventDefault();
     const username = state.currentUser;
-    this.props.dispatch(login({ username }));
-    console.log(this.props.app);
-    if(!this.props.app.usernames.includes(username)) {
       event.preventDefault()
       window.localStorage.setItem('currentUser', username);
       this.props.dispatch(login({ username }))
       this.context.router.push('/room');
-    } else {
-      event.preventDefault()
-      window.alert(`Uh Oh, looks like someone already has this username, and we certainly don't want naming confusion in the chat. Please enter a different name to join!`);
-    }
   }
   render() {
     const { currentUser } = this.state.currentUser;
