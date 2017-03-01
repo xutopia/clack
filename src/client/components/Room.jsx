@@ -6,7 +6,6 @@ import UserList from '../containers/UserList.jsx';
 import MessageFeed from '../containers/MessageFeed.jsx';
 import SearchBar from '../containers/SearchBar.jsx';
 import SearchResults from '../containers/SearchResults.jsx';
-import PrivateMessageInput from '../containers/PrivateMessageInput.jsx';
 
 const Room = () => (
   <Grid columns={3}>
@@ -19,7 +18,6 @@ const Room = () => (
           <UserList>
           Segment/Directory Goes Here
           </UserList>
-          <PrivateMessageInput />
         </Segment>
       </Container>
     </Grid.Column>
