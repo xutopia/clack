@@ -39,7 +39,17 @@ const socketLogin = (ctx, { username }) => {
     io.broadcast('users.login', { username });
     io.broadcast('users.join', { username, usernames });
   } else {
-    io.broadcast('error', { username });
+    const errorText = `a spy is trying to infiltrate the chat under the name: ${username}`;
+    const timeStamp = new Date();
+    const message = {
+      id: messages.length,
+      errorText,
+      username: 'invalid',
+      timeStamp,
+      reactions: { likes: 0 },
+      target: 'all'
+    };
+    io.broadcast('error', { message });
   }
 };
 

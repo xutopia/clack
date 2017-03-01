@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage, addReaction, sendUpdatedReaction
+  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage, addReaction, sendUpdatedReaction, doubleNameError
 } from '../actions/actions';
 // need to add 'addReaction'
 
@@ -42,8 +42,8 @@ function subscribe(socket) {
     socket.on('messages.private', ({ privateMessage }) => {
       emit(newPrivateMessage({ privateMessage }));
     });
-    socket.on('disconnect', e => {
-      // TODO: handle
+    socket.on('error', ({ message }) => {
+      emit(doubleNameError({ message }));
     });
     return () => {};
   });
