@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage, addReaction, sendUpdatedReaction, doubleNameError, addToUsernames,
+  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage, addReaction, sendUpdatedReaction, doubleNameError, addToUsernames, removeFromUsernames,
 } from '../actions/actions';
 // need to add 'addReaction'
 
@@ -23,14 +23,11 @@ function subscribe(socket) {
       console.log('something in between 2 emits')
       emit(addToUsernames({ username, usernames }));
     });
-    // socket.on('users.join', ({ usernames }) => {
-    //   emit(login({ usernames }));
-    // });
     socket.on('users.logout', ({ username, usernames }) => {
       emit(removeUser({ username, usernames }));
     });
     socket.on('users.disconnect', ({ username, usernames }) => {
-      emit(logout({ username, usernames }));
+      emit(removeFromUsernames({ username, usernames }));
     });
     socket.on('userTyping', ({ typingStatus, user, userStatus }) => {
       emit(currentlyTyping({ typingStatus, user, userStatus }));

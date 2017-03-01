@@ -24,7 +24,7 @@ const socketDisconnect = ctx => {
   if (username) {
     log(`${[d()]} [server] disconnected: ${username}`);
     usernames = usernames.filter(u => u !== username);
-    // io.broadcast('users.disconnect', { username, usernames });
+    io.broadcast('users.disconnect', { username, usernames });
   }
 };
 

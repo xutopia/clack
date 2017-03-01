@@ -22,3 +22,4 @@ export const newPrivateMessage = createAction('new private message');
 
 export const doubleNameError = createAction('duplicate name');
 export const addToUsernames = createAction('add to usernames array');
+export const removeFromUsernames = createAction('remove from usernames array');
