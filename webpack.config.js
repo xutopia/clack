@@ -14,7 +14,7 @@ module.exports = {
     path: resolve(__dirname, 'dist'),
     publicPath: '/'
   },
-  context: resolve(__dirname, 'src'),
+  context: resolve(__dirname, 'src/'),
   devtool: 'inline-source-map',
   devServer: {
     hot: true,
@@ -35,7 +35,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx)/,
         use: [
           'babel-loader',
         ],
@@ -52,8 +52,12 @@ module.exports = {
     ],
   },
 
+  resolve: {
+    extensions: ['.js', '.json', '.jsx', '.css']
+  },
+
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin(),
-  ],
+    new webpack.NamedModulesPlugin()
+  ]
 }
