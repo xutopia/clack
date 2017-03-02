@@ -75,12 +75,12 @@ class MessageFeed extends React.Component {
           </Feed.Event>
         )
       } else {
-          const whisper = `is whispering to ${target}...`;
+          const poop = `\u{1F4A9}`;
           return (
             <Feed.Event key={`${i}:${m.id}`}>
               <Feed.Content>
                 <Feed.Summary date={date} user={user}/>
-                <Feed.Extra text content={whisper} />
+                <Feed.Extra text content={poop} />
                 <Feed.Meta>
                   <Reactions eventKey={eventKey}/>
                 </Feed.Meta>
