@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Input } from 'semantic-ui-react';
-import { sendMessage, isTyping } from '../actions/actions';
+import { sendMessage, isTyping, sendPrivateMessage } from '../actions/actions';
 import { parseMessage, parseTarget, findValidRecipient } from '../util/messageParser';
 
 class MessageInput extends React.Component {

@@ -17,6 +17,7 @@ const socketConnection = ctx => {
     gr(ctx.socket.id),
     gr(ip),
   );
+  ctx.socket.join('room1');
 };
 
 const socketDisconnect = ctx => {
@@ -83,16 +84,20 @@ const broadcastMessage = (ctx, { text, target }) => {
 
 const broadcastPrivateMessage = (ctx, { target, text }) => {
   log(`${[d()]} [server] broadcasting private message: ${text}`);
+  const timeStamp = new Date();
   const privateMessage = {
     id: privateMessages.length,
     text,
-    target,
     username: ctx.socket.username,
+    timeStamp,
+    reactions: { likes: 0 },
+    target,
   };
   privateMessages.push(privateMessages);
 
   log(`${[d()]} [server] Received new private message from client, ${g('broadcasting')} message to ${target}`);
-  // io.broadcast.to(sockets[target]).emit('messages.private', { privateMessage });
+  log(`ctx.socket ${ctx}`);
+  // ctx.socket.broadcast().emit('messages.private', { privateMessage });
   // io.to(/* ctx.id */).emit('messages.private', { privateMessage });
   // io.broadcast.to(/* ctx.id */).emit('messages.private', { privateMessage });
   // io.sockets.in(usersId[target]).emit('messages.private', { privateMessage });

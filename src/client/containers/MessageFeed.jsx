@@ -57,7 +57,7 @@ class MessageFeed extends React.Component {
               <Feed.Summary date={date} user={whisperFrom}/>
               <Feed.Extra text content={text} />
               <Feed.Meta>
-                <Reactions/>
+                <Reactions eventKey={eventKey}/>
               </Feed.Meta>
             </Feed.Content>
           </Feed.Event>
