@@ -8,6 +8,7 @@ const initial = {
     entities: {},
   },
   search: {
+    // visible: false
     searchTerm: '',
     resultScores: [],
   },
