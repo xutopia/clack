@@ -21,8 +21,8 @@ const Room = () => (
         </Segment>
       </Container>
     </Grid.Column>
-    <Grid.Column width={8}>In the right Grid Column
-      <Container>Container in the right Grid Column
+    <Grid.Column width={8}>
+      <Container>
         <MessageFeed>
           Feed will go inside here
         </MessageFeed>

@@ -2,9 +2,25 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage, addReaction, sendUpdatedReaction, doubleNameError, addToUsernames, removeFromUsernames,
+  login,
+  logout,
+  addUser,
+  removeUser,
+  newMessage,
+  sendMessage,
+  isTyping as typing,
+  currentlyTyping,
+  sendPrivateMessage,
+  newPrivateMessage,
+  addReaction,
+  sendUpdatedReaction,
+  doubleNameError,
+  addToUsernames,
+  removeFromUsernames,
 } from '../actions/actions';
 // need to add 'addReaction'
+
+import { loginFlow, logoutFlow, registerFlow } from './auth';
 
 function connect() {
   const socket = io('http://localhost:3000');
@@ -99,7 +115,7 @@ function* handleIO(socket) {
   by our saga which then cancels the task.
 */
 
-function* loginFlow() {
+function* loginFlowSockets() {
   while (true) {
     let { payload } = yield take(`${login}`);
     // takes info from login action on the landing component and assigns it to payload (that means at this point payload is a key whose value is the username)
@@ -117,5 +133,8 @@ function* loginFlow() {
 }
 
 export default function* rootSaga() {
+  yield fork(loginFlowSockets);
   yield fork(loginFlow);
+  yield fork(logoutFlow);
+  yield fork(registerFlow);
 }
