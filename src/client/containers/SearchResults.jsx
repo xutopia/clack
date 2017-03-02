@@ -5,7 +5,9 @@ import SearchResultsItem from '../components/SearchResultsItem.jsx';
 import orderDescendingMessages from '../util/orderDescendingMessages';
 
 class SearchResults extends Component {
-
+  shouldComponentUpdate(nextProps) {
+    return this.props.messages === nextProps.messages;
+  }
   render() {
     const searchResultsList = orderDescendingMessages(this.props.messages, this.props.search.resultScores);
     const messagesList = searchResultsList.map((result, i) =>
