@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 import mongoose from 'mongoose';
-
+require('dotenv').config();
 /*
   Connect to our mongo host defined in .env.
   Create a ref to mongo connection names 'store'.
@@ -15,3 +15,4 @@ mongoose.connect(mongoUri)
 const db = mongoose.connection;
 
 export default db
+

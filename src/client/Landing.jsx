@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form } from 'semantic-ui-react'
 
-import { login } from './actions/actions'
+import { login, doubleNameError } from './actions/actions'
 
 class Landing extends Component {
   constructor() {
@@ -28,19 +28,19 @@ class Landing extends Component {
   onFormSubmit(event, state) {
     event.preventDefault();
     const username = state.currentUser;
-    window.localStorage.setItem('currentUser', username);
-    this.props.dispatch(login({ username }))
-    this.context.router.push('/room');
-    //this is the code that loads the room component?
+      event.preventDefault()
+      window.localStorage.setItem('currentUser', username);
+      this.props.dispatch(login({ username }))
+      this.context.router.push('/room');
   }
   render() {
     const { currentUser } = this.state.currentUser;
     return (
       <div>
         <h1>Welcome!!!</h1>
-        <Form onSubmit={() => this.onFormSubmit(event, this.state)}>
+        <Form onSubmit={(event) => this.onFormSubmit(event, this.state)}>
           <Form.Field>
-            <input 
+            <input
             onChange={(event) => this.onInputChange(event, this.state)}
             type="text" placeholder="Enter Name to Chat"
             value={currentUser}
@@ -52,4 +52,8 @@ class Landing extends Component {
   }
 }
 
-export default connect()(Landing)
+const mapStateToProps = ({ app }) => {
+  return { app };
+}
+
+export default connect(mapStateToProps)(Landing)

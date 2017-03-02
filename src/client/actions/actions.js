@@ -18,6 +18,7 @@ export const searchMessages = createAction('new search');
 export const addReaction = createAction('add reaction');
 export const sendUpdatedReaction = createAction('updated reaction');
 
+
 // new auth using simple bcrypt
 export const sendingRequest = createAction('sending auth request');
 export const loginRequest = createAction('login request');
@@ -26,3 +27,10 @@ export const setAuth = createAction('set auth');
 export const logoutRequest = createAction('logout request');
 export const changeForm = createAction('change form');
 export const requestError = createAction('request error');
+
+export const sendPrivateMessage = createAction('send private message');
+export const newPrivateMessage = createAction('new private message');
+
+export const doubleNameError = createAction('duplicate name');
+export const addToUsernames = createAction('add to usernames array');
+export const removeFromUsernames = createAction('remove from usernames array');
