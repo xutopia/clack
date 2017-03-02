@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
-import UserItem from '../components/UserItem.jsx';
+import UserItem from './UserItem.jsx';
 
 class UserList extends React.Component {
 

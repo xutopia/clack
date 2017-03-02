@@ -29,9 +29,10 @@ class SearchBar extends Component {
   render() {
     return (
       <div>
-        Here is the SearchBar
         <form onSubmit={(e) => this.onSearchSubmit(e)}>
           <Input
+            className='icon'
+            icon='search'
             type="text"
             id="input-search"
             placeholder="Search"
