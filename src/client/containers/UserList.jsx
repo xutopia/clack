@@ -9,7 +9,7 @@ class UserList extends React.Component {
     const { users } = this.props;
     // const usernames = ['tony', 'pete', 'michelle', 'shelby'];
     console.log('this is users: ', users);
-    const usernames = this.props.usernames;
+    const usernames = this.props.usernames.sort();
     console.log('this is usernames: ', usernames);
     return (
       <div>
