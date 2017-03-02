@@ -13,7 +13,8 @@ class SearchResults extends Component {
     )
     return (
       <div>
-        HERE ARE ALL THE SEARCH RESULTS!!
+        HERE ARE ALL THE SEARCH RESULTS!!<br />
+        <br />
         {messagesList}
       </div>
     )
