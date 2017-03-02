@@ -17,15 +17,28 @@ class SearchSidebar extends React.Component {
   }
 
   render() {
+    const sidebarStyle = {
+      opacity: '1.0',
+      'background-color': 'white'
+    }
+
     return (
       <Sidebar.Pushable>
         <Sidebar as={Segment}
-          animation='push'
+          animation='overlay'
           width='wide'
           direction='right'
           visible={this.state.visible}
           icon='labeled'
-          vertical>
+          style={sidebarStyle}
+          vertical
+          padded>
+          <Menu.Item>
+            <Button basic icon floated='right' size='large'
+            onClick={this.toggleVisibility}>
+              <Icon name='close' />
+            </Button>
+          </Menu.Item>
           <Menu.Item name='searchbar'>
             <SearchBar />
           </Menu.Item>
@@ -34,6 +47,7 @@ class SearchSidebar extends React.Component {
           </Menu.Item>
         </Sidebar>
         <Sidebar.Pusher>
+          <h1></h1>
           <Button basic icon floated='right'  onClick={this.toggleVisibility}>
           <Icon name='search' />
           </Button>
