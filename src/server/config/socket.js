@@ -1,4 +1,5 @@
 import IO from 'koa-socket';
+import dateformat from 'dateformat';
 
 import { log, d, g, b, gr, r, y, yb } from '../util/logging';
 
@@ -41,7 +42,8 @@ const socketLogin = (ctx, { username }) => {
     io.broadcast('users.login', { username, usernames });
   } else {
     const errorText = `a spy is trying to infiltrate the chat under the name: ${username}`;
-    const timeStamp = new Date();
+    const now = new Date();
+    const timeStamp = dateformat(now, 'shortTime');
     const message = {
       id: messages.length,
       errorText,
@@ -67,7 +69,8 @@ const socketLogout = ctx => {
 
 const broadcastMessage = (ctx, { text, target }) => {
   log(`${[d()]} [server] broadcasting message: ${text}`);
-  const timeStamp = new Date();
+  const now = new Date();
+  const timeStamp = dateformat(now, 'shortTime');
   const message = {
     id: messages.length,
     text,
