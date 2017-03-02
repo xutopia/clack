@@ -1,9 +1,14 @@
 const initial = {
   app: {
     username: null,
+    usernames: [],
   },
   users: {},
   messages: {
+    list: [],
+    entities: {},
+  },
+  privateMessages: {
     list: [],
     entities: {},
   },
