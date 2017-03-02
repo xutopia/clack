@@ -6,6 +6,7 @@ import UserList from '../containers/UserList.jsx';
 import MessageFeed from '../containers/MessageFeed.jsx';
 import SearchBar from '../containers/SearchBar.jsx';
 import SearchResults from '../containers/SearchResults.jsx';
+import User from '../containers/User.jsx';
 
 const Room = () => (
   <Grid columns={3}>
@@ -13,6 +14,8 @@ const Room = () => (
       <Container>
         <Header>
         CLACK Chat!
+        <br />
+        <User />
         </Header>
         <Segment vertical>
           <UserList>
