@@ -1,9 +1,11 @@
 import IO from 'koa-socket';
 import dateformat from 'dateformat';
+import generateRandomAvatar from '../util/generateRandomAvatar';
 
 import { log, d, g, b, gr, r, y, yb, yellowRed, blackWhite } from '../util/logging';
 
 let usernames = [];
+let userAvatar = {};
 const messages = [];
 const privateMessages = [];
 const usersId = {};
@@ -26,6 +28,7 @@ const socketDisconnect = ctx => {
   if (username) {
     log(`${[d()]} [server] disconnected: ${username}`);
     usernames = usernames.filter(u => u !== username);
+    delete userAvatar[username];
     io.broadcast('users.disconnect', { username, usernames });
   }
 };
@@ -38,8 +41,10 @@ const socketLogin = (ctx, { username }) => {
 
   if(usersId[username] === undefined) {
     usersId[username] = ctx.socket.id;
+    userAvatar[username] = generateRandomAvatar();
+    const avatar = userAvatar[username];
     // io.broadcast('users.join', { usernames });
-    io.broadcast('users.login', { username, usernames });
+    io.broadcast('users.login', { username, usernames, avatar });
   } else {
     const errorText = `a spy is trying to infiltrate the chat under the name: ${username}`;
     const now = new Date();
@@ -77,7 +82,8 @@ const broadcastMessage = (ctx, { text, target }) => {
     username: ctx.socket.username,
     timeStamp,
     reactions: { likes: 0 },
-    target
+    target,
+    avatar: userAvatar[ctx.socket.username],
   };
   messages.push(message);
   log(`${[d()]} [server] Received new message from client, ${g('broadcasting')} message to ${target}`);
@@ -108,7 +114,10 @@ const broadcastPrivateMessage = (ctx, { target, text }) => {
 
 const usersTypingStatus = (ctx, { typingStatus, user, userStatus }) => {
   log(`${[d()]} [server] Received new user typing status from client, ${g('broadcasting')} status to all users`);
-  io.broadcast('userTyping', { typingStatus, user, userStatus });
+  const avatar = userAvatar[user];
+  console.log('looking at typing status, avatar:', avatar);
+  console.log('looking at typing status, user:', user);
+  io.broadcast('userTyping', { typingStatus, user, userStatus, avatar });
 };
 
 const broadcastUpdatedMessage = (ctx, { likedMessage }) => {
