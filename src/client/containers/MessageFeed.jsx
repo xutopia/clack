@@ -36,8 +36,9 @@ class MessageFeed extends React.Component {
       const text = m.text;
       const eventKey = m.id;
       const target = m.target;
+      const avatar = m.avatar;
       if(user === this.props.app.username && target !== 'all') {
-        const whisperTo = `${user} to ${target}`;
+        const whisperTo = `${avatar} ${user} to ${target}`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
             <Feed.Content>
@@ -50,7 +51,7 @@ class MessageFeed extends React.Component {
           </Feed.Event>
         )
       } else if (target === this.props.app.username) {
-        const whisperFrom = `${user} to you`;
+        const whisperFrom = `${avatar} ${user} to you`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
             <Feed.Content>
@@ -63,10 +64,12 @@ class MessageFeed extends React.Component {
           </Feed.Event>
         )
       } else if(target === 'all') {
+        const avatarAndName = `${avatar}    ${user}`;
+        // const avatarAndName = avatar + '   ' + user;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
             <Feed.Content>
-              <Feed.Summary date={date} user={user}/>
+              <Feed.Summary date={date} user={avatarAndName}/>
               <Feed.Extra text content={text} />
               <Feed.Meta>
                 <Reactions eventKey={eventKey}/>

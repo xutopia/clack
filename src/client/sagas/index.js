@@ -34,9 +34,8 @@ function connect() {
 function subscribe(socket) {
   //eventChannel is listening for data coming back from the server, then calls an action that will interact with the reducers
   return eventChannel(emit => {
-    socket.on('users.login', ({ username, usernames }) => {
-      emit(addUser({ username, usernames }));
-      console.log('something in between 2 emits')
+    socket.on('users.login', ({ username, usernames, avatar }) => {
+      emit(addUser({ username, usernames, avatar }));
       emit(addToUsernames({ username, usernames }));
     });
     socket.on('users.logout', ({ username, usernames }) => {
@@ -45,8 +44,8 @@ function subscribe(socket) {
     socket.on('users.disconnect', ({ username, usernames }) => {
       emit(removeFromUsernames({ username, usernames }));
     });
-    socket.on('userTyping', ({ typingStatus, user, userStatus }) => {
-      emit(currentlyTyping({ typingStatus, user, userStatus }));
+    socket.on('userTyping', ({ typingStatus, user, userStatus, avatar }) => {
+      emit(currentlyTyping({ typingStatus, user, userStatus, avatar }));
     });
     socket.on('messages.new', ({ message }) => {
       emit(newMessage({ message }));
