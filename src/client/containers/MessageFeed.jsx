@@ -35,18 +35,61 @@ class MessageFeed extends React.Component {
       const user = m.username;
       const text = m.text;
       const eventKey = m.id;
-      return (
-        <Feed.Event key={`${i}:${m.id}`}>
-          <Feed.Content>
-            <Feed.Summary date={date} user={user}/>
-            <Feed.Extra text content={text} />
-            <Feed.Meta>
-              <Reactions eventKey={eventKey}/>
-            </Feed.Meta>
-          </Feed.Content>
-        </Feed.Event>
-      )}
-    )
+      const target = m.target;
+      if(user === this.props.app.username && target !== 'all') {
+        const whisperTo = `${user} to ${target}`;
+        return (
+          <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Content>
+              <Feed.Summary date={date} user={whisperTo}/>
+              <Feed.Extra text content={text} />
+              <Feed.Meta>
+                <Reactions eventKey={eventKey}/>
+              </Feed.Meta>
+            </Feed.Content>
+          </Feed.Event>
+        )
+      } else if (target === this.props.app.username) {
+        const whisperFrom = `${user} to you`;
+        return (
+          <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Content>
+              <Feed.Summary date={date} user={whisperFrom}/>
+              <Feed.Extra text content={text} />
+              <Feed.Meta>
+                <Reactions eventKey={eventKey}/>
+              </Feed.Meta>
+            </Feed.Content>
+          </Feed.Event>
+        )
+      } else if(target === 'all') {
+        return (
+          <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Content>
+              <Feed.Summary date={date} user={user}/>
+              <Feed.Extra text content={text} />
+              <Feed.Meta>
+                <Reactions eventKey={eventKey}/>
+              </Feed.Meta>
+            </Feed.Content>
+          </Feed.Event>
+        )
+      } else {
+          const whisper = `is whispering to ${target}...`;
+          return (
+            <Feed.Event key={`${i}:${m.id}`}>
+              <Feed.Content>
+                <Feed.Summary date={date} user={user}/>
+                <Feed.Extra text content={whisper} />
+                <Feed.Meta>
+                  <Reactions eventKey={eventKey}/>
+                </Feed.Meta>
+              </Feed.Content>
+            </Feed.Event>
+          )
+        }
+      });
+    // console.log('this is messageList: ', messageList);
 
     return (
       <div>
@@ -60,8 +103,8 @@ class MessageFeed extends React.Component {
   }
 }
 
-const mapStateToProps = ({ users, messages }) => {
-  return { users, messages };
+const mapStateToProps = ({ app, users, messages }) => {
+  return { app, users, messages };
 }
 
 export default connect(mapStateToProps)(MessageFeed)

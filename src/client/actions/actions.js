@@ -16,3 +16,10 @@ export const searchMessages = createAction('new search');
 
 export const addReaction = createAction('add reaction');
 export const sendUpdatedReaction = createAction('updated reaction');
+
+export const sendPrivateMessage = createAction('send private message');
+export const newPrivateMessage = createAction('new private message');
+
+export const doubleNameError = createAction('duplicate name');
+export const addToUsernames = createAction('add to usernames array');
+export const removeFromUsernames = createAction('remove from usernames array');

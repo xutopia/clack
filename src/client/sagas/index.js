@@ -2,7 +2,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { fork, take, call, put, cancel } from 'redux-saga/effects';
 import {
-  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, addReaction, sendUpdatedReaction
+  login, logout, addUser, removeUser, newMessage, sendMessage, isTyping as typing, currentlyTyping, sendPrivateMessage, newPrivateMessage, addReaction, sendUpdatedReaction, doubleNameError, addToUsernames, removeFromUsernames,
 } from '../actions/actions';
 // need to add 'addReaction'
 
@@ -20,9 +20,14 @@ function subscribe(socket) {
   return eventChannel(emit => {
     socket.on('users.login', ({ username, usernames }) => {
       emit(addUser({ username, usernames }));
+      console.log('something in between 2 emits')
+      emit(addToUsernames({ username, usernames }));
     });
-    socket.on('users.logout', ({ username }) => {
-      emit(removeUser({ username }));
+    socket.on('users.logout', ({ username, usernames }) => {
+      emit(removeUser({ username, usernames }));
+    });
+    socket.on('users.disconnect', ({ username, usernames }) => {
+      emit(removeFromUsernames({ username, usernames }));
     });
     socket.on('userTyping', ({ typingStatus, user, userStatus }) => {
       emit(currentlyTyping({ typingStatus, user, userStatus }));
@@ -33,9 +38,11 @@ function subscribe(socket) {
     socket.on('messages.update', ({ likedMessage }) => {
       emit(sendUpdatedReaction({ likedMessage }));
     });
-
-    socket.on('disconnect', e => {
-      // TODO: handle
+    socket.on('messages.private', ({ privateMessage }) => {
+      emit(newPrivateMessage({ privateMessage }));
+    });
+    socket.on('error', ({ message }) => {
+      emit(doubleNameError({ message }));
     });
     return () => {};
   });
@@ -70,11 +77,19 @@ function* userIsTyping(socket) {
   }
 }
 
+function* writePrivateMsg(socket) {
+  while (true) {
+    const { payload } = yield take(`${sendPrivateMessage}`);
+    socket.emit('privateMessage', payload);
+  }
+}
+
 function* handleIO(socket) {
   yield fork(read, socket);
   yield fork(write, socket);
   yield fork(update, socket);
   yield fork(userIsTyping, socket);
+  yield fork(writePrivateMsg, socket);
 }
 
 /*
