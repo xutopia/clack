@@ -5,9 +5,11 @@ import moment from 'moment';
 import { Feed, Icon, Label } from 'semantic-ui-react';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
+import * as linkify from 'linkifyjs';
+import hashtag from 'linkifyjs/plugins/hashtag';
+import Linkify from 'linkifyjs/react';
 
-
-
+hashtag(linkify);
 
 class MessageFeed extends React.Component {
   constructor(props) {
@@ -96,7 +98,11 @@ class MessageFeed extends React.Component {
             </Feed.Label>
             <Feed.Content>
               <Feed.Summary date={date} user={user}/>
-              <Feed.Extra text content={text} />
+              <Feed.Extra>
+                <Linkify>
+                  {text}
+                </Linkify>
+              </Feed.Extra>
               <Feed.Meta>
                 <Reactions eventKey={eventKey}/>
               </Feed.Meta>
