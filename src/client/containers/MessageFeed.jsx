@@ -1,36 +1,22 @@
-<<<<<<< HEAD
 import React from 'react';
 import ReactDOM from 'react-dom';
-=======
-import React, { PropTypes } from 'react';
->>>>>>> styles-thurs-3-2
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Feed, Icon, Label } from 'semantic-ui-react';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
-<<<<<<< HEAD
 import * as linkify from 'linkifyjs';
 import hashtag from 'linkifyjs/plugins/hashtag';
 import Linkify from 'linkifyjs/react';
-=======
-import TypingStatuses from './TypingStatuses.jsx';
-import infinite from 'react-infinite';
 
->>>>>>> styles-thurs-3-2
 
 hashtag(linkify);
 
 class MessageFeed extends React.Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
   }
 
-=======
-    this.chatBody;
-  }
->>>>>>> styles-thurs-3-2
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
       const latestMsgID = messages.list[messages.list.length - 1];
