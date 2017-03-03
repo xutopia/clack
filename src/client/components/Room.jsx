@@ -57,7 +57,7 @@ const Room = () => {
       <Grid.Column width={6} style={appStyle}>
         <div style={topStyles}>
           <Segment vertical>
-            <h2>Users name here?
+            <h2><User />
               </h2>
           </Segment>
         </div>

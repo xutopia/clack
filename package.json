@@ -55,6 +55,7 @@
     "koa-send": "^3.3.0",
     "koa-session": "^3.4.0",
     "koa-socket": "^4.4.0",
+    "linkifyjs": "^2.1.4",
     "lunr": "^1.0.0",
     "moment": "^2.17.1",
     "mongoose": "^4.8.4",

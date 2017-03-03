@@ -1,14 +1,21 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { Feed, Icon } from 'semantic-ui-react';
+import { Feed, Icon, Label } from 'semantic-ui-react';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
-import TypingStatuses from './TypingStatuses.jsx';
+import * as linkify from 'linkifyjs';
+import hashtag from 'linkifyjs/plugins/hashtag';
+import Linkify from 'linkifyjs/react';
 
-
+hashtag(linkify);
 
 class MessageFeed extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
       const latestMsgID = messages.list[messages.list.length - 1];
@@ -27,6 +34,20 @@ class MessageFeed extends React.Component {
     }
   }
 
+  scrollToBottom = () => {
+        const node = ReactDOM.findDOMNode(this.messagesEnd);
+        // messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        node.scrollIntoView({behavior: 'smooth'});
+    };
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
+
   render () {
     const { users, messages } = this.props;
     // console.log('this is messages: ',messages);
@@ -41,6 +62,9 @@ class MessageFeed extends React.Component {
         const whisperTo = `${avatar} ${user} to ${target}`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Label>
+              <img src={avatar} />
+            </Feed.Label>
             <Feed.Content>
               <Feed.Summary date={date} user={whisperTo}/>
               <Feed.Extra text content={text} />
@@ -54,6 +78,9 @@ class MessageFeed extends React.Component {
         const whisperFrom = `${avatar} ${user} to you`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Label>
+              <img src={avatar} />
+            </Feed.Label>
             <Feed.Content>
               <Feed.Summary date={date} user={whisperFrom}/>
               <Feed.Extra text content={text} />
@@ -67,9 +94,16 @@ class MessageFeed extends React.Component {
         const avatarAndName = `${user}    ${avatar}`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Label>
+              <img src={avatar} />
+            </Feed.Label>
             <Feed.Content>
-              <Feed.Summary date={date} user={avatarAndName}/>
-              <Feed.Extra text content={text} />
+              <Feed.Summary date={date} user={user}/>
+              <Feed.Extra>
+                <Linkify>
+                  {text}
+                </Linkify>
+              </Feed.Extra>
               <Feed.Meta>
                 <Reactions eventKey={eventKey}/>
               </Feed.Meta>
@@ -81,6 +115,9 @@ class MessageFeed extends React.Component {
           const avatarAndName = `${user}    ${avatar}`;
           return (
             <Feed.Event key={`${i}:${m.id}`}>
+              <Feed.Label>
+                <img src={avatar} />
+              </Feed.Label>
               <Feed.Content>
                 <Feed.Summary date={date} user={avatarAndName}/>
                 <Feed.Extra text content={poop} />
@@ -99,7 +136,8 @@ class MessageFeed extends React.Component {
         <Feed size='large'>
           {messageList}
         </Feed>
-        <TypingStatuses />
+        <div style={ {float:"left", clear: "both"} }
+               ref={(el) => { this.messagesEnd = el; }}></div>
       </div>
     )
   }
