@@ -9,6 +9,7 @@ import * as linkify from 'linkifyjs';
 import hashtag from 'linkifyjs/plugins/hashtag';
 import Linkify from 'linkifyjs/react';
 
+
 hashtag(linkify);
 
 class MessageFeed extends React.Component {
@@ -28,10 +29,23 @@ class MessageFeed extends React.Component {
     }
   }
 
+  componentDidMount() {
+    // this.chatBody = document.getElementById('chatBody');
+    // console.log('here is chatbody: ', this.chatBody.scrollHeight, this.chatBody.scrollTop);
+    // console.log('here is this: ', this);
+    // this.chatBody.scrollTop = this.chatBody.clientHeight;
+  }
+
   componentWillUpdate(nextProps) {
     if(nextProps.messages.list.length !== this.props.messages.list.length) {
       this.showNewMsgNotification(nextProps.messages);
     }
+}
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('Scroll Props: ',this.chatBody.scrollTop, this.chatBody.scrollHeight, this.chatBody.clientHeight);
+    // this.chatBody.scrollTop = 150 + 'px';
+    // console.log('scrollTop: ', this.chatBody.scrollTop)
   }
 
   scrollToBottom = () => {
@@ -139,7 +153,7 @@ class MessageFeed extends React.Component {
 
     return (
       <div>
-        <Feed size='large'>
+        <Feed size='large' id='chatBody'>
           {messageList}
         </Feed>
         <div style={ {float:"left", clear: "both"} }
