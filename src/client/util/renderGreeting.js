@@ -5,7 +5,7 @@ const renderGreetMsg = (time) => {
   const hour = time.slice(0, 2);
   if (+hour >= 0 && +hour < 12) {
     return 'Good morning';
-  } else if (+hour >= 12 && hour < 5) {
+  } else if (+hour >= 12 && +hour < 5) {
     return 'Good afternoon';
   } else {
     return 'Good evening';
