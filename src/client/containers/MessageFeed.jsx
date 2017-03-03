@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { Feed, Icon } from 'semantic-ui-react';
+import { Feed, Icon, Label } from 'semantic-ui-react';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
 import TypingStatuses from './TypingStatuses.jsx';
@@ -38,9 +38,12 @@ class MessageFeed extends React.Component {
       const target = m.target;
       const avatar = m.avatar;
       if(user === this.props.app.username && target !== 'all') {
-        const whisperTo = `${avatar} ${user} to ${target}`;
+        const whisperTo = `${user} to ${target}`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Label>
+              <img src={avatar} />
+            </Feed.Label>
             <Feed.Content>
               <Feed.Summary date={date} user={whisperTo}/>
               <Feed.Extra text content={text} />
@@ -51,9 +54,12 @@ class MessageFeed extends React.Component {
           </Feed.Event>
         )
       } else if (target === this.props.app.username) {
-        const whisperFrom = `${avatar} ${user} to you`;
+        const whisperFrom = `${user} to you`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Label>
+              <img src={avatar} />
+            </Feed.Label>
             <Feed.Content>
               <Feed.Summary date={date} user={whisperFrom}/>
               <Feed.Extra text content={text} />
@@ -64,11 +70,13 @@ class MessageFeed extends React.Component {
           </Feed.Event>
         )
       } else if(target === 'all') {
-        const avatarAndName = `${user}    ${avatar}`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
+            <Feed.Label>
+              <img src={avatar} />
+            </Feed.Label>
             <Feed.Content>
-              <Feed.Summary date={date} user={avatarAndName}/>
+              <Feed.Summary date={date} user={user}/>
               <Feed.Extra text content={text} />
               <Feed.Meta>
                 <Reactions eventKey={eventKey}/>
@@ -78,11 +86,13 @@ class MessageFeed extends React.Component {
         )
       } else {
           const poop = `\u{1F4A9}`;
-          const avatarAndName = `${user}    ${avatar}`;
           return (
             <Feed.Event key={`${i}:${m.id}`}>
+              <Feed.Label>
+                <img src={avatar} />
+              </Feed.Label>
               <Feed.Content>
-                <Feed.Summary date={date} user={avatarAndName}/>
+                <Feed.Summary date={date} user={user}/>
                 <Feed.Extra text content={poop} />
                 <Feed.Meta>
                   <Reactions eventKey={eventKey}/>

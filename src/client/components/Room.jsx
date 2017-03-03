@@ -47,6 +47,7 @@ const Room = () => {
         <Container>
           <Header>
           CLACK Chat!
+          <User />
           </Header>
           <Segment vertical>
             <h2>Users in the Room</h2>
