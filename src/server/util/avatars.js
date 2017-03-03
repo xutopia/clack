@@ -47,6 +47,17 @@ const avatars = ['\u{1F1E6}\u{1F1E8}',
 '\u{1F1E8}\u{1F1F0}',
 '\u{1F1E8}\u{1F1F1}',
 '\u{1F1E8}\u{1F1F2}',
-'\u{1F1E8}\u{1F1F3}']
+'\u{1F1E8}\u{1F1F3}',
+'\u{1F1E8}\u{1F1F4}',
+'\u{1F1E8}\u{1F1F5}',
+'\u{1F1E8}\u{1F1F7}',
+'\u{1F1E8}\u{1F1FA}',
+'\u{1F1E8}\u{1F1FB}',
+'\u{1F1E8}\u{1F1FC}',
+'\u{1F1E8}\u{1F1FD}',
+'\u{1F1E8}\u{1F1FE}',
+'\u{1F1E8}\u{1F1FF}',
+'\u{1F1E9}\u{1F1EA}',
+'\u{1F1E9}\u{1F1EC}']
 
 export default avatars;
