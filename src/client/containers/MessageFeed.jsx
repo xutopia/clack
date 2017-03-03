@@ -64,8 +64,7 @@ class MessageFeed extends React.Component {
           </Feed.Event>
         )
       } else if(target === 'all') {
-        const avatarAndName = `${avatar}    ${user}`;
-        // const avatarAndName = avatar + '   ' + user;
+        const avatarAndName = `${user}    ${avatar}`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
             <Feed.Content>
@@ -79,10 +78,11 @@ class MessageFeed extends React.Component {
         )
       } else {
           const poop = `\u{1F4A9}`;
+          const avatarAndName = `${user}    ${avatar}`;
           return (
             <Feed.Event key={`${i}:${m.id}`}>
               <Feed.Content>
-                <Feed.Summary date={date} user={user}/>
+                <Feed.Summary date={date} user={avatarAndName}/>
                 <Feed.Extra text content={poop} />
                 <Feed.Meta>
                   <Reactions eventKey={eventKey}/>
