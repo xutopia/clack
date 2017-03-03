@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Feed, Icon } from 'semantic-ui-react';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
 import TypingStatuses from './TypingStatuses.jsx';
+import infinite from 'react-infinite';
 
 
 
 class MessageFeed extends React.Component {
+  constructor(props) {
+    super(props);
+    this.chatBody;
+  }
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
       const latestMsgID = messages.list[messages.list.length - 1];
@@ -21,10 +26,23 @@ class MessageFeed extends React.Component {
     }
   }
 
+  componentDidMount() {
+    // this.chatBody = document.getElementById('chatBody');
+    // console.log('here is chatbody: ', this.chatBody.scrollHeight, this.chatBody.scrollTop);
+    // console.log('here is this: ', this);
+    // this.chatBody.scrollTop = this.chatBody.clientHeight;
+  }
+
   componentWillUpdate(nextProps) {
     if(nextProps.messages.list.length !== this.props.messages.list.length) {
       this.showNewMsgNotification(nextProps.messages);
     }
+}
+
+  componentDidUpdate(prevProps, prevState) {
+    // console.log('Scroll Props: ',this.chatBody.scrollTop, this.chatBody.scrollHeight, this.chatBody.clientHeight);
+    // this.chatBody.scrollTop = 150 + 'px';
+    // console.log('scrollTop: ', this.chatBody.scrollTop)
   }
 
   render () {
@@ -52,15 +70,15 @@ class MessageFeed extends React.Component {
       } else if (target === this.props.app.username) {
         const whisperFrom = `${user} to you`;
         return (
-          <Feed.Event key={`${i}:${m.id}`}>
-            <Feed.Content>
-              <Feed.Summary date={date} user={whisperFrom}/>
-              <Feed.Extra text content={text} />
-              <Feed.Meta>
-                <Reactions eventKey={eventKey}/>
-              </Feed.Meta>
-            </Feed.Content>
-          </Feed.Event>
+            <Feed.Event key={`${i}:${m.id}`}>
+              <Feed.Content>
+                <Feed.Summary date={date} user={whisperFrom}/>
+                <Feed.Extra text content={text} />
+                <Feed.Meta>
+                  <Reactions eventKey={eventKey}/>
+                </Feed.Meta>
+              </Feed.Content>
+            </Feed.Event>
         )
       } else if(target === 'all') {
         return (
@@ -93,7 +111,7 @@ class MessageFeed extends React.Component {
 
     return (
       <div>
-        <Feed size='large'>
+        <Feed size='large' id='chatBody'>
           {messageList}
         </Feed>
         <TypingStatuses />

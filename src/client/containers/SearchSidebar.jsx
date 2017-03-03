@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Container, Header, Grid, Segment, Menu, Sidebar, Button, Icon } from 'semantic-ui-react';
+import { Container, Divider, Header, Grid, Segment, Menu, Sidebar, Button, Icon } from 'semantic-ui-react';
 import SearchBar from '../containers/SearchBar.jsx';
 import SearchResults from '../containers/SearchResults.jsx';
 
@@ -22,6 +22,11 @@ class SearchSidebar extends React.Component {
       'background-color': 'white'
     }
 
+    const centerText = {
+      width: '50%',
+      margin: '0 auto'
+    }
+
     return (
       <Sidebar.Pushable>
         <Sidebar as={Segment}
@@ -31,23 +36,23 @@ class SearchSidebar extends React.Component {
           visible={this.state.visible}
           icon='labeled'
           style={sidebarStyle}
-          vertical
-          padded>
+          vertical>
           <Menu.Item>
-            <Button basic icon floated='right' size='large'
+            <Button basic icon floated='right' size='medium'
             onClick={this.toggleVisibility}>
-              <Icon name='close' />
+              <Icon name='close' size='medium'/>
             </Button>
           </Menu.Item>
-          <Menu.Item name='searchbar'>
+          <Menu.Item name='searchbar' style={centerText}>
             <SearchBar />
+            <Divider hidden/>
           </Menu.Item>
           <Menu.Item name='searchresults'>
-            <SearchResults />
+            <SearchResults style={centerText}/>
           </Menu.Item>
         </Sidebar>
         <Sidebar.Pusher>
-          <h1></h1>
+          <h2></h2>
           <Button basic icon floated='right'  onClick={this.toggleVisibility}>
           <Icon name='search' />
           </Button>

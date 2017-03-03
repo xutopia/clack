@@ -7,13 +7,16 @@ class UserList extends React.Component {
 
   render() {
     const { users } = this.props;
-    // const usernames = ['tony', 'pete', 'michelle', 'shelby'];
     console.log('this is users: ', users);
     const usernames = this.props.usernames.sort();
     console.log('this is usernames: ', usernames);
+    const centerText = {
+      width: '25%',
+      margin: '0 auto'
+    }
     return (
       <div>
-        <div>
+        <h3 style={centerText}>
           {usernames ? (usernames.map((user, index) => {
             if(this.props.app.username === user) {
               const me = `${user} (me)`;
@@ -22,7 +25,7 @@ class UserList extends React.Component {
               return (<UserItem user={user} key={index} />)
             }
           })) : (<div>Loading...</div>)}
-        </div>
+        </h3>
       </div>
     )
   }
