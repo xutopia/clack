@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form } from 'semantic-ui-react'
+import { Form, Divider } from 'semantic-ui-react'
 import Welcome from './components/Welcome.jsx';
 
 import { login, doubleNameError } from './actions/actions'
@@ -37,101 +37,82 @@ class Landing extends Component {
   }
   render() {
     const { currentUser } = this.state.currentUser;
-    // const backgroundStyle = {
-    //   height:'400px',
-    //   width: '100%',
-    //   background: 'url(' + './images/typewriter_smallkb.jpg' + ')' + 'no-repeat center center',
-    //   position: 'relative'
-    // }
+    const landingStyle = {
+      position: 'absolute',
+      top: '400px',
+      right: '200px',
+      bottom: '100px',
+      left: '200px',
+      width: '75%',
+    }
+
+    const titleStyle = {
+      fontSize: '400%',
+      width: '40%',
+      margin: '0 auto',
+    }
+
+    const inputStyle = {
+      width: '60%',
+      margin: '0 auto',
+    }
 
     return (
-      <div>
-        <h1>Welcome to Clack</h1>
-        <Welcome
+      <div style={landingStyle}>
+        <h1 style={titleStyle}>Welcome to Clack!</h1>
+
+      <Welcome
           speed={88}
           tag="pre"
           text={["What is your name?",
           "Please enter your name!",
           "We want your name!",
-          "Name?",
-          "Name please!",
+          "Can we have name?",
+          "Name is required!",
           "What is your name?",
           "Please enter your name!",
           "We want your name!",
-          "Name?",
-          "Name please!",
+          "Can we have name?",
+          "Name is required!",
           "What is your name?",
           "Please enter your name!",
           "We want your name!",
-          "Name?",
-          "Name please!",
+          "Can we have name?",
+          "Name is required!",
           "What is your name?",
           "Please enter your name!",
           "We want your name!",
-          "Name?",
-          "Name please!",
+          "Can we have name?",
+          "Name is required!",
           "What is your name?",
           "Please enter your name!",
           "We want your name!",
-          "Name?",
-          "Name please!",
+          "Can we have name?",
+          "Name is required!",
           "What is your name?",
           "Please enter your name!",
           "We want your name!",
-          "Name?",
-          "Name please!",
+          "Can we have name?",
+          "Name is required!",
           "What is your name?",
           "Please enter your name!",
           "We want your name!",
-          "Name?",
-          "Name please!",
+          "Can we have name?",
+          "Name is required!",
           "What is your name?",
           "Please enter your name!",
           "We want your name!",
-          "Name?",
-          "Name please!",
+          "Can we have name?",
+          "Name is required!",
           "What is your name?",
           "Please enter your name!",
           "We want your name!",
-          "Name?",
-          "Name please!",
-          "What is your name?",
-          "Please enter your name!",
-          "We want your name!",
-          "Name?",
-          "Name please!",
-          "What is your name?",
-          "Please enter your name!",
-          "We want your name!",
-          "Name?",
-          "Name please!",
-          "What is your name?",
-          "Please enter your name!",
-          "We want your name!",
-          "Name?",
-          "Name please!",
-          "What is your name?",
-          "Please enter your name!",
-          "We want your name!",
-          "Name?",
-          "Name please!",
-          "What is your name?",
-          "Please enter your name!",
-          "We want your name!",
-          "Name?",
-          "Name please!",
-          "What is your name?",
-          "Please enter your name!",
-          "We want your name!",
-          "Name?",
-          "Name please!",
-          "What is your name?",
-          "Please enter your name!",
-          "We want your name!",
-          "Name?",
-          "Name please!"]}
+          "Can we have name?",
+          "Name is required!",
+          ]}
           randomSpeed={true}/>
-        <Form onSubmit={(event) => this.onFormSubmit(event, this.state)}>
+        <Divider hidden />
+        <Form style={inputStyle} onSubmit={(event) => this.onFormSubmit(event, this.state)}>
           <Form.Field>
             <input
             onChange={(event) => this.onInputChange(event, this.state)}

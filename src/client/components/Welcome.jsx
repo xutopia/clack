@@ -55,7 +55,12 @@ class Typewriter extends React.Component {
     }
 
     render() {
-        return React.DOM[this.props.tag](null, this.state.text);
+      const typingStyle = {
+        fontSize: '150%',
+        width: '20%',
+        margin: '0 auto',
+      }
+        return (<div style={typingStyle}>{React.DOM[this.props.tag](null, this.state.text)}</div>);
     }
 }
 
