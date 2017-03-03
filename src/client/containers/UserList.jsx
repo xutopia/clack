@@ -11,7 +11,7 @@ class UserList extends React.Component {
     const usernames = this.props.usernames.sort();
     console.log('this is usernames: ', usernames);
     const centerText = {
-      width: '25%',
+      width: '75%',
       margin: '0 auto'
     }
     return (
