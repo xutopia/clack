@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form } from 'semantic-ui-react'
+import Welcome from './components/Welcome.jsx';
 
 import { login, doubleNameError } from './actions/actions'
 // import Background from './images/typewriter_smallkb.jpg';
@@ -46,6 +47,7 @@ class Landing extends Component {
     return (
       <div>
         <h1>Welcome!!!</h1>
+        <Welcome />
         <Form onSubmit={(event) => this.onFormSubmit(event, this.state)}>
           <Form.Field>
             <input
