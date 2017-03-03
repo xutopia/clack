@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Form } from 'semantic-ui-react'
 
 import { login, doubleNameError } from './actions/actions'
+// import Background from './images/typewriter_smallkb.jpg';
 
 class Landing extends Component {
   constructor() {
@@ -35,6 +36,13 @@ class Landing extends Component {
   }
   render() {
     const { currentUser } = this.state.currentUser;
+    // const backgroundStyle = {
+    //   height:'400px',
+    //   width: '100%',
+    //   background: 'url(' + './images/typewriter_smallkb.jpg' + ')' + 'no-repeat center center',
+    //   position: 'relative'
+    // }
+
     return (
       <div>
         <h1>Welcome!!!</h1>
