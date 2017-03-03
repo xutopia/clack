@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Feed, Icon, Label } from 'semantic-ui-react';
 import MessageInput from './MessageInput.jsx';
 import Reactions from './Reactions.jsx';
-import TypingStatuses from './TypingStatuses.jsx';
+
 
 
 
@@ -130,7 +130,6 @@ class MessageFeed extends React.Component {
         </Feed>
         <div style={ {float:"left", clear: "both"} }
                ref={(el) => { this.messagesEnd = el; }}></div>
-        <TypingStatuses />
       </div>
     )
   }
