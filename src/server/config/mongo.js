@@ -1,6 +1,4 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config()
-}
+require('dotenv').config()
 
 import mongoose from 'mongoose';
 require('dotenv').config();
@@ -15,4 +13,3 @@ mongoose.connect(mongoUri)
 const db = mongoose.connection;
 
 export default db
-

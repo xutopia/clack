@@ -15,7 +15,7 @@ const renderGreeting = (name) => {
   const now = new Date();
   const time = dateformat(now, 'isoTime');
   const greet = renderGreetMsg(time);
-  return `${greet}, ${name}`;
+  return `${greet}, ${name}!`;
 }
 
 

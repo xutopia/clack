@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "babel-node src/server/index.js --presets es2015,stage-2",
+    "prod": "NODE_ENV=production PORT=8080 babel-node src/server/index.js --presets es2015,stage-2",
     "debug": "babel-node --nolazy --debug=5858 src/server/index.js --presets es2015,stage-2",
     "dev": "webpack-dev-server",
     "lint": "eslint ./src ./webpack.config.js -f table || true",
@@ -55,6 +56,7 @@
     "koa-send": "^3.3.0",
     "koa-session": "^3.4.0",
     "koa-socket": "^4.4.0",
+    "linkifyjs": "^2.1.4",
     "lunr": "^1.0.0",
     "moment": "^2.17.1",
     "mongoose": "^4.8.4",

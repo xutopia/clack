@@ -48,3 +48,10 @@ ol, ul {
 .game-info {
   margin-left: 20px;
 }
+
+.frame {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+}
