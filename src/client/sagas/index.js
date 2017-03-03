@@ -23,7 +23,14 @@ import {
 import { loginFlow, logoutFlow, registerFlow } from './auth';
 
 function connect() {
-  const socket = io('http://localhost:3000');
+  const socketProd = io('http://54.242.239.120:8080');
+  const socketDev = io('http://localhost:3000');
+  let socket
+  if (process.env.NODE_ENV === 'production') {
+    socket = socketProd
+  } else {
+    socket = socketDev
+  }
   return new Promise(resolve => {
     socket.on('connect', () => {
       resolve(socket);

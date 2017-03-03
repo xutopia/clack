@@ -38,7 +38,7 @@ app.use(bodyParser());
 
 app.use(function* () {
   yield send(this, this.path, {
-    root: path.join(__dirname, '../../dist/index.html'),
+    root: path.join(__dirname, '../../dist/'),
   });
 });
 
