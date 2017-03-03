@@ -4,6 +4,7 @@ import moment from 'moment';
 import { Input } from 'semantic-ui-react';
 import { sendMessage, isTyping, sendPrivateMessage } from '../actions/actions';
 import { parseMessage, parseTarget, findValidRecipient } from '../util/messageParser';
+import TypingStatuses from './TypingStatuses.jsx';
 
 class MessageInput extends React.Component {
   constructor(props) {
@@ -74,6 +75,7 @@ class MessageInput extends React.Component {
             onChange={(event) => this.handleTyping(event, this.state)}
           />
         </form>
+        <TypingStatuses />
       </div>
     )
   }
