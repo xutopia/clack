@@ -1,43 +1,68 @@
 // landing splash page with typing animation
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
-import { welcomeMsgs, RotateTxt } from '../util/welcomeMsgs';
+import React from 'react';
 
-class Welcome extends Component {
-  componentDidMount() {
-    this.onLoad();
-  }
-
-  onLoad = () => {
-    const elements = ReactDOM.findDOMNode(this.welcome);
-    console.log('here is the elements,', elements)
-    for (let i = 0; i < 1; i++) {
-      const toRotate = elements.getAttribute('data-rotate');
-      const period = elements.getAttribute('data-period');
-      if (toRotate) {
-        new RotateTxt(elements, toRotate, period);
-      }
+class Typewriter extends React.Component {
+    constructor() {
+        super();
     }
-  }
 
-  render() {
-    return (
-      <div>
-        <h1>Wecome to Clack!</h1>
-        <div
-          className="txt-rotate"
-          data-period="2000"
-          data-rotate={welcomeMsgs}
-          ref={(el) => { this.welcome = el; }}
-        >
+    componentWillMount() {
+        let { text } = this.props;
 
-        </div>
+        if (Array.isArray(text)) {
+            this._originalString = text.reverse().pop();
+        } else {
+            this._originalString = text;
+        }
 
-        Probably my last component for now
-      </div>
-    )
-  }
+        this._originalString = this._originalString.split('').reverse();
+        this.setState({ text: ' ' });
+    }
+
+    componentDidMount() {
+        this.type(this._originalString.pop());
+    }
+
+    type(char) {
+        let {
+            speed, randomSpeed, text
+        } = this.props;
+
+        speed = randomSpeed ? this.randomizeSpeed(speed) : speed;
+
+        setTimeout(() => {
+            this.setState({
+                text: this.state.text + char
+            });
+
+            if (this._originalString.length) {
+                this.type(this._originalString.pop());
+            } else {
+                if (Array.isArray(text) && text.length) {
+                    this._originalString = text.pop().split('').reverse();
+
+                    setTimeout(() => {
+                        this.setState({text: ''});
+                        this.type(this._originalString.pop());
+                    }, 1000);
+                }
+            }
+        }, speed);
+    }
+
+    randomizeSpeed(baseline = 50) {
+        return Math.floor(Math.random() * (baseline - 220) + 220);
+    }
+
+    render() {
+        return React.DOM[this.props.tag](null, this.state.text);
+    }
 }
 
-export default connect()(Welcome);
+Typewriter.defaultProps = {
+    speed: 75,
+    randomSpeed: false,
+    tag: 'p'
+};
+
+export default Typewriter;
