@@ -59,7 +59,7 @@ class MessageFeed extends React.Component {
       const target = m.target;
       const avatar = m.avatar;
       if(user === this.props.app.username && target !== 'all') {
-        const whisperTo = `${avatar} ${user} to ${target}`;
+        const whisperTo = `${user} to ${target}`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
             <Feed.Label>
@@ -67,7 +67,11 @@ class MessageFeed extends React.Component {
             </Feed.Label>
             <Feed.Content>
               <Feed.Summary date={date} user={whisperTo}/>
-              <Feed.Extra text content={text} />
+              <Feed.Extra>
+                <Linkify>
+                  {text}
+                </Linkify>
+              </Feed.Extra>
               <Feed.Meta>
                 <Reactions eventKey={eventKey}/>
               </Feed.Meta>
@@ -75,7 +79,7 @@ class MessageFeed extends React.Component {
           </Feed.Event>
         )
       } else if (target === this.props.app.username) {
-        const whisperFrom = `${avatar} ${user} to you`;
+        const whisperFrom = `${user} to you`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
             <Feed.Label>
@@ -83,7 +87,11 @@ class MessageFeed extends React.Component {
             </Feed.Label>
             <Feed.Content>
               <Feed.Summary date={date} user={whisperFrom}/>
-              <Feed.Extra text content={text} />
+              <Feed.Extra>
+                <Linkify>
+                  {text}
+                </Linkify>
+              </Feed.Extra>
               <Feed.Meta>
                 <Reactions eventKey={eventKey}/>
               </Feed.Meta>
@@ -91,7 +99,6 @@ class MessageFeed extends React.Component {
           </Feed.Event>
         )
       } else if(target === 'all') {
-        const avatarAndName = `${user}    ${avatar}`;
         return (
           <Feed.Event key={`${i}:${m.id}`}>
             <Feed.Label>
@@ -112,14 +119,13 @@ class MessageFeed extends React.Component {
         )
       } else {
           const poop = `\u{1F4A9}`;
-          const avatarAndName = `${user}    ${avatar}`;
           return (
             <Feed.Event key={`${i}:${m.id}`}>
               <Feed.Label>
                 <img src={avatar} />
               </Feed.Label>
               <Feed.Content>
-                <Feed.Summary date={date} user={avatarAndName}/>
+                <Feed.Summary date={date} user={user}/>
                 <Feed.Extra text content={poop} />
                 <Feed.Meta>
                   <Reactions eventKey={eventKey}/>
