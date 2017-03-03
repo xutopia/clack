@@ -4,7 +4,7 @@ import initial from '../reducers/initial'
 
 const users = createReducer({
   [addUser]: (state, payload) => {
-    return { ...state, [payload.username]: { userStatus: true, typingStatus: false } };
+    return { ...state, [payload.username]: { userStatus: true, typingStatus: false, avatar: payload.avatar } };
   },
   [removeUser]: (state, payload) => {
     const newState = { ...state };
@@ -14,7 +14,7 @@ const users = createReducer({
   [currentlyTyping]: (state, payload) => {
     const newState = { ...state };
     delete newState[payload.user];
-    return { ...newState, [payload.user]: { typingStatus: payload.typingStatus, userStatus: payload.userStatus } };
+    return { ...newState, [payload.user]: { typingStatus: payload.typingStatus, userStatus: payload.userStatus, avatar: payload.avatar } };
   },
 }, initial.users);
 
