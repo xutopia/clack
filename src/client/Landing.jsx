@@ -46,7 +46,7 @@ class Landing extends Component {
 
     return (
       <div>
-        <h1>Welcome!!!</h1>
+        <h1>Welcome to Clack</h1>
         <Welcome
           speed={88}
           tag="pre"
