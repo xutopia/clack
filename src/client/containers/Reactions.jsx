@@ -25,7 +25,7 @@ class Reactions extends React.Component {
 
     return (
       <Feed.Like>
-        <Icon name='like' onClick={this.addLikes}/>
+        <Icon name='heart outline' onClick={this.addLikes}/>
         {likePhrase}
       </Feed.Like>
     )

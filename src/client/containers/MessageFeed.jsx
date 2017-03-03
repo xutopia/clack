@@ -96,7 +96,6 @@ class MessageFeed extends React.Component {
         <Feed size='large'>
           {messageList}
         </Feed>
-        <MessageInput />
         <TypingStatuses />
       </div>
     )

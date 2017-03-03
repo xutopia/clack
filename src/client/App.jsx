@@ -9,9 +9,13 @@ import Room from './components/Room.jsx'
 import { logout } from './actions/actions'
 
 const App = () => {
+  const appStyle = {
+    height: '100%',
+    width: '100%'
+  }
   return (
     <BrowserRouter>
-      <div>
+      <div style={appStyle}>
         <Route exact path="/" component={Landing} />
         <Route exact path="/room" component={Room} />
 
