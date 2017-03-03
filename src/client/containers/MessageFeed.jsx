@@ -18,9 +18,9 @@ class MessageFeed extends React.Component {
   }
 
   showNewMsgNotification = (messages) => {
-    if(messages.list.length > 0) {
-      const latestMsgID = messages.list[messages.list.length - 1];
-      const name = messages.entities[latestMsgID].username;
+    const latestMsgID = messages.list[messages.list.length - 1];
+    const name = messages.entities[latestMsgID].username;
+    if(messages.list.length > 0 && name !== this.props.app.username) {
       const options = {
         body: messages.entities[latestMsgID].text
       }
