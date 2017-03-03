@@ -47,7 +47,15 @@ class Landing extends Component {
     return (
       <div>
         <h1>Welcome!!!</h1>
-        <Welcome />
+        <Welcome
+          speed={88}
+          tag="pre"
+          text={["What is your name?",
+          "Please enter your name!",
+          "We want your name!",
+          "Name?",
+          "Name please!"]}
+          randomSpeed={true}/>
         <Form onSubmit={(event) => this.onFormSubmit(event, this.state)}>
           <Form.Field>
             <input
