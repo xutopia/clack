@@ -11,7 +11,8 @@ import { logout } from './actions/actions'
 const App = () => {
   const appStyle = {
     height: '100%',
-    width: '100%'
+    width: '100%',
+    background: '#BFE3E3',
   }
   return (
     <BrowserRouter>

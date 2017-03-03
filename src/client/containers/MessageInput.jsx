@@ -69,7 +69,6 @@ class MessageInput extends React.Component {
         <form onSubmit={(e) => this.onMessageSubmit(e)}>
           <Input
             fluid
-            icon='smile'
             placeholder='enter a message'
             value={this.state.message}
             onChange={(event) => this.handleTyping(event, this.state)}

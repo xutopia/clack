@@ -22,9 +22,13 @@ class SearchSidebar extends React.Component {
       'background-color': 'white'
     }
 
-    const centerText = {
-      width: '50%',
+    const searchBarStyle = {
+      width: '60%',
       margin: '0 auto'
+    }
+    const centerText = {
+      width: '60%',
+      margin: '20px auto'
     }
 
     return (
@@ -43,13 +47,18 @@ class SearchSidebar extends React.Component {
               <Icon name='close' size='medium'/>
             </Button>
           </Menu.Item>
-          <Menu.Item name='searchbar' style={centerText}>
+          <Menu.Item name='searchbar' style={searchBarStyle}>
             <SearchBar />
-            <Divider hidden/>
+            <Divider section hidden />
           </Menu.Item>
-          <Menu.Item name='searchresults'>
-            <SearchResults style={centerText}/>
+          <Menu.Item name='searchResults'>
+            <h3 style={centerText}>RESULTS</h3>
           </Menu.Item>
+          <Menu.Item name='resultsList'>
+              <h3 style={centerText}>
+              <SearchResults style={centerText}/>
+              </h3>
+            </Menu.Item>
         </Sidebar>
         <Sidebar.Pusher>
           <h2></h2>
