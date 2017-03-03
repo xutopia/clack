@@ -19,7 +19,8 @@ const Room = () => {
   //   'font-style': 'normal'
   // }
   const leftStyles = {
-    background: '#BFE3E3'
+    background: '#BFE3E3',
+    // top: '30px'
   }
   const topStyles = {
     position:'absolute',
@@ -39,8 +40,8 @@ const Room = () => {
   }
   const bottomStyles = {
     position: 'absolute',
-    bottom: '20px',
-    height: '45px',
+    bottom: '0px',
+    height: '60px',
     left: '10px',
     right: '0px',
     overflow: 'hidden'
@@ -51,9 +52,24 @@ const Room = () => {
     width: '100%'
   }
 
+  const headerText = {
+    width: '85%',
+    margin: '0 auto',
+  }
+
+  const clackText = {
+    fontFamily: 'Special Elite',
+    fontSize: '300%'
+  }
+
+  const dotText = {
+    fontFamily: 'Special Elite',
+    fontSize: '250%'
+  }
+
   const centerText = {
-    width: '50%',
-    margin: '0 auto'
+    width: '75%',
+    margin: '20px auto',
   }
 
   const middleCenter = {
@@ -64,16 +80,20 @@ const Room = () => {
     <Grid columns={3} style={appStyle}>
       <Grid.Column width={4} style={leftStyles}>
         <Container>
-          <Header size='large' style={centerText}>
-          CLACK Chat!
+          <Divider hidden />
+          <Header style={headerText}>
+            <span style={clackText}>clack</span>
+            <span style={dotText}>.</span>
+            <span style={clackText}>chat</span>
           </Header>
-          <Divider />
-          <Segment vertical>
-            <h2 style={centerText}>Who's Here?</h2>
-          </Segment>
-          <Segment vertical>
+          <Divider section hidden />
+          <Container>
+            <h3 style={centerText}>USERS</h3>
+          </Container>
+          <Divider hidden />
+          <Container>
             <UserList style={centerText} />
-          </Segment>
+          </Container>
         </Container>
       </Grid.Column>
       <Grid.Column width={8} style={appStyle}>

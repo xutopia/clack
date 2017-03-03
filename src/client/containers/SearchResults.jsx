@@ -16,8 +16,8 @@ class SearchResults extends Component {
     }
 
     const listText = {
-      width: '60%',
-      margin: '0 auto'
+      width: '75%',
+      margin: '20px auto'
     }
 
     const searchResultsList = orderDescendingMessages(this.props.messages, this.props.search.resultScores);
@@ -26,10 +26,7 @@ class SearchResults extends Component {
     )
     return (
       <div>
-        <h3 style={resultsText}>RESULTS</h3>
-        <List style={listText}>
-            {messagesList}
-          </List>
+        {messagesList}
       </div>
     )
   }
