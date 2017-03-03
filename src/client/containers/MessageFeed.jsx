@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Feed, Icon, Label } from 'semantic-ui-react';
@@ -9,6 +10,10 @@ import TypingStatuses from './TypingStatuses.jsx';
 
 
 class MessageFeed extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   showNewMsgNotification = (messages) => {
     if(messages.list.length > 0) {
       const latestMsgID = messages.list[messages.list.length - 1];
@@ -26,6 +31,20 @@ class MessageFeed extends React.Component {
       this.showNewMsgNotification(nextProps.messages);
     }
   }
+
+  scrollToBottom = () => {
+        const node = ReactDOM.findDOMNode(this.messagesEnd);
+        // messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        node.scrollIntoView({behavior: 'smooth'});
+    };
+
+    componentDidMount() {
+        this.scrollToBottom();
+    }
+
+    componentDidUpdate() {
+        this.scrollToBottom();
+    }
 
   render () {
     const { users, messages } = this.props;
@@ -109,6 +128,8 @@ class MessageFeed extends React.Component {
         <Feed size='large'>
           {messageList}
         </Feed>
+        <div style={ {float:"left", clear: "both"} }
+               ref={(el) => { this.messagesEnd = el; }}></div>
         <TypingStatuses />
       </div>
     )
