@@ -9,7 +9,7 @@
     "debug": "babel-node --nolazy --debug=5858 server/index.js --presets es2015,stage-2",
     "dev": "webpack-dev-server",
     "lint": "eslint ./src ./webpack.config.js -f table || true",
-    "build": "NODE_ENV=production && webpack -p",
+    "build": "webpack -p",
     "test": "jest --forceExit",
     "test-watch": "jest --watch-all --coverage"
   },
