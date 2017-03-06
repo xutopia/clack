@@ -9,7 +9,6 @@ import bodyParser from 'koa-bodyparser'
 
 import { log, d, g, b, gr, r, y, yb, redWhite } from './util/logging';
 
-
 import {
   io,
   socketConnection,
@@ -38,7 +37,7 @@ app.use(bodyParser());
 
 app.use(function* () {
   yield send(this, this.path, {
-    root: path.join(__dirname, '../../dist/index.html'),
+    root: path.join(__dirname, '../dist/index.html'),
   });
 });
 
