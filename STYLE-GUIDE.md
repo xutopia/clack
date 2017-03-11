@@ -1,3 +1,3 @@
-Airbnb Style Guide
+# Style Guide
 
-http://www.hackingwithreact.com/read/1/40/linting-react-using-airbnbs-eslint-rules
+[github.com/airbnb/javascript](https://github.com/airbnb/javascript)
