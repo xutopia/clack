@@ -1,4 +1,6 @@
 # Clack
+=======
+[![Stories in Ready](https://badge.waffle.io/asyncApes/clack.png?label=ready&title=Ready)](https://waffle.io/asyncApes/clack)
 
 Clack is an intuitive communication tool that seamlessly combines a simple user interface with real-time messaging.
 
