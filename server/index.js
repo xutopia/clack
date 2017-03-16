@@ -56,5 +56,5 @@ io.on('typing', usersTypingStatus);
 io.on('likedMessage', broadcastUpdatedMessage);
 
 app.listen(WEB_PORT, () => {
-  log(`Server started on port ${yb(WEB_PORT)}, environment: ${b(env)}`);
+  log(`Server started on port ${yb(WEB_PORT)}, environment: ${b(isProd ? '(production)' : '(development)')}`);
 });
