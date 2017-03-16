@@ -4,7 +4,8 @@
   "description": "A slack clone with surprise features",
   "main": "src/index.js",
   "scripts": {
-    "start": "babel-node server/index.js --presets es2015,stage-2",
+    "start": "yarn dev:start",
+    "dev:start": "nodemon --ignore lib --exec babel-node server/index.js --presets es2015,stage-2",
     "prod": "NODE_ENV=production PORT=8080 babel-node server/index.js --presets es2015,stage-2",
     "serve": "NODE_ENV=production serve dist --port 80 --proxy",
     "debug": "babel-node --nolazy --debug=5858 server/index.js --presets es2015,stage-2",
