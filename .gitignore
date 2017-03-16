@@ -1,5 +1,12 @@
+# Webpack bundled assets
 bundle.js
+
+# Transpiled server code
+/lib/
+
+# Commitizen config
 .czrc
+
 # Logs
 logs
 *.log

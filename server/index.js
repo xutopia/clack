@@ -8,6 +8,7 @@ import path from 'path';
 import bodyParser from 'koa-bodyparser'
 
 import { log, d, g, b, gr, r, y, yb, redWhite } from './util/logging';
+import { isProd } from './util/isProd'
 
 import {
   io,
@@ -22,8 +23,9 @@ import {
 } from './config/socket';
 
 const app = Koa();
-const env = process.env.NODE_ENV || 'dev';
-const port = process.env.PORT || 3000;
+const env = process.env.NODE_ENV
+const WEB_PORT = process.env.PORT || 8000
+
 
 process.on('uncaughtException', err => {
   console.log(err);
@@ -53,6 +55,6 @@ io.on('privateMessage', broadcastPrivateMessage);
 io.on('typing', usersTypingStatus);
 io.on('likedMessage', broadcastUpdatedMessage);
 
-app.listen(port, () => {
-  log(`Server started on port ${yb(port)}, environment: ${b(env)}`);
+app.listen(WEB_PORT, () => {
+  log(`Server started on port ${yb(WEB_PORT)}, environment: ${b(env)}`);
 });
