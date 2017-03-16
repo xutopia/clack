@@ -113,10 +113,8 @@ const broadcastPrivateMessage = (ctx, { target, text }) => {
 };
 
 const usersTypingStatus = (ctx, { typingStatus, user, userStatus }) => {
-  log(`${[d()]} [server] Received new user typing status from client, ${g('broadcasting')} status to all users`);
+  // log(`${[d()]} [server] Received new user typing status from client, ${g('broadcasting')} status to all users`);
   const avatar = userAvatar[user];
-  console.log('looking at typing status, avatar:', avatar);
-  console.log('looking at typing status, user:', user);
   io.broadcast('userTyping', { typingStatus, user, userStatus, avatar });
 };
 
