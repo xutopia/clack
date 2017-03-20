@@ -38,17 +38,20 @@ class Landing extends Component {
   }
 
   alternateTyping(state) {
-    if(state.typing === 1) {
-      this.setState({
-        ...state,
-        typing: -1,
-      })
-    } else {
-      this.setState({
-        ...state,
-        typing: 1,
-      })
-    }
+    setTimeout(() => {
+      if(state.typing === 1) {
+        this.setState({
+          ...state,
+          typing: -1,
+        })
+      } else {
+        this.setState({
+          ...state,
+          typing: 1,
+        })
+      }
+    }, 1500);
+    clearTimeout();
   }
 
   render() {
@@ -81,9 +84,10 @@ class Landing extends Component {
             typing={this.state.typing}
             onTypingEnd={() => this.alternateTyping(this.state)}
             initDelay={3000}
-            minDelay={400}
-            maxDelay={1000}>
-            please enter a name to join the chat room!!
+            minDelay={50}
+            maxDelay={300}
+            fixed={true}>
+            Please enter a name to join the chat room!!
           </TypeWriter>
         </h3>
         <Divider hidden />
