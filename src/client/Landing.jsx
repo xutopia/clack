@@ -76,20 +76,25 @@ class Landing extends Component {
       margin: '0 auto',
     }
 
+    const typewriterStyle = {
+      width: '34%',
+      margin: '0 auto',
+    }
     return (
       <div style={landingStyle}>
         <h1 style={titleStyle}>Welcome to Clack!</h1>
-        <h3>
+        <h2 style={typewriterStyle}>
           <TypeWriter
             typing={this.state.typing}
             onTypingEnd={() => this.alternateTyping(this.state)}
             initDelay={3000}
             minDelay={50}
             maxDelay={300}
-            fixed={true}>
-            Please enter a name to join the chat room!!
+            fixed={true}
+          >
+            Please enter a name to start chatting!
           </TypeWriter>
-        </h3>
+        </h2>
         <Divider hidden />
         <Form style={inputStyle} onSubmit={(event) => this.onFormSubmit(event, this.state)}>
           <Form.Field>
