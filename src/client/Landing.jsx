@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Divider } from 'semantic-ui-react'
-// import Welcome from './components/Welcome.jsx';
 import TypeWriter from 'react-typewriter';
 
 import { login, doubleNameError } from './actions/actions'
@@ -38,7 +37,7 @@ class Landing extends Component {
       this.context.router.push('/room');
   }
 
-  eraseTypedText(state) {
+  alternateTyping(state) {
     if(state.typing === 1) {
       this.setState({
         ...state,
@@ -50,8 +49,8 @@ class Landing extends Component {
         typing: 1,
       })
     }
-    console.log('this should be invoked after typing completion...', this.state);
   }
+
   render() {
     const { currentUser } = this.state.currentUser;
     const landingStyle = {
@@ -77,10 +76,16 @@ class Landing extends Component {
     return (
       <div style={landingStyle}>
         <h1 style={titleStyle}>Welcome to Clack!</h1>
-
-        <TypeWriter typing={this.state.typing} onTypingEnd={() => this.eraseTypedText(this.state)}>
-          Hello Typewriter. Why is the world so cruel?
-        </TypeWriter>
+        <h3>
+          <TypeWriter
+            typing={this.state.typing}
+            onTypingEnd={() => this.alternateTyping(this.state)}
+            initDelay={3000}
+            minDelay={400}
+            maxDelay={1000}>
+            please enter a name to join the chat room!!
+          </TypeWriter>
+        </h3>
         <Divider hidden />
         <Form style={inputStyle} onSubmit={(event) => this.onFormSubmit(event, this.state)}>
           <Form.Field>
