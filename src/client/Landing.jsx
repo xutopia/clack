@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Divider } from 'semantic-ui-react'
-import Welcome from './components/Welcome.jsx';
+import TypeWriter from 'react-typewriter';
 
 import { login, doubleNameError } from './actions/actions'
 // import Background from './images/typewriter_smallkb.jpg';
@@ -11,7 +11,8 @@ class Landing extends Component {
   constructor() {
     super()
     this.state = {
-      currentUser: ''
+      currentUser: '',
+      typing: 1,
     }
   }
   static contextTypes = {
@@ -35,6 +36,24 @@ class Landing extends Component {
       this.props.dispatch(login({ username }))
       this.context.router.push('/room');
   }
+
+  alternateTyping(state) {
+    setTimeout(() => {
+      if(state.typing === 1) {
+        this.setState({
+          ...state,
+          typing: -1,
+        })
+      } else {
+        this.setState({
+          ...state,
+          typing: 1,
+        })
+      }
+    }, 1500);
+    clearTimeout();
+  }
+
   render() {
     const { currentUser } = this.state.currentUser;
     const landingStyle = {
@@ -57,60 +76,25 @@ class Landing extends Component {
       margin: '0 auto',
     }
 
+    const typewriterStyle = {
+      width: '34%',
+      margin: '0 auto',
+    }
     return (
       <div style={landingStyle}>
         <h1 style={titleStyle}>Welcome to Clack!</h1>
-
-      <Welcome
-          speed={88}
-          tag="pre"
-          text={["What is your name?",
-          "Please enter name!",
-          "We want your name!",
-          "Can we have name?",
-          "Name is required!",
-          "What is your name?",
-          "Please enter name!",
-          "We want your name!",
-          "Can we have name?",
-          "Name is required!",
-          "What is your name?",
-          "Please enter name!",
-          "We want your name!",
-          "Can we have name?",
-          "Name is required!",
-          "What is your name?",
-          "Please enter name!",
-          "We want your name!",
-          "Can we have name?",
-          "Name is required!",
-          "What is your name?",
-          "Please enter name!",
-          "We want your name!",
-          "Can we have name?",
-          "Name is required!",
-          "What is your name?",
-          "Please enter name!",
-          "We want your name!",
-          "Can we have name?",
-          "Name is required!",
-          "What is your name?",
-          "Please enter name!",
-          "We want your name!",
-          "Can we have name?",
-          "Name is required!",
-          "What is your name?",
-          "Please enter name!",
-          "We want your name!",
-          "Can we have name?",
-          "Name is required!",
-          "What is your name?",
-          "Please enter name!",
-          "We want your name!",
-          "Can we have name?",
-          "Name is required!",
-          ]}
-          randomSpeed={true}/>
+        <h2 style={typewriterStyle}>
+          <TypeWriter
+            typing={this.state.typing}
+            onTypingEnd={() => this.alternateTyping(this.state)}
+            initDelay={3000}
+            minDelay={50}
+            maxDelay={300}
+            fixed={true}
+          >
+            Please enter a name to start chatting!
+          </TypeWriter>
+        </h2>
         <Divider hidden />
         <Form style={inputStyle} onSubmit={(event) => this.onFormSubmit(event, this.state)}>
           <Form.Field>
