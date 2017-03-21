@@ -72,13 +72,20 @@ class Landing extends Component {
     }
 
     const inputStyle = {
-      width: '60%',
+      width: '50%',
       margin: '0 auto',
     }
 
     const typewriterStyle = {
       width: '34%',
       margin: '0 auto',
+    }
+
+    const githubStyle = {
+      margin: '0 auto',
+      bottom: '0px',
+      right: '800px',
+      position: 'fixed',
     }
     return (
       <div style={landingStyle}>
@@ -105,6 +112,10 @@ class Landing extends Component {
             />
           </Form.Field>
         </Form>
+        <div style={githubStyle}>
+          <a target="_blank" href="http://www.github.com/asyncapes/clack">
+          <img src={"http://www.bryanbowie.info/images/GitHub-Mark-120px-plus.png"} style={{height:"3em"}} /></a>
+        </div>
       </div>
     );
   }
